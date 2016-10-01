@@ -6,20 +6,23 @@ app.use(express.static(__dirname + '/server'));
 app.use(express.static(__dirname + '/client'));
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/finance-system')
+mongoose.connect('mongodb://localhost:27017/finance-system',function(){
+    /* Drop the DB */
+    // mongoose.connection.db.dropDatabase();
+});
 var productSchema = mongoose.Schema({
   name: String,
   category: String,
   Spending: Number,
 });
 var Product = mongoose.model('Product', productSchema);
-// var silence = new Product({
-//   name: 'Silence',
-//   category: 'jedzenie',
-//   Spending: 30
+// var test = new Product({
+//   name: 'test1',
+//   category: 'jedzenie1',
+//   Spending: 31
 
 // });
-// silence.save(function (err, silence) {
+// test.save(function (err, test) {
 //   if (err) return console.error(err);
 //   "error";
 // });
@@ -29,10 +32,13 @@ app.get('/finance-system/Product', function(req, res) {
         Product.find(function(err, Product) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err)
+            if (err){
                 res.send(err)
+            }
+                
 
             res.json(Product); // return all todos in JSON format
+            console.log(Product)
         });
     });
 var server = app.listen(3000, function () {

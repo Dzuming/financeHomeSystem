@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-
+import 'rxjs/add/operator/map';
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  template: '<h1>{{title}}</h1>',
+  templateUrl: 'app.component.html',
 })
 export class AppComponent {
   title = 'Minimal NgModule';
