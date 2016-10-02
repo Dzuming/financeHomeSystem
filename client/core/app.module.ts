@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
@@ -8,7 +9,9 @@ import { ProductsComponent } from './products/products.component';
   imports: [
     BrowserModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

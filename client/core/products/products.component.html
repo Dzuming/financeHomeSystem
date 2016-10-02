@@ -1,6 +1,19 @@
 <h3>Products:</h3>
 <ul>
-  <li *ngFor="let product of products">
-    {{product.name}}
-  </li>
+    <li *ngFor="let product of products">
+        <div>{{product.name}} {{product.category}} {{product.spending}}</div>
+    </li>
 </ul>
+<form class="form-inline" (ngSubmit)="addProduct()" [formGroup]="addProductForm" style="display:inline">
+    <div class="form-group">
+        <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name" required>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" name="category" formControlName="category" placeholder="category" required>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="number" name="spending" formControlName="spending" placeholder="Weight" step="any" min="0"
+            required>
+    </div>
+    <button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button>
+</form>

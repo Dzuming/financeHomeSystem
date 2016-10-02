@@ -1,5 +1,6 @@
 // Exact copy except import UserService from core
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProductsService } from './products.service';
 import { Products } from './products';
 @Component({
@@ -11,18 +12,36 @@ import { Products } from './products';
 export class ProductsComponent implements OnInit {
     products: Array<any> = [];
     errorMessage: string;
-    constructor(private productsService: ProductsService) { }
+    private addProductForm: FormGroup;
+    private name = new FormControl("", Validators.required);
+    private category = new FormControl("", Validators.required);
+    private spending = new FormControl("", Validators.required);
+    constructor(private productsService: ProductsService, private formBuilder: FormBuilder) { }
     ngOnInit() {
         this.getProducts();
-}
-        getProducts() {
-            this.productsService.getProducts()
-                .subscribe(
-                data => this.products = data,
-                error => this.errorMessage = <any>error);
-        }
+        this.addProductForm = this.formBuilder.group({
+            name: this.name,
+            category: this.category,
+            spending: this.spending
+        });
+    }
+    getProducts() {
+        this.productsService.getProducts()
+            .subscribe(
+            data => this.products = data,
+            error => this.errorMessage = <any>error);
+    }
+    addProduct() {
+        if (!this.addProductForm.value) { return; }
+        this.productsService.addProducts(this.addProductForm.value)
+            .subscribe(
+            data => {
+                this.products.push(data);
+                this.addProductForm.reset();
+            },
+            error => this.errorMessage = <any>error);
+    }
 
-    
 
 }
 
