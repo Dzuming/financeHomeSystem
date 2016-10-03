@@ -1,22 +1,31 @@
 var gulp = require('gulp');
 var tslint = require("gulp-tslint");
+var stylish = require('gulp-tslint-stylish');
+var runSequence = require('run-sequence');
 var open = require('gulp-open');
-gulp.task('default', function () {
-    // place code for your default task here
-});
 gulp.task('clean', function () {
     return del(['core/css/styles.css']);
 });
-
+gulp.task('default', function (callback) {
+runSequence('lint', 'watch', 'server', callback);
+});
 gulp.task('watch', function () {
-    gulp.watch('client/core/**/*.ts', ['scripts']);
+    gulp.watch('client/core/**/*.ts');
 
 });
-gulp.src('./client/index.html').pipe(open({uri: 'http://localhost:3000', app: 'chrome'}));
-gulp.task('tslint', () =>
+gulp.task('server', function () {
+gulp.src('./client/index.html').pipe(open({ uri: 'http://localhost:3000', app: 'chrome' }));
+});
+gulp.task('lint', function () {
     gulp.src('client/core/**/*.ts')
-        .pipe(tslint({
-            formatter: "verbose"
+        .pipe(tslint())
+        .pipe(tslint.report(stylish, {
+            emitError: false,
+            sort: true,
+            bell: true,
+            fullPath: true
         }))
-        .pipe(tslint.report())
-);
+        .on('error', function(e){
+            console.log(e);
+         })
+});
