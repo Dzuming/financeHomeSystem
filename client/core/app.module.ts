@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule, JsonpModule } from "@angular/http";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppComponent } from "./app.component";
-import { ProductsComponent } from "./products/products.component";
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   imports: [
@@ -11,14 +11,14 @@ import { ProductsComponent } from "./products/products.component";
     HttpModule,
     JsonpModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
-    ProductsComponent,
+    ProductsComponent
   ],
   bootstrap: [
-    AppComponent,
-  ],
+    AppComponent
+  ]
 })
 export class AppModule { }

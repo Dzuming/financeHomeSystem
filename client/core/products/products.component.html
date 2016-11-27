@@ -1,27 +1,39 @@
-<form class="form-inline" (ngSubmit)="addProduct()" [formGroup]="addProductForm" style="display:inline">
-    <div class="form-group">
-        <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name" required>
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="text" name="category" formControlName="category" placeholder="category" required>
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="number" name="spending" formControlName="spending" placeholder="Weight" step="any" min="0"
-            required>
-    </div>
-    <button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button>
-</form>
-<table>
+<section>
+<table class="wrapper">
 <thead>
-     <tr>
-         <td></td>
+     <tr class="column-12">
+         <td class="column-4" >Name</td>
+         <td class="column-4">Category</td>
+         <td class="column-3">Spending</td>
+         <td class="column-1"></td>
      </tr>
 </thead>
 <tbody>
-     <tr *ngFor="let product of products">
-         <td>{{product.name}}</td>
-         <td>{{product.category}}</td>
-         <td>{{product.spending}}</td>
+     <tr class="column-12" *ngFor="let product of products">
+         <td class="column-4">{{product.name}}</td>
+         <td class="column-4">{{product.categories.category}}</td>
+         <td class="column-3">{{product.spending}}</td>
+         <td class="column-1"></td>
      </tr>
 </tbody>
 </table>
+<form  (ngSubmit)="addProduct()" [formGroup]="addProductForm">
+    <table class="wrapper">
+    <tr class="column-12">
+    <td class="column-4"><div class="form-group">
+        <input class="form-control test" type="text" name="Name" formControlName="Name" placeholder="Name" required>
+    </div></td>
+    <td class="column-4"><div class="form-group">
+        <select formControlName="categoryListId" name="categoryListId">
+    <option *ngFor="let category of categories" [value]="category.categoryListId">{{category.category}}</option>
+</select>
+    </div></td>
+    <td class="column-3"><div class="form-group">
+        <input class="form-control" type="number" name="Spending" formControlName="Spending" placeholder="Spending" step="any" min="0"
+            required>
+    </div></td>
+    <td  class="column-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
+    
+    </table>
+</form>
+</section>

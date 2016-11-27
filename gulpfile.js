@@ -3,11 +3,12 @@ var tslint = require("gulp-tslint");
 var stylish = require('gulp-tslint-stylish');
 var runSequence = require('run-sequence');
 var open = require('gulp-open');
+var sass = require('gulp-sass');
 gulp.task('clean', function () {
     return del(['core/css/styles.css']);
 });
 gulp.task('default', function (callback) {
-runSequence('lint', 'watch', 'server', callback);
+runSequence('lint', 'sass', 'sass:watch', 'watch', 'server', callback);
 });
 gulp.task('watch', function () {
     gulp.watch('client/core/**/*.ts');
@@ -28,4 +29,13 @@ gulp.task('lint', function () {
         .on('error', function(e){
             console.log(e);
          })
+});
+gulp.task('sass', function () {
+  return gulp.src('./client/sass/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./client/css'));
+});
+ 
+gulp.task('sass:watch', function () {
+  gulp.watch('./client/sass/*.scss', ['sass']);
 });
