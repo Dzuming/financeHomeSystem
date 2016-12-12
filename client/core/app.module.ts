@@ -4,7 +4,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
-
+import {ProductsPipe} from './products/products.pipe';
 @NgModule({
   imports: [
     BrowserModule,
@@ -15,10 +15,12 @@ import { ProductsComponent } from './products/products.component';
   ],
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductsPipe
   ],
   bootstrap: [
     AppComponent
   ]
+  
 })
 export class AppModule { }

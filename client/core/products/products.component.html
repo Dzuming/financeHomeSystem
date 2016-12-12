@@ -1,4 +1,8 @@
 <section>
+    <input type="month" [(ngModel)]="filterargs"/>
+    <select [(ngModel)]="filterargs">
+    <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+</select>
 <table class="wrapper">
 <thead>
      <tr class="column-12">
@@ -9,9 +13,9 @@
      </tr>
 </thead>
 <tbody>
-     <tr class="column-12" *ngFor="let product of products">
+     <tr class="column-12" *ngFor="let product of (products | dateFilter: filterargs)">
          <td class="column-4">{{product.name}}</td>
-         <td class="column-4">{{product.categories.category}}</td>
+         <td class="column-4">{{product.categories.name}}</td>
          <td class="column-3">{{product.spending}}</td>
          <td class="column-1"></td>
      </tr>
@@ -24,8 +28,8 @@
         <input class="form-control test" type="text" name="Name" formControlName="Name" placeholder="Name" required>
     </div></td>
     <td class="column-4"><div class="form-group">
-        <select formControlName="categoryListId" name="categoryListId">
-    <option *ngFor="let category of categories" [value]="category.categoryListId">{{category.category}}</option>
+        <select formControlName="categoryId" name="categoryId">
+    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 </select>
     </div></td>
     <td class="column-3"><div class="form-group">

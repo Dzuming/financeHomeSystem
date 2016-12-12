@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ProductsService {
-    private productUrl = 'http://localhost:65443/api/Products/';
+    private productUrl = 'http://localhost:65443/api/Product/';
       private categoryUrl = 'http://localhost:65443/api/Category';
     constructor(private http: Http) { }
     getProducts(): Observable<any[]> {
@@ -19,9 +19,18 @@ export class ProductsService {
     addProducts(product): Observable<any> {
         let body = JSON.stringify(product);
         console.log(body)
-        let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.productUrl, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    updateProducts(product): Observable<any[]> {
+        let body = JSON.stringify(product);
+        console.log(body)
+        let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(`${this.productUrl}${body['id']}`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
