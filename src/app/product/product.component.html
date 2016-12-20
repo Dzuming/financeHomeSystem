@@ -1,0 +1,44 @@
+<header>
+<input type="month" [(ngModel)]="filterargs"/>
+</header>
+<section>
+<table class="wrapper">
+<thead>
+     <tr class="column-12">
+         <td class="column-4" >Description</td>
+         <td class="column-4">Category</td>
+         <td class="column-3">Spending</td>
+         <td class="column-1"></td>
+     </tr>
+</thead>
+<tbody>
+     <tr class="column-12" *ngFor="let product of (products | dateFilter: filterargs)">
+         <td class="column-4">{{product.description}}</td>
+         <td class="column-4">{{product.categories.name}}</td>
+         <td class="column-3">{{product.spending}}</td>
+         <td class="column-1"></td>
+     </tr>
+</tbody>
+</table>
+<form  (ngSubmit)="addProduct()" [formGroup]="addProductForm">
+    <table class="wrapper">
+    <tr class="column-12">
+    <td class="column-4"><div class="form-group">
+        <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
+    </div></td>
+    <td class="column-4"><div class="form-group">
+        <select formControlName="categoryId" name="categoryId">
+    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+</select>
+    </div></td>
+    <td class="column-3"><div class="form-group">
+        <input class="form-control" type="number" name="Spending" formControlName="Spending" placeholder="Spending" step="any"
+            required>
+    </div></td>
+    <td  class="column-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
+    
+    </table>
+</form>
+<div>{{sumOfProfitAndSpending}}</div>
+</section>
+<footer>{{currentBudget}}</footer>
