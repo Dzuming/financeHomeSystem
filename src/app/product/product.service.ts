@@ -22,7 +22,6 @@ export class ProductService {
     }
     addProducts(product): Observable<any> {
         let body = JSON.stringify(product);
-        console.log(body)
         let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.productUrl + 'Product', body, options)
@@ -42,7 +41,6 @@ export class ProductService {
     }
     private extractData(res: Response) {
         let body = res.json();
-        console.log(body)
         return body || {};
     }
     private handleError(error: any) {

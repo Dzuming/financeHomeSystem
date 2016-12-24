@@ -7,6 +7,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductService } from './product/product.service';
 import { ProductPipe } from './product/product.pipe';
 import { ChartComponent } from './chart/chart.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { ChartComponent } from './chart/chart.component';
     ReactiveFormsModule,
     HttpModule
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
