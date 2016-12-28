@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
     providers: [ProductService]
 })
 export class ProductComponent implements OnInit {
-    mode = 'Observable';
+    public mode = 'Observable';
     private products: Array<any> = [];
     private productsPromises: Observable<any[]>;
     private categories: Array<any> = [];
@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
     private sumOfProfitAndSpending: string;
     private Profit: number = 0;
     private Spending: number = 0;
-    public constructor(private productsService: ProductService, private formBuilder: FormBuilder) { }
+    public constructor(private productService: ProductService, private formBuilder: FormBuilder) { }
     public ngOnInit() {
         this.getProducts();
         this.getCategory();
@@ -36,13 +36,12 @@ export class ProductComponent implements OnInit {
         });
     }
     public ngDoCheck() {
-        this.sumOfProfitAndSpending = this.productsService.calculateProfitAndSpending(this.products,this.filterargs);
+        this.sumOfProfitAndSpending = this.productService.calculateProfitAndSpending(this.products,this.filterargs);
     }
     private getProducts() {
-        this.productsService.getProducts()
+        this.productService.getProducts()
             .subscribe(
             data => { this.products = data 
-                
             },
             error => this.errorMessage = <any>error,
             () => {
@@ -50,24 +49,24 @@ export class ProductComponent implements OnInit {
             });
     }
     private getCategory() {
-        this.productsService.getCategory()
+        this.productService.getCategory()
             .subscribe(
             data => this.categories = data,
             error => this.errorMessage = <any>error);
     }
     private getBudget() {
-        this.productsService.getBudget()
+        this.productService.getBudget()
             .subscribe(
             data => this.startingBudget = data[0].overall,
             error => this.errorMessage = <any>error,
             () => {
-                this.currentBudget = this.productsService.calculateBudget(this.products, this.startingBudget);
-                this.sumOfProfitAndSpending = this.productsService.calculateProfitAndSpending(this.products,this.filterargs);
+                this.currentBudget = this.productService.calculateBudget(this.products, this.startingBudget);
+                this.sumOfProfitAndSpending = this.productService.calculateProfitAndSpending(this.products,this.filterargs);
             })
     }
     private addProduct() {
         if (!this.addProductForm.value) { return; }
-        this.productsService.addProducts(this.addProductForm.value)
+        this.productService.addProducts(this.addProductForm.value)
             .subscribe(
             data => {
                 this.getProducts();

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
-
+import { ProductService } from '../product/product.service';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -9,63 +9,99 @@ import * as d3 from 'd3';
 })
 export class ChartComponent implements OnInit, OnChanges {
   @ViewChild('chart') private chartContainer: ElementRef;
-  @Input() private data: Array<any>;
-  private margin: any = { top: 20, bottom: 20, left: 20, right: 20 };
-  private chart: any;
-  private width: number;
-  private height: number;
-  private xScale: any;
-  private yScale: any;
-  private colors: any;
-  private xAxis: any;
-  private yAxis: any;
+  private data: Array<any>;
+  private svg: any;
+  private errorMessage: Array<any>;
+  private readonly color = d3.scaleOrdinal(d3.schemeCategory20b);
+  public constructor(private productService: ProductService) {
 
-  constructor() { }
+  }
 
   ngOnInit() {
-    this.createChart();
-    if (this.data) {
-      // this.updateChart();
-    }
+    this.getData();
   }
 
   ngOnChanges() {
-    if (this.chart) {
-      // this.updateChart();
-    }
+  }
+
+  dataChart(setData) {
+    return setData.filter((data) => data.spending < 0)
+      .map((dataset) => { return { "spending": - dataset.spending, "category": dataset.categories.name } })
+  }
+
+  dataChartSum(dataChart): any {
+    return d3.nest().key((d: any) => d.category)
+      .rollup((value): any => d3.sum(value, (d: any) => d.spending))
+      .entries(dataChart);
   }
 
   createChart() {
-    var dataset = [
-      { label: 'Abulia', count: 10 },
-      { label: 'Betelgeuse', count: 20 },
-      { label: 'Cantaloupe', count: 30 },
-      { label: 'Dijkstra', count: 40 }
-    ];
-    var width = 360;
-    var height = 360;
-    var radius = Math.min(width, height) / 2;
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
-
-    var svg = d3.select('#chart')
+    const width = 300;
+    const height = 300;
+    const radius = Math.min(width, height) / 2;
+    this.svg = d3.select('#chart')
       .append('svg')
       .attr('width', width)
       .attr('height', height)
       .append('g')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
-    var arc = d3.arc()
-      .innerRadius(0)
+      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
+    let arc: any = d3.arc()
+      .innerRadius(radius - 70)
       .outerRadius(radius);
-    var pie = d3.pie()
-      .value(function (d) { return d.count; })
-      .sort(null);
-    var path = svg.selectAll('path')
-      .data(pie(dataset))
+    let pie = d3.pie()
+      .sort(null)
+      .value((d: any) => d.value)
+      (this.dataChartSum(this.dataChart(this.data)));
+    let g = this.svg.selectAll('arc')
+      .data(pie)
       .enter()
-      .append('path')
-      .attr('d', arc)
-      .attr('fill', function (d, i) {
-        return color(d.data.label);
-      });
+      .append('g')
+      .attr('class', 'arc')
+    g.append("path")
+      .attr("d", arc)
+      .style('fill', (d: any) => this.color(d.data.key))
+      .style('stroke', (d: any) => this.color(d.data.key))
+    g.append("text")
+      .attr("transform", (d) => "translate(" + arc.centroid(d) + ")")
+      .attr("text-anchor", "middle")
+      .text((d: any) => d.data.value.toFixed(2))
+      .style("fill", "#fff");
+    this.addLegend()
   }
+
+  addLegend() {
+    let legendRectSize = 18;
+    let legendSpacing = 4;
+    let legend = this.svg.selectAll('.legend')
+      .data(this.color.domain())
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('transform', (d, i) => {
+        let height = legendRectSize + legendSpacing;
+        let offset = height * this.color.domain().length / 2;
+        let horz = -2 * legendRectSize;
+        let vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+      });
+    legend.append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', this.color)
+      .style('stroke', this.color);
+    legend.append('text')
+      .attr('x', legendRectSize + legendSpacing)
+      .attr('y', legendRectSize - legendSpacing)
+      .text((d) => d);
+  }
+  private getData() {
+    this.productService.getProducts()
+      .subscribe(
+      data => { this.data = data },
+      error => this.errorMessage = <any>error,
+      () => this.createChart())
+  }
+  //TODO: Update onChange
+  //TODO: Share getProducts
+  //TODO update onFilter
 }
