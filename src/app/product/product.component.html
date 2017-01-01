@@ -2,21 +2,23 @@
 <input type="month" [(ngModel)]="filterargs"/>
 </header>
 <section>
-<table class="wrapper">
-<thead>
-     <tr class="column-12">
-         <td class="column-4" >Description</td>
-         <td class="column-4">Category</td>
-         <td class="column-3">Spending</td>
-         <td class="column-1"></td>
+    <div class="container">
+  <div class="row">
+<table class="col-sm table table-striped">
+<thead class="thead-default">
+     <tr >
+         <th class="col-sm-4">Description</th>
+         <th class="col-sm-4">Category</th>
+         <th class="col-sm-4">Spending</th>
+         <th class="col-sm-4"></th>
      </tr>
 </thead>
 <tbody>
-     <tr class="column-12" *ngFor="let product of (products | dateFilter: filterargs)">
-         <td class="column-4">{{product.description}}</td>
-         <td class="column-4">{{product.categories.name}}</td>
-         <td class="column-3">{{product.spending}}</td>
-         <td class="column-1"></td>
+     <tr  *ngFor="let product of (products | dateFilter: filterargs)">
+         <td class="col-sm-4">{{product.description}}</td>
+         <td class="col-sm-4">{{product.categories.name}}</td>
+         <td class="col-sm-4">{{product.spending}}</td>
+         <td class="col-sm-4"></td>
      </tr>
 </tbody>
 </table>
@@ -36,9 +38,10 @@
             required>
     </div></td>
     <td  class="column-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
-    
     </table>
 </form>
+  </div>
+    </div>
 <div>{{sumOfProfitAndSpending}}</div>
 </section>
 <footer>{{currentBudget}}</footer>

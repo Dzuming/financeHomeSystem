@@ -1,0 +1,10 @@
+.table-striped  {
+    thead{
+        display: block;
+    }
+    tbody {
+        height:600px;
+        display: block;
+        overflow-y:auto;
+    }
+}

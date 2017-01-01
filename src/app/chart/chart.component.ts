@@ -1,16 +1,20 @@
+//TODO: Update onChange
+//TODO: Share getProducts
+//TODO update onFilter
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
 import { ProductService } from '../product/product.service';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css'],
+  styleUrls: ['./chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ChartComponent implements OnInit, OnChanges {
   @ViewChild('chart') private chartContainer: ElementRef;
   private data: Array<any>;
   private svg: any;
+  private g: any;
   private errorMessage: Array<any>;
   private readonly color = d3.scaleOrdinal(d3.schemeCategory20b);
   public constructor(private productService: ProductService) {
@@ -24,17 +28,21 @@ export class ChartComponent implements OnInit, OnChanges {
   ngOnChanges() {
   }
 
-  dataChart(setData) {
+  rawDataChart(setData) {
     return setData.filter((data) => data.spending < 0)
       .map((dataset) => { return { "spending": - dataset.spending, "category": dataset.categories.name } })
   }
 
-  dataChartSum(dataChart): any {
+  SumofSingleCategories(dataChart): any {
     return d3.nest().key((d: any) => d.category)
       .rollup((value): any => d3.sum(value, (d: any) => d.spending))
       .entries(dataChart);
   }
-
+  SumofAllCategories(dataChart): any {
+    return d3.nest()
+      .rollup((value): any => d3.sum(value, (d: any) => d.spending))
+      .object(dataChart);
+  }
   createChart() {
     const width = 300;
     const height = 300;
@@ -51,24 +59,42 @@ export class ChartComponent implements OnInit, OnChanges {
     let pie = d3.pie()
       .sort(null)
       .value((d: any) => d.value)
-      (this.dataChartSum(this.dataChart(this.data)));
-    let g = this.svg.selectAll('arc')
+      (this.SumofSingleCategories(this.rawDataChart(this.data)));
+    this.g = this.svg.selectAll('arc')
       .data(pie)
       .enter()
       .append('g')
       .attr('class', 'arc')
-    g.append("path")
+    this.g.append("path")
       .attr("d", arc)
       .style('fill', (d: any) => this.color(d.data.key))
       .style('stroke', (d: any) => this.color(d.data.key))
-    g.append("text")
+
+    this.g.append("text")
       .attr("transform", (d) => "translate(" + arc.centroid(d) + ")")
       .attr("text-anchor", "middle")
       .text((d: any) => d.data.value.toFixed(2))
       .style("fill", "#fff");
-    this.addLegend()
+    this.addLegend();
+    this.addtooltip(this.SumofAllCategories(this.rawDataChart(this.data)));
+    
   }
-
+  addtooltip(SumofAllCategories){
+    this.g.on('mouseover', function (d) {
+      d3.select("#chart")
+        .append("tooltip")
+        .attr("class", "tooltip")
+        .style("left", d3.event.pageX + "px")
+        .style("top", d3.event.pageY + "px")
+        .style("opacity", 1)
+        .style("fill", "red")
+        .text(d.data.key + ":" + Math.floor( (d.data.value / SumofAllCategories)*100) +"%");
+    });
+    this.g.on('mouseout', function (d) {
+      d3.selectAll("tooltip")
+        .style("display", "none")
+    });
+  }
   addLegend() {
     let legendRectSize = 18;
     let legendSpacing = 4;
@@ -101,7 +127,4 @@ export class ChartComponent implements OnInit, OnChanges {
       error => this.errorMessage = <any>error,
       () => this.createChart())
   }
-  //TODO: Update onChange
-  //TODO: Share getProducts
-  //TODO update onFilter
 }
