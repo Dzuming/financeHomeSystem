@@ -28,16 +28,26 @@ export class ProductService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    calculateBudget(productsSpending,budget: number) {
+    calculateBudget(productsSpending, budget: number) {
         let sumofAllCosts: number = 0;
         productsSpending.map(value => sumofAllCosts += value.spending);
-            return (budget + sumofAllCosts).toFixed(2);
+        return (budget + sumofAllCosts).toFixed(2);
     }
-    // TODO:  can i use pipe here
-    calculateProfitAndSpending(productsSpending,args:string) {
+    // TODO:  can i use pipe here?
+    calculateProfitAndSpending(productsSpending, args: string) {
         let sumofAllCosts: number = 0;
         productsSpending.filter(item => item.dateCreated.indexOf(args) !== -1).map(value => sumofAllCosts += value.spending);
         return sumofAllCosts.toFixed(2);
+    }
+    currentDate() {
+        let currentDate
+        let today = new Date();
+        let mm:number|string = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        return yyyy + '-' + mm
     }
     private extractData(res: Response) {
         let body = res.json();

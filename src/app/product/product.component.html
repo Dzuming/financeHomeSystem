@@ -1,9 +1,8 @@
-<header>
-<input type="month" [(ngModel)]="filterargs"/>
-</header>
-<section>
-    <div class="container">
-  <div class="row">
+<div class="container-fluid">
+    <div class="sidebar col-sm-2  flex-items-xs-top">
+        <input type="month" [(ngModel)]="filterargs"/>
+    </div>
+  <section class="col-sm-7  flex-items-xs-top">
 <table class="col-sm table table-striped">
 <thead class="thead-default">
      <tr >
@@ -23,26 +22,32 @@
 </tbody>
 </table>
 <form  (ngSubmit)="addProduct()" [formGroup]="addProductForm">
-    <table class="wrapper">
-    <tr class="column-12">
-    <td class="column-4"><div class="form-group">
+    <table class="table col-sm">
+        <tbody>
+    <tr>
+    <td class="col-sm-4"><div class="form-group">
         <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
     </div></td>
-    <td class="column-4"><div class="form-group">
+    <td class="col-sm-4"><div class="form-group">
         <select formControlName="categoryId" name="categoryId">
     <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 </select>
     </div></td>
-    <td class="column-3"><div class="form-group">
+    <td class="col-sm-4"><div class="form-group">
         <input class="form-control" type="number" name="Spending" formControlName="Spending" placeholder="Spending" step="any"
             required>
     </div></td>
-    <td  class="column-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
+    <td class="col-sm-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
+        </tbody>
     </table>
 </form>
-  </div>
+  </section>
+  <aside class=" col-sm-3  flex-items-xs-top">
+        <app-chart></app-chart>
+    </aside>
     </div>
-<div>{{sumOfProfitAndSpending}}</div>
-</section>
-<footer>{{currentBudget}}</footer>
-<app-chart></app-chart>
+<footer>
+    <div>{{currentBudget}}</div>
+    <div>{{sumOfProfitAndSpending}}</div>
+    </footer>
+    

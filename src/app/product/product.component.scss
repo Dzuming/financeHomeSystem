@@ -1,10 +1,17 @@
+$enable-flex: true !default;
+
 .table-striped  {
     thead{
         display: block;
     }
     tbody {
-        height:600px;
+        max-height:600px;
         display: block;
         overflow-y:auto;
     }
+}
+input {
+    padding: 0;
+    border:none;
+    outline: none;
 }

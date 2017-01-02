@@ -1,4 +1,10 @@
-// Exact copy except import UserService from core
+//TODO: Table style
+//TODO: Side nav with: filter date and chart type choose
+//TODO: filter data by every column
+//TODO: Flex layout
+//TODO: Select box default category
+//TODO: Remove input border
+//TODO: Problem with post date
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProductService } from './product.service';
@@ -21,13 +27,14 @@ export class ProductComponent implements OnInit {
     private description = new FormControl('', Validators.required);
     private category = new FormControl('', Validators.required);
     private spending = new FormControl('', Validators.required);
-    private filterargs = "2016-12";
+    private filterargs = this.productService.currentDate();
     private currentBudget: string;
     private sumOfProfitAndSpending: string;
     private Profit: number = 0;
     private Spending: number = 0;
     public constructor(private productService: ProductService, private formBuilder: FormBuilder) { }
     public ngOnInit() {
+        console.log(this.productService.currentDate())
         this.getProducts();
         this.getCategory();
         this.addProductForm = this.formBuilder.group({

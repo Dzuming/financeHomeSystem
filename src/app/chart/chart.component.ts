@@ -77,18 +77,20 @@ export class ChartComponent implements OnInit, OnChanges {
       .style("fill", "#fff");
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(this.data)));
-    
+
   }
-  addtooltip(SumofAllCategories){
+  addtooltip(SumofAllCategories) {
     this.g.on('mouseover', function (d) {
+      let point = d3.mouse(this),
+        p = { x: point[0], y: point[1] };
       d3.select("#chart")
         .append("tooltip")
         .attr("class", "tooltip")
-        .style("left", d3.event.pageX + "px")
-        .style("top", d3.event.pageY + "px")
+        .style("left", p.x + 20 + "px")
+        .style("top", p.y + 200 + "px")
         .style("opacity", 1)
         .style("fill", "red")
-        .text(d.data.key + ":" + Math.floor( (d.data.value / SumofAllCategories)*100) +"%");
+        .text(d.data.key + ":" + Math.floor((d.data.value / SumofAllCategories) * 100) + "%");
     });
     this.g.on('mouseout', function (d) {
       d3.selectAll("tooltip")
