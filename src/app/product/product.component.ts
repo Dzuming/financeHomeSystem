@@ -1,10 +1,9 @@
-//TODO: Table style
+//TODO: SCSS style
 //TODO: Side nav with: filter date and chart type choose
 //TODO: filter data by every column
 //TODO: Flex layout
-//TODO: Select box default category
-//TODO: Remove input border
-//TODO: Problem with post date
+//TODO: Errors 
+//TODO: Problem with post date - post always the same date
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProductService } from './product.service';

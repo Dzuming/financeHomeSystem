@@ -1,5 +1,7 @@
 $enable-flex: true !default;
-
+body {
+-webkit-appearance:none;
+}
 .table-striped  {
     thead{
         display: block;
@@ -11,7 +13,9 @@ $enable-flex: true !default;
     }
 }
 input {
+    
     padding: 0;
     border:none;
     outline: none;
+    box-shadow: none;
 }

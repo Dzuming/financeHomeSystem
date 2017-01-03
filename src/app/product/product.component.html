@@ -29,7 +29,8 @@
         <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
     </div></td>
     <td class="col-sm-4"><div class="form-group">
-        <select formControlName="categoryId" name="categoryId">
+        <select formControlName="categoryId" name="categoryId" [(ngModel)]="selectLanguage">
+            <option disabled hidden [value]="selectUndefinedOptionValue">Select Category</option>
     <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 </select>
     </div></td>
