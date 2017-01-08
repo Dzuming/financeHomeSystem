@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="sidebar col-sm-2  flex-items-xs-top">
-        <input type="month" [(ngModel)]="filterargs"/>
+        <input type="month" (change) = "getProducts(productService.filterDate)" [(ngModel)]="productService.filterDate"/>
     </div>
   <section class="col-sm-7  flex-items-xs-top">
 <table class="col-sm table table-striped">
@@ -13,7 +13,7 @@
      </tr>
 </thead>
 <tbody>
-     <tr  *ngFor="let product of (products | dateFilter: filterargs)">
+     <tr  *ngFor="let product of productService.filterProducts ">
          <td class="col-sm-4">{{product.description}}</td>
          <td class="col-sm-4">{{product.categories.name}}</td>
          <td class="col-sm-4">{{product.spending}}</td>

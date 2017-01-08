@@ -3,10 +3,32 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ProductService {
+    public filterDate = this.currentDate();
+    public filterProducts: Array<any>;
+
+    public filterProductObserver = Observable.create(observer => {
+        setTimeout(resolve => {
+            observer.next(this.filterProducts);
+            observer.complete();
+        }, 500)
+    })
+    public filterDateObserver = Observable.create(observer => {
+        setTimeout(resolve => {
+            observer.next(this.filterDate);
+            observer.complete();
+        }, 500)
+    })
     private productUrl = 'http://localhost:65443/api/';
     constructor(private http: Http) { }
-    getProducts(): Observable<any[]> {
-        return this.http.get(this.productUrl + 'Product')
+    test(): Observable<any> {
+        return
+    }
+    getProducts(filter?: String): Observable<any[]> {
+        let test = this.productUrl + 'Product';
+        if (filter) {
+            test = this.productUrl + 'Product/' + filter;
+        }
+        return this.http.get(test)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -28,21 +50,17 @@ export class ProductService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    calculateBudget(productsSpending, budget: number) {
+    calculateValues(productsSpending, budget?: number) {
         let sumofAllCosts: number = 0;
+        if (!budget) {
+            budget = 0
+        }
         productsSpending.map(value => sumofAllCosts += value.spending);
         return (budget + sumofAllCosts).toFixed(2);
     }
-    // TODO:  can i use pipe here?
-    calculateProfitAndSpending(productsSpending, args: string) {
-        let sumofAllCosts: number = 0;
-        productsSpending.filter(item => item.dateCreated.indexOf(args) !== -1).map(value => sumofAllCosts += value.spending);
-        return sumofAllCosts.toFixed(2);
-    }
     currentDate() {
-        let currentDate
         let today = new Date();
-        let mm:number|string = today.getMonth() + 1;
+        let mm: number | string = today.getMonth() + 1;
         let yyyy = today.getFullYear();
         if (mm < 10) {
             mm = '0' + mm

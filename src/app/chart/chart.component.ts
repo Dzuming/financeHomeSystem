@@ -1,6 +1,5 @@
-//TODO: Update onChange
-//TODO: Share getProducts
-//TODO update onFilter
+//TODO: Update chart
+//TODO: Update onChange - change detection
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
 import { ProductService } from '../product/product.service';
@@ -23,11 +22,12 @@ export class ChartComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getData();
+    this.test();
   }
 
   ngOnChanges() {
   }
-
+  
   rawDataChart(setData) {
     return setData.filter((data) => data.spending < 0)
       .map((dataset) => { return { "spending": - dataset.spending, "category": dataset.categories.name } })
@@ -123,10 +123,18 @@ export class ChartComponent implements OnInit, OnChanges {
       .text((d) => d);
   }
   private getData() {
-    this.productService.getProducts()
-      .subscribe(
-      data => { this.data = data },
+  this.productService.filterProductObserver.subscribe(
+      data => this.data = data,
       error => this.errorMessage = <any>error,
-      () => this.createChart())
+      () => {
+        this.createChart();
+      })
+  }
+  private test() {
+  this.productService.filterDateObserver.subscribe(
+      data => console.log(data) ,
+      error => this.errorMessage = <any>error,
+      () => {
+      })
   }
 }
