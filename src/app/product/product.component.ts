@@ -7,89 +7,75 @@
 //TODO: Problem with post date - post always the same date
 //TOOD: Block months with no data
 //TOOD: Problem with fusion chart round
+// Create module foer each functionality
+// check models
+// profitAndSpending doesnt refresh
+//TODO: Calculate budget doesnt work correct
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ProductService } from './product.service';
+import { CalculateService } from '../shared/services/calculate.service';
+import { RestService } from '../shared/services/rest.service';
+import { Product } from '../shared/models/product.model';
 
-import { Observable } from 'rxjs/Observable';
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.scss'],
-    providers: [ProductService]
+    providers: [CalculateService, RestService]
 })
 export class ProductComponent implements OnInit {
-    private categories: Array<any> = [];
-    private startingBudget: number = 0;
-    private errorMessage: string;
+    
+    
     private addProductForm: FormGroup;
     private description = new FormControl('', Validators.required);
     private category = new FormControl('', Validators.required);
     private spending = new FormControl('', Validators.required);
-    private currentBudget: string;
-    private sumOfProfitAndSpending: string;
+   
+    private errorMessage: string;
     private Profit: number = 0;
-    private Spending: number = 0;
-    private allProducts: Array<any> = [];
-    public constructor(private productService: ProductService, private formBuilder: FormBuilder) { }
+    private product: Product[];
+    private categories: Array<any> = [];
+    public constructor(private calculateService: CalculateService, private restService: RestService, private formBuilder: FormBuilder) { }
     public ngOnInit() {
-        this.getProducts(this.productService.filterDate);
+        this.getProducts(this.calculateService.filterDate);
         this.getCategory();
-        this.calculateBudget();
+        // this.calculateService.calculateBudget();
         this.addProductForm = this.formBuilder.group({
             Description: this.description,
             categoryId: this.category,
             Spending: this.spending,
         });
-        
-        
+
+
     }
-    public ngDoCheck() {
-        this.currentBudget = this.productService.calculateValues(this.allProducts, this.startingBudget);
-        
+     private addProduct() {
+        if (!this.addProductForm.value) { return; }
+        this.restService.addProducts(this.addProductForm.value)
+            .subscribe(
+            data => {
+                this.getProducts(this.calculateService.filterDate);
+                // this.calculateService.calculateBudget();
+                this.addProductForm.reset();
+            },
+            error => this.errorMessage = <any>error);
     }
     private getProducts(filter) {
-        this.productService.getProducts(filter)
+        this.restService.getProducts(filter)
             .subscribe(
-            data => { this.productService.filterProducts = data 
+            (data: Product[]) => {
+                this.product = data
+                console.log(this.product, data)
             },
             error => this.errorMessage = <any>error,
             () => {
-                this.getBudget();
-                this.sumOfProfitAndSpending = this.productService.calculateValues(this.productService.filterProducts);
-            });
-    }
-    private calculateBudget() {
-        this.productService.getProducts()
-            .subscribe(
-            data => { this.allProducts = data 
-            },
-            error => this.errorMessage = <any>error,
-            () => {
-                this.getBudget()
+                this.calculateService.calculateProfitAndSpending(this.product);
+                // this.restService.getBudget();
             });
     }
     private getCategory() {
-        this.productService.getCategory()
+        this.restService.getCategory()
             .subscribe(
             data => this.categories = data,
-            error => this.errorMessage = <any>error);
-    }
-    private getBudget() {
-        this.productService.getBudget()
-            .subscribe(
-            data => this.startingBudget = data[0].overall,
-            error => this.errorMessage = <any>error)
-    }
-    private addProduct() {
-        if (!this.addProductForm.value) { return; }
-        this.productService.addProducts(this.addProductForm.value)
-            .subscribe(
-            data => {
-                this.getProducts(this.productService.filterDate);
-                this.calculateBudget();
-                this.addProductForm.reset();
-            },
             error => this.errorMessage = <any>error);
     }
 }

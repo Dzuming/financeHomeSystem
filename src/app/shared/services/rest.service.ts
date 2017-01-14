@@ -1,30 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Product } from '../models/product.model';
+import { CalculateService } from './calculate.service';
 @Injectable()
-export class ProductService {
-    public filterDate = this.currentDate();
-    public filterProducts: Array<any>;
+export class RestService {
+    private errorMessage: string;
+    public product: Product[];
+    
+    private productUrl: string = 'http://localhost:65443/api/';
+    private calculateService: CalculateService;
+    
+    constructor(private http: Http) {
 
-    public filterProductObserver = Observable.create(observer => {
-        setTimeout(resolve => {
-            observer.next(this.filterProducts);
-            observer.complete();
-        }, 500)
-    })
-    public filterDateObserver = Observable.create(observer => {
-        setTimeout(resolve => {
-            observer.next(this.filterDate);
-            observer.complete();
-        }, 500)
-    })
-    private productUrl = 'http://localhost:65443/api/';
-    constructor(private http: Http) { }
-    test(): Observable<any> {
-        return
     }
+
     getProducts(filter?: String): Observable<any[]> {
-        let test = this.productUrl + 'Product';
+        let test = this.productUrl + 'Product/';
         if (filter) {
             test = this.productUrl + 'Product/' + filter;
         }
@@ -32,7 +24,7 @@ export class ProductService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getCategory(): Observable<any[]> {
+    getCategory(): Observable<Product[]> {
         return this.http.get(this.productUrl + 'Category')
             .map(this.extractData)
             .catch(this.handleError);
@@ -42,30 +34,13 @@ export class ProductService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    addProducts(product): Observable<any> {
+    addProducts(product): Observable<Product> {
         let body = JSON.stringify(product);
         let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.productUrl + 'Product', body, options)
             .map(this.extractData)
             .catch(this.handleError);
-    }
-    calculateValues(productsSpending, budget?: number) {
-        let sumofAllCosts: number = 0;
-        if (!budget) {
-            budget = 0
-        }
-        productsSpending.map(value => sumofAllCosts += value.spending);
-        return (budget + sumofAllCosts).toFixed(2);
-    }
-    currentDate() {
-        let today = new Date();
-        let mm: number | string = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        return yyyy + '-' + mm
     }
     private extractData(res: Response) {
         let body = res.json();
