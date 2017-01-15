@@ -2,18 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../models/product.model';
-import { CalculateService } from './calculate.service';
 @Injectable()
 export class RestService {
     private errorMessage: string;
     public product: Product[];
-    
     private productUrl: string = 'http://localhost:65443/api/';
-    private calculateService: CalculateService;
-    
-    constructor(private http: Http) {
-
-    }
+    constructor(private http: Http) { }
 
     getProducts(filter?: String): Observable<any[]> {
         let test = this.productUrl + 'Product/';

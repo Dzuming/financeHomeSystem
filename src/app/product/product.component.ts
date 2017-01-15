@@ -7,10 +7,9 @@
 //TODO: Problem with post date - post always the same date
 //TOOD: Block months with no data
 //TOOD: Problem with fusion chart round
-// Create module foer each functionality
+// Create module for each functionality
 // check models
-// profitAndSpending doesnt refresh
-//TODO: Calculate budget doesnt work correct
+//Remove and add legend in fusion charts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CalculateService } from '../shared/services/calculate.service';
@@ -21,7 +20,7 @@ import { Product } from '../shared/models/product.model';
     selector: 'app-product',
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.scss'],
-    providers: [CalculateService, RestService]
+    
 })
 export class ProductComponent implements OnInit {
     
@@ -33,13 +32,11 @@ export class ProductComponent implements OnInit {
    
     private errorMessage: string;
     private Profit: number = 0;
-    private product: Product[];
     private categories: Array<any> = [];
     public constructor(private calculateService: CalculateService, private restService: RestService, private formBuilder: FormBuilder) { }
     public ngOnInit() {
         this.getProducts(this.calculateService.filterDate);
         this.getCategory();
-        // this.calculateService.calculateBudget();
         this.addProductForm = this.formBuilder.group({
             Description: this.description,
             categoryId: this.category,
@@ -54,7 +51,6 @@ export class ProductComponent implements OnInit {
             .subscribe(
             data => {
                 this.getProducts(this.calculateService.filterDate);
-                // this.calculateService.calculateBudget();
                 this.addProductForm.reset();
             },
             error => this.errorMessage = <any>error);
@@ -63,12 +59,11 @@ export class ProductComponent implements OnInit {
         this.restService.getProducts(filter)
             .subscribe(
             (data: Product[]) => {
-                this.product = data
-                console.log(this.product, data)
+                this.restService.product = data
             },
             error => this.errorMessage = <any>error,
             () => {
-                this.calculateService.calculateProfitAndSpending(this.product);
+                this.calculateService.calculateProfitAndSpending(this.restService.product);
                 // this.restService.getBudget();
             });
     }

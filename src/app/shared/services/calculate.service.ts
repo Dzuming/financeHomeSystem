@@ -4,24 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { RestService } from './rest.service';
 @Injectable()
 export class CalculateService {
-    public filterDate = this.currentDate();
-    public filterProducts: Array<any>;
-    private restService: RestService;
     private errorMessage: string;
     private sumOfProfitAndSpending: string;
-    // public filterProductObserver = Observable.create(observer => {
-    //     setTimeout(resolve => {
-    //         observer.next(this.filterProducts);
-    //         observer.complete();
-    //     }, 500)
-    // })
-    // public filterDateObserver = Observable.create(observer => {
-    //     setTimeout(resolve => {
-    //         observer.next(this.filterDate);
-    //         observer.complete();
-    //     }, 500)
-    // })
-    constructor(private http: Http) { }
+    public filterDate:string = this.currentDate();
+    constructor(private http: Http, private restService: RestService) { }
     calculateValues(productsSpending, budget?: number) {
         let sumofAllCosts: number = 0;
         if (!budget) {
@@ -39,7 +25,7 @@ export class CalculateService {
         }
         return yyyy + '-' + mm
     }
-    calculateProfitAndSpending(data){
-        this.sumOfProfitAndSpending =  this.calculateValues(data)
+    calculateProfitAndSpending(data) {
+        this.sumOfProfitAndSpending = this.calculateValues(data)
     }
 }

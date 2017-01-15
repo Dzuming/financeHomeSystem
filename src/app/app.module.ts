@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { RestService } from './shared/services/rest.service';
 import { CalculateService } from './shared/services/calculate.service';
+import { ChartService } from './shared/services/chart.service';
 import { ProductPipe } from './product/product.pipe';
 import { ChartComponent } from './chart/chart.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -25,7 +26,11 @@ import { CalculationComponent } from './calculation/calculation.component';
     ReactiveFormsModule,
     HttpModule,
   ],
-  
+  providers: [
+    CalculateService,
+    RestService,
+    ChartService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

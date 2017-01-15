@@ -8,7 +8,6 @@ import { CalculateService } from '../shared/services/calculate.service';
   styleUrls: ['./calculation.component.css']
 })
 export class CalculationComponent implements OnInit {
-  private product: Product[];
   private startingBudget: number = 0;
   private errorMessage: string;
   private currentBudget: string;
@@ -17,6 +16,7 @@ export class CalculationComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts(this.calculateService.filterDate);
+    this.calculateBudget();
   }
   public ngDoCheck() {
     this.currentBudget = this.calculateService.calculateValues(this.allProducts, this.startingBudget);
@@ -47,7 +47,7 @@ export class CalculationComponent implements OnInit {
             },
             error => this.errorMessage = <any>error,
             () => {
-                this.restService.getBudget()
+                this.getBudget()
             });
     }
 }
