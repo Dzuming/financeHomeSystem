@@ -28,15 +28,19 @@ body {
     
 }
 form {
-    input, select {
-        padding: 0.25rem;
-    }
     tr {
         border: 1px solid #9C9C9C;
         background-color: #907878;
         td:last-child{
             padding-right: 1.875rem;
         }
+        input, select {
+        padding: 0.25rem;
+        }
     }
+    
         
+    }
+aside {
+        padding-right: 0;
     }
