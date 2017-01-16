@@ -1,51 +1,49 @@
-<div class="container-fluid">
-    <app-side-nav></app-side-nav>
-  <section class="col-sm-7  flex-items-xs-top">
+<div class="row">
+    <app-side-nav class="col col-sm-2"></app-side-nav>
+  <section class="col col-sm-7  flex-items-xs-top">
 <table class="col-sm table table-striped">
 <thead class="thead-default">
-     <tr >
-         <th class="col-sm-4">Description</th>
-         <th class="col-sm-4">Category</th>
-         <th class="col-sm-4">Spending</th>
-         <th class="col-sm-4"></th>
+     <tr>
+         <th style="width:40%">Description</th>
+         <th style="width:40%">Category</th>
+         <th style="width:20%">Spending</th>
+         <th style="width:20%" ></th>
      </tr>
 </thead>
 <tbody>
-     <tr  *ngFor="let product of restService.product ">
-         <td class="col-sm-4">{{product.description}}</td>
-         <td class="col-sm-4">{{product.categories.name}}</td>
-         <td class="col-sm-4">{{product.spending}}</td>
-         <td class="col-sm-4"></td>
+     <tr role="row" *ngFor="let product of restService.product ">
+         <td style="width:40%">{{product.description}}</td>
+         <td style="width:40%">{{product.categories.name}}</td>
+         <td style="width:20%">{{product.spending}}</td>
+         <td style="width:20%"><button class="btn btn-sm btn-warning"><i class="fa fa-times"></i> save</button></td>
      </tr>
 </tbody>
 </table>
 <form  (ngSubmit)="addProduct()" [formGroup]="addProductForm">
-    <table class="table col-sm">
+    <table class="table">
         <tbody>
     <tr>
-    <td class="col-sm-4"><div class="form-group">
+    <td style="width:40%"><div class="form-group">
         <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
     </div></td>
-    <td class="col-sm-4"><div class="form-group">
+    <td style="width:40%"><div class="form-group">
         <select formControlName="categoryId" name="categoryId" [(ngModel)]="selectLanguage">
-            <option disabled hidden [value]="selectUndefinedOptionValue">Select Category</option>
+            <option disabled hidden [value]="selectUndefinedOptionValue">Category</option>
     <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 </select>
     </div></td>
-    <td class="col-sm-4"><div class="form-group">
+    <td style="width:20%"><div class="form-group">
         <input class="form-control" type="number" name="Spending" formControlName="Spending" placeholder="Spending" step="any"
             required>
     </div></td>
-    <td class="col-sm-1"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
+    <td style="width:20%"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
         </tbody>
     </table>
 </form>
   </section>
-  <aside class=" col-sm-3  flex-items-xs-top">
+  <aside class="col col-sm-3  flex-items-xs-top">
         <app-chart></app-chart>
+        <app-calculation></app-calculation>
     </aside>
     </div>
-<footer>
-    <app-calculation></app-calculation>
-    </footer>
     

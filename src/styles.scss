@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./node_modules/bootstrap/scss/_variables.scss";
+@import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+
+@include media-breakpoint-up(xs) {
+    html {
+         font-size: 12px;
+     }
+ }
+@include media-breakpoint-up(sm) {
+    html {
+         font-size: 13px;
+     }
+      }
+@include media-breakpoint-up(md) {
+     html {
+         font-size: 14px;
+     }
+     }
+@include media-breakpoint-up(lg) {
+    html {
+         font-size: 15px;
+     }
+     }
+@include media-breakpoint-up(xl) { 
+    html {
+         font-size: 16px;
+     }
+ }
+ input {
+    
+    padding: 0;
+    border:none !important;
+    outline: none;
+    box-shadow: none;
+}

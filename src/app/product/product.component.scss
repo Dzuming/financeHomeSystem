@@ -3,19 +3,40 @@ body {
 -webkit-appearance:none;
 }
 .table-striped  {
+    border: 1px solid #9C9C9C;
+    margin-bottom: 0 !important;
     thead{
         display: block;
+        tr {
+            outline: 1px solid #9C9C9C;
+            th:last-child {
+                min-width:5.375rem;
+        }
+        }
+        
     }
     tbody {
-        max-height:600px;
+        max-height:28.13rem;
         display: block;
         overflow-y:auto;
+        tr:not(:first-of-type) {
+            td {
+                border-top: 1px solid #9C9C9C
+            }
+        }
     }
-}
-input {
     
-    padding: 0;
-    border:none;
-    outline: none;
-    box-shadow: none;
 }
+form {
+    input, select {
+        padding: 0.25rem;
+    }
+    tr {
+        border: 1px solid #9C9C9C;
+        background-color: #907878;
+        td:last-child{
+            padding-right: 1.875rem;
+        }
+    }
+        
+    }
