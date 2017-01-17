@@ -5,7 +5,7 @@ import { CalculateService } from '../shared/services/calculate.service';
 @Component({
   selector: 'app-calculation',
   templateUrl: './calculation.component.html',
-  styleUrls: ['./calculation.component.css']
+  styleUrls: ['./calculation.component.scss']
 })
 export class CalculationComponent implements OnInit {
   private startingBudget: number = 0;

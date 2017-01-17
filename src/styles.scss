@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./node_modules/bootstrap/scss/_variables.scss";
 @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+$enable-flex: true !default;
 html {
     width:98%;
 @include media-breakpoint-up(xs) {

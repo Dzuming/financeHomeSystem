@@ -1,4 +1,8 @@
-$enable-flex: true !default;
+.row {
+    padding-top:1.875rem;
+    app-side-nav{
+    padding-left: 30px;
+}
 body {
 -webkit-appearance:none;
 }
@@ -39,8 +43,8 @@ form {
         }
     }
     
-        
+}   
     }
-aside {
-        padding-right: 0;
+    button{
+        width: 3.125rem;
     }

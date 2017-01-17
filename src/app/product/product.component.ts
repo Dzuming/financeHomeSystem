@@ -1,14 +1,12 @@
-//TODO: SCSS style
-//TODO: Left Side nav with: filter date and chart type choose
-//TODO: Right Side nav with icons: Current stats, month difference, trend overall budget 
+
+//TODO: Authorization system
+//TODO: Edit
 //TODO: filter data by every column
-//TODO: Flex layout
-//TODO: Input errors
+//TODO: Data Input errors information
 //TODO: Problem with post date - post always the same date
-//TOOD: Block months with no data
 //TOOD: Problem with fusion chart round
-// Create module for each functionality
-// check models
+// Should i Create module for each functionality
+// check How to use models
 //Remove and add legend in fusion charts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
