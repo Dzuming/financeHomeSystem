@@ -8,3 +8,7 @@ export class ProductPipe implements PipeTransform {
     return products.filter(item => item.dateCreated.indexOf(args) !== -1);
   }
 }
+/** 
+  select all elements from table as object->
+  change tr position 
+ */
