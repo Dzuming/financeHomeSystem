@@ -1,17 +1,9 @@
-
-//TODO: Authorization system
-//TODO: Edit
-//TODO: filter data by every column
-//TODO: Data Input errors information
-//TODO: Problem with post date - post always the same date
-//TOOD: Problem with fusion chart round
-// Should i Create module for each functionality
-// check How to use models
 //Remove and add legend in fusion charts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CalculateService } from '../shared/services/calculate.service';
 import { RestService } from '../shared/services/rest.service';
+import { ProductService } from './product.service';
 import { Product } from '../shared/models/product.model';
 
 @Component({
@@ -31,7 +23,7 @@ export class ProductComponent implements OnInit {
     private errorMessage: string;
     private Profit: number = 0;
     private categories: Array<any> = [];
-    public constructor(private calculateService: CalculateService, private restService: RestService, private formBuilder: FormBuilder) { }
+    public constructor(private calculateService: CalculateService, private restService: RestService,private productService: ProductService, private formBuilder: FormBuilder) { }
     public ngOnInit() {
         this.getProducts(this.calculateService.filterDate);
         this.getCategory();
@@ -74,36 +66,21 @@ export class ProductComponent implements OnInit {
     private tableSort() {
         let table = document.querySelector(".table-striped");
         let thead = table.querySelectorAll("thead");
-        let tr = Array.prototype.slice.call(thead[0].rows, 0);
-        let test = Array.prototype.slice.call(tr[0].cells, 0);
+        let tr = [].slice.call(thead[0].rows, 0);
+        let th = [].slice.call(tr[0].cells, 0);
         let isClicked;
-        test.map(element => {
+        th.map(element => {
             element.addEventListener("click", () => {
-                if (element.cellIndex >= test.length - 1) {
+                if (element.cellIndex >= th.length - 1) {
                     return 0;
                 } else {
                     isClicked = isClicked === false ? true : false
-                    this.sorting(table, element.cellIndex, isClicked);
+                    this.productService.sorting(table, element.cellIndex, isClicked);
                 }
 
             }, true)
         })
 
     }
-    private sorting(table, index, reverse) {
-        let tbody = table.querySelectorAll("tbody");
-        let tr = Array.prototype.slice.call(tbody[0].rows, 0);
-        let test = tr.sort((a, b) => {
-            if (!isNaN(parseFloat(a.cells[index].textContent))) {
-                return parseFloat(a.cells[index].textContent) - parseFloat(b.cells[index].textContent)
-            }
-            if (a.cells[index].textContent.trim() < b.cells[index].textContent.trim()) return -1;
-            if (a.cells[index].textContent.trim() > b.cells[index].textContent.trim()) return 1;
-            return 0;
-        })
-        if (reverse) {
-            tr.reverse();
-        }
-        for (let i = 0; i < tr.length; ++i) tbody[0].appendChild(tr[i]);
-    }
+    
 }
