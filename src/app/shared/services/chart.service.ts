@@ -67,8 +67,9 @@ export class ChartService {
         .style("left", p.x + 20 + "px")
         .style("top", p.y + 200 + "px")
         .style("opacity", 1)
-        .style("fill", "red")
-        .text(d.data.key + ":" + Math.floor((d.data.value / SumofAllCategories) * 100) + "%");
+        .text(d.data.key + ": " + ((d.data.value / SumofAllCategories) * 100).toFixed(2) + "%");
+
+
     });
     this.g.on('mouseout', function (d) {
       d3.selectAll("tooltip")
@@ -76,7 +77,6 @@ export class ChartService {
     });
   }
   addLegend() {
-
     let legendRectSize = 18;
     let legendSpacing = 4;
     let legend = this.svg.selectAll('.legend')

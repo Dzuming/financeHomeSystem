@@ -3,9 +3,9 @@ import { Product } from '../shared/models/product.model';
 import { RestService } from '../shared/services/rest.service';
 import { CalculateService } from '../shared/services/calculate.service';
 @Component({
+  moduleId: 'module.id',
   selector: 'app-calculation',
-  templateUrl: './calculation.component.html',
-  styleUrls: ['./calculation.component.scss']
+  templateUrl: './calculation.component.html'
 })
 export class CalculationComponent implements OnInit {
   private startingBudget: number = 0;

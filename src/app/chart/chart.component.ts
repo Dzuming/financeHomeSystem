@@ -6,9 +6,9 @@ import * as d3 from 'd3';
 import { RestService } from '../shared/services/rest.service';
 import { ChartService } from '../shared/services/chart.service';
 @Component({
+  moduleId: 'module.id',
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ChartComponent implements OnInit {
