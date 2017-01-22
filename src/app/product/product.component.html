@@ -19,7 +19,7 @@
      </tr>
 </tbody>
 </table>
-<form  (ngSubmit)="addProduct()" [formGroup]="addProductForm">
+<form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
     <table class="table">
         <tbody>
     <tr>
@@ -27,7 +27,7 @@
         <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
     </div></td>
     <td style="width:40%"><div class="form-group">
-        <select formControlName="categoryId" name="categoryId" [(ngModel)]="selectLanguage">
+        <select formControlName="categoryId" name="categoryId" [(ngModel)]="defaultSelectValue">
             <option disabled hidden [value]="selectUndefinedOptionValue">Category</option>
     <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
 </select>

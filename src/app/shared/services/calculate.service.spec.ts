@@ -117,7 +117,7 @@
 //       expect(budget.data[3].name).toEqual('Budget 3');
 //     });
 //   }));
-//   //TODO
+// 
 //   it('Should post new Product', inject([ProductService, XHRBackend], (ProductService, mockBackend) => {
 //     const mockResponse = {
 //       data: [
@@ -134,7 +134,6 @@
 //         status: 201
 //       })));
 //     });
-    
 //     ProductService.addProducts(mockResponse.data[0]).subscribe((Product) => {
 //       expect(Product).toBeDefined();
 

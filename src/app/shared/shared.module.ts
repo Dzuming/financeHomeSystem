@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChartComponent } from './chart.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
@@ -9,10 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   declarations: [
-    ChartComponent
+    SideNavComponent
   ],
-  exports:[
-      ChartComponent
+  exports: [
+    SideNavComponent
   ],
 })
-export class ChartModule { }
+export class SharedModule { }

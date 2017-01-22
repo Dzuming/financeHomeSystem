@@ -7,30 +7,25 @@ import { CalculateService } from './shared/services/calculate.service';
 import { ChartService } from './shared/services/chart.service';
 import { ProductPipe } from './product/product.pipe';
 import { ProductModule } from './product/product.module';
-import { AppRoutingModule } from './app.routing';
-import { LoginComponent } from './login/login.component';
-import { CompareComponent } from './compare/compare.component';
+import { LoginModule } from './login/login.module';
+import { AppRoutingModule } from './app-routing.module';
+import { CompareModule } from './compare/compare.module';
 @NgModule({
   declarations: [
     AppComponent,
     ProductPipe,
-    LoginComponent,
-    CompareComponent,
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    
+    LoginModule,
     ProductModule,
-    
-    
+    CompareModule
   ],
   providers: [
     CalculateService,
     RestService,
     ChartService,
-    
   ],
   bootstrap: [AppComponent]
 })

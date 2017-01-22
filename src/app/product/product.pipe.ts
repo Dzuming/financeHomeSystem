@@ -3,8 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'dateFilter'
 })
 export class ProductPipe implements PipeTransform {
-  transform(products:any[], args:any[]):any{
-      
+  transform(products: any[], args: any[]): any {
     return products.filter(item => item.dateCreated.indexOf(args) !== -1);
   }
 }

@@ -1,4 +1,3 @@
-//Remove and add legend in fusion charts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CalculateService } from '../shared/services/calculate.service';
@@ -12,17 +11,20 @@ import { Product } from '../shared/models/product.model';
 
 })
 export class ProductComponent implements OnInit {
-
-
-    private addProductForm: FormGroup;
     private description = new FormControl('', Validators.required);
-    private category = new FormControl('', Validators.required);
     private spending = new FormControl('', Validators.required);
-
     private errorMessage: string;
     private Profit: number = 0;
-    private categories: Array<any> = [];
-    public constructor(private calculateService: CalculateService, private restService: RestService,private productService: ProductService, private formBuilder: FormBuilder) { }
+    public addProductForm: FormGroup;
+    public category = new FormControl('', Validators.required);
+    public categories: Array<any> = [];
+    public defaultSelectValue;
+    public selectUndefinedOptionValue;
+    public constructor(
+        private calculateService: CalculateService,
+        private restService: RestService,
+        private productService: ProductService,
+        private formBuilder: FormBuilder) { }
     public ngOnInit() {
         this.getProducts(this.calculateService.filterDate);
         this.getCategory();
@@ -34,26 +36,17 @@ export class ProductComponent implements OnInit {
         });
 
     }
-    private addProduct() {
-        if (!this.addProductForm.value) { return; }
-        this.restService.addProducts(this.addProductForm.value)
-            .subscribe(
-            data => {
-                this.getProducts(this.calculateService.filterDate);
-                this.addProductForm.reset();
-            },
-            error => this.errorMessage = <any>error);
-    }
     private getProducts(filter) {
         this.restService.getProducts(filter)
             .subscribe(
             (data: Product[]) => {
-                this.restService.product = data
+                this.restService.product = data;
             },
             error => this.errorMessage = <any>error,
             () => {
                 this.calculateService.calculateProfitAndSpending(this.restService.product);
-                // this.restService.getBudget();
+                this.calculateService.calculateBudget(this.restService.product, this.calculateService.startingBudget);
+                this.restService.getBudget();
             });
     }
     private getCategory() {
@@ -63,23 +56,32 @@ export class ProductComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
     private tableSort() {
-        let table = document.querySelector(".table-striped");
-        let thead = table.querySelectorAll("thead");
+        let table = document.querySelector('.table-striped');
+        let thead = table.querySelectorAll('thead');
         let tr = [].slice.call(thead[0].rows, 0);
         let th = [].slice.call(tr[0].cells, 0);
         let isClicked;
         th.map(element => {
-            element.addEventListener("click", () => {
+            element.addEventListener('click', () => {
                 if (element.cellIndex >= th.length - 1) {
                     return 0;
                 } else {
-                    isClicked = isClicked === false ? true : false
+                    isClicked = isClicked === false ? true : false;
                     this.productService.sorting(table, element.cellIndex, isClicked);
                 }
 
-            }, true)
-        })
-
+            }, true);
+        });
     }
-    
+    public addProduct() {
+        if (!this.addProductForm.value) { return; }
+        this.restService.addProducts(this.addProductForm.value)
+            .subscribe(
+            data => {
+                this.getProducts(this.calculateService.filterDate);
+                this.addProductForm.reset();
+            },
+            error => this.errorMessage = <any>error);
+    }
+
 }

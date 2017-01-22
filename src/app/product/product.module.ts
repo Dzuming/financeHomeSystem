@@ -1,30 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule} from '@angular/http';
-import { ProductComponent } from './product.component';
+import { HttpModule } from '@angular/http';
 import { ProductService } from './product.service';
-import { SideNavModule } from '../side-nav/side-nav.module';
-import { CalculationModule } from '../calculation/calculation.module';
-import { ChartModule } from '../chart/chart.module';
+import { SharedModule } from '../shared/shared.module';
+import { ProductComponent } from './product.component';
+import { CalculationComponent } from './product-calculation.component';
+import { ChartComponent } from './product-chart.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ProductRoutingModule } from './product-routing.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    SideNavModule,
-    CalculationModule,
-    ChartModule
+    SharedModule,
+    ProductRoutingModule
   ],
   declarations: [
+    ProductComponent,
+    ChartComponent,
+    CalculationComponent
+  ],
+  exports: [
     ProductComponent
   ],
-  exports:[
-      ProductComponent
-  ],
   providers: [
-      ProductService
+    ProductService
   ]
 })
 export class ProductModule { }

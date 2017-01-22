@@ -17,7 +17,7 @@ export class ChartService {
       .attr('width', width)
       .attr('height', height)
       .append('g')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
+      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
     let arc: any = d3.arc()
       .innerRadius(radius - 70)
       .outerRadius(radius);
@@ -29,22 +29,22 @@ export class ChartService {
       .data(pie)
       .enter()
       .append('g')
-      .attr('class', 'arc')
-    this.g.append("path")
-      .attr("d", arc)
+      .attr('class', 'arc');
+    this.g.append('path')
+      .attr('d', arc)
       .style('fill', (d: any) => this.color(d.data.key))
-      .style('stroke', (d: any) => this.color(d.data.key))
-    this.g.append("text")
-      .attr("transform", (d) => "translate(" + arc.centroid(d) + ")")
-      .attr("text-anchor", "middle")
+      .style('stroke', (d: any) => this.color(d.data.key));
+    this.g.append('text')
+      .attr('transform', (d) => 'translate(' + arc.centroid(d) + ')')
+      .attr('text-anchor', 'middle')
       .text((d: any) => d.data.value.toFixed(2))
-      .style("fill", "#fff");
+      .style('fill', '#fff');
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
   }
   rawDataChart(setData) {
     return setData.filter((data) => data.spending < 0)
-      .map((dataset) => { return { "spending": - dataset.spending, "category": dataset.categories.name } })
+      .map((dataset) => { return { 'spending': - dataset.spending, 'category': dataset.categories.name }; });
   }
 
   SumofSingleCategories(dataChart): any {
@@ -61,21 +61,19 @@ export class ChartService {
     this.g.on('mouseover', function (d) {
       let point = d3.mouse(this),
         p = { x: point[0], y: point[1] };
-      d3.select("#chart")
-        .append("tooltip")
-        .attr("class", "tooltip")
-        .style("left", p.x + 20 + "px")
-        .style("top", p.y + 200 + "px")
-        .style("opacity", 1)
-        .text(d.data.key + ": " + ((d.data.value / SumofAllCategories) * 100).toFixed(2) + "%");
-
-
+      d3.select('#chart')
+        .append('tooltip')
+        .attr('class', 'tooltip')
+        .style('left', p.x + 20 + 'px')
+        .style('top', p.y + 200 + 'px')
+        .style('opacity', 1)
+        .text(d.data.key + ': ' + ((d.data.value / SumofAllCategories) * 100).toFixed(2) + '%');
     });
     this.g.on('mouseout', function (d) {
-      d3.selectAll("tooltip")
-        .remove()
+      d3.selectAll('tooltip')
+        .remove();
     });
-  }
+  };
   addLegend() {
     let legendRectSize = 18;
     let legendSpacing = 4;
@@ -104,7 +102,7 @@ export class ChartService {
   updateChart(data) {
     d3.select('svg')
       .remove()
-      .exit()
+      .exit();
     this.createChart(data);
-  }
+  };
 }
