@@ -11,12 +11,29 @@ import { Product } from '../shared/models/product.model';
 
 })
 export class ProductComponent implements OnInit {
-    private description = new FormControl('', Validators.required);
-    private spending = new FormControl('', Validators.required);
+    private spending;
     private errorMessage: string;
     private Profit: number = 0;
+    private formErrors = {
+        'Description': '',
+        'categoryId': '',
+        'Spending': ''
+    };
+    private validationMessages = {
+        'Description': {
+            'required': 'Description is required.',
+            'minlength': 'Description must be at least 4 characters long.',
+            'maxlength': 'Description cannot be more than 24 characters long.'
+        },
+        'categoryId': {
+            'required': 'Category is required.'
+        },
+        'Spending': {
+            'required': 'Spending is required.'
+        }
+    };
     public addProductForm: FormGroup;
-    public category = new FormControl('', Validators.required);
+    public category;
     public categories: Array<any> = [];
     public defaultSelectValue;
     public selectUndefinedOptionValue;
@@ -29,11 +46,26 @@ export class ProductComponent implements OnInit {
         this.getProducts(this.calculateService.filterDate);
         this.getCategory();
         this.tableSort();
+        this.buildForm();
+    }
+    public buildForm(): void {
         this.addProductForm = this.formBuilder.group({
-            Description: this.description,
-            categoryId: this.category,
-            Spending: this.spending,
+            Description: [this.formErrors.Description, [
+                Validators.required,
+                Validators.minLength(4),
+                Validators.maxLength(24)
+            ]],
+            categoryId: [this.formErrors.categoryId, [
+                Validators.required,
+            ]],
+            Spending: [this.formErrors.Spending, [
+                Validators.required,
+            ]],
         });
+        this.addProductForm.valueChanges
+            .subscribe(data => this.onValueChanged(data));
+
+        this.onValueChanged();
 
     }
     private getProducts(filter) {
@@ -74,7 +106,11 @@ export class ProductComponent implements OnInit {
         });
     }
     public addProduct() {
-        if (!this.addProductForm.value) { return; }
+
+        if (!this.addProductForm.value) {
+            this.buildForm();
+            return;
+        }
         this.restService.addProducts(this.addProductForm.value)
             .subscribe(
             data => {
@@ -82,6 +118,24 @@ export class ProductComponent implements OnInit {
                 this.addProductForm.reset();
             },
             error => this.errorMessage = <any>error);
+    }
+
+    public onValueChanged(data?: any) {
+        if (!this.addProductForm) { return; }
+        const form = this.addProductForm;
+
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);
+
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
     }
 
 }

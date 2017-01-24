@@ -1,127 +1,126 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "./node_modules/bootstrap/scss/_variables.scss";
 @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
 $enable-flex: true !default;
 html {
-    width:98%;
-@include media-breakpoint-up(xs) {
-         font-size: 12px;
-     }
-@include media-breakpoint-up(sm) {
-         font-size: 13px;
-     }
-@include media-breakpoint-up(md) {
-         font-size: 14px;
-     }
-@include media-breakpoint-up(lg) {
-         font-size: 15px;
-     }
-@include media-breakpoint-up(xl) {
-         font-size: 16px;
-     }
-
-body {
--webkit-appearance:none;
-}
- input {
-    
-    padding: 0;
-    border:none !important;
-    outline: none;
-    box-shadow: none;
-}
-app-side-nav {
-    ul {
-    height:11.88rem;
-    margin-left:0;
-    list-style-type: none;
-    border: 1px solid #9C9C9C;
-    padding:0 !important;
-    
-    li {
-        text-align: left;
-        align-items: center;
-        border: 1px solid #9C9C9C;
-        background-color: #eceeef;
+    width: 98%;
+    @include media-breakpoint-up(xs) {
+        font-size: 12px;
     }
-}
-}
-aside {
-ul {
-    height:11.88rem;
-    list-style-type: none;
-    border: 1px solid #9C9C9C;
-    padding:0 !important;
-    
-    li {
-        text-align: left;
-        align-items: center;
-        border: 1px solid #9C9C9C;
-        background-color: #eceeef;
+    @include media-breakpoint-up(sm) {
+        font-size: 13px;
     }
-    span {
-        float: right;
+    @include media-breakpoint-up(md) {
+        font-size: 14px;
     }
-}
-.tooltip {
-    position: absolute;
-    width: auto;
-    height: auto;
-    padding: 0.625rem 1.875rem;
-    background-color:#CECECE;
-    display: block;
-}
-#chart {
-    padding-top:2.5rem
-}
-}
-
-.row {
-    padding-top:1.875rem;
-    app-side-nav{
-    padding-left: 30px;
-}
-
-.table-striped  {
-    border: 1px solid #9C9C9C;
-    margin-bottom: 0 !important;
-    thead{
-        display: block;
-        tr {
-            outline: 1px solid #9C9C9C;
-            th:last-child {
-                min-width:5.375rem;
-        }
-        }
-        
+    @include media-breakpoint-up(lg) {
+        font-size: 15px;
     }
-    tbody {
-        max-height:28.13rem;
-        display: block;
-        overflow-y:auto;
-        tr:not(:first-of-type) {
-            td {
-                border-top: 1px solid #9C9C9C
+    @include media-breakpoint-up(xl) {
+        font-size: 16px;
+    }
+    body {
+        -webkit-appearance: none;
+    }
+    input {
+        padding: 0;
+        border: none !important;
+        outline: none;
+        box-shadow: none;
+    }
+    app-side-nav {
+        ul {
+            height: 11.88rem;
+            margin-left: 0;
+            list-style-type: none;
+            border: 1px solid #9C9C9C;
+            padding: 0 !important;
+            li {
+                text-align: left;
+                align-items: center;
+                border: 1px solid #9C9C9C;
+                background-color: #eceeef;
             }
         }
     }
-    
-}
-form {
-    tr {
-        border: 1px solid #9C9C9C;
-        background-color: #907878;
-        td:last-child{
-            padding-right: 1.875rem;
+    aside {
+        ul {
+            height: 11.17rem;
+            list-style-type: none;
+            border: 1px solid #9C9C9C;
+            padding: 0 !important;
+            li {
+                text-align: left;
+                align-items: center;
+                border: 1px solid #9C9C9C;
+                background-color: #eceeef;
+            }
+            span {
+                float: right;
+            }
         }
-        input, select {
-        padding: 0.25rem;
+        .tooltip {
+            position: absolute;
+            width: auto;
+            height: auto;
+            padding: 0.625rem 1.875rem;
+            background-color: #CECECE;
+            display: block;
+        }
+        #chart {
+            padding-top: 2.5rem
         }
     }
-    
-}   
+    .row {
+        padding-top: 1.875rem;
+        app-side-nav {
+            padding-left: 30px;
+        }
+        .table-striped {
+            border: 1px solid #9C9C9C;
+            margin-bottom: 0 !important;
+            thead {
+                display: block;
+                tr {
+                    outline: 1px solid #9C9C9C;
+                    th:last-child {
+                        min-width: 5.375rem;
+                    }
+                }
+            }
+            tbody {
+                max-height: 28.13rem;
+                display: block;
+                overflow-y: auto;
+                tr:not(:first-of-type) {
+                    td {
+                        border-top: 1px solid #9C9C9C
+                    }
+                }
+            }
+        }
+        form {
+            tr {
+                border: 1px solid #9C9C9C;
+                background-color: #907878;
+                td {
+                    padding-bottom: 0px;
+                }
+                td:last-child {
+                    padding-right: 1.875rem;
+                }
+                input,
+                select {
+                    padding: 0.25rem;
+                }
+            }
+            .alert-danger {
+                position: absolute;
+            }
+        }
     }
-    button{
+    button {
         width: 3.125rem;
     }
-    }
+}

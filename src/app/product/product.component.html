@@ -1,49 +1,64 @@
 <div class="row">
     <app-side-nav class="col col-sm-2"></app-side-nav>
-  <section class="col col-sm-7  flex-items-xs-top">
-<table class="col-sm table table-striped">
-<thead class="thead-default">
-     <tr>
-         <th style="width:40%">Description</th>
-         <th style="width:40%">Category</th>
-         <th style="width:20%">Spending</th>
-         <th style="width:20%" ></th>
-     </tr>
-</thead>
-<tbody>
-     <tr role="row" *ngFor="let product of restService.product ">
-         <td style="width:40%">{{product.description}}</td>
-         <td style="width:40%">{{product.categories.name}}</td>
-         <td style="width:20%">{{product.spending}}</td>
-         <td style="width:20%"><button class="btn btn-sm btn-warning"><i class="fa fa-times"></i> Edit</button></td>
-     </tr>
-</tbody>
-</table>
-<form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
-    <table class="table">
-        <tbody>
-    <tr>
-    <td style="width:40%"><div class="form-group">
-        <input class="form-control Products" type="text" name="Description" formControlName="Description" placeholder="Description" required>
-    </div></td>
-    <td style="width:40%"><div class="form-group">
-        <select formControlName="categoryId" name="categoryId" [(ngModel)]="defaultSelectValue">
-            <option disabled hidden [value]="selectUndefinedOptionValue">Category</option>
-    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-</select>
-    </div></td>
-    <td style="width:20%"><div class="form-group">
-        <input class="form-control" type="number" name="Spending" formControlName="Spending" placeholder="Spending" step="any"
-            required>
-    </div></td>
-    <td style="width:20%"><button class="btn btn-sm btn-warning" type="submit"><i class="fa fa-times"></i> save</button></td></tr>
-        </tbody>
-    </table>
-</form>
-  </section>
-  <aside class="col col-sm-3  flex-items-xs-top">
+    <section class="col col-sm-7  flex-items-xs-top">
+        <table class="col-sm table table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th style="width:40%">Description</th>
+                    <th style="width:40%">Category</th>
+                    <th style="width:20%">Spending</th>
+                    <th style="width:20%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr role="row" *ngFor="let product of restService.product ">
+                    <td style="width:40%">{{product.description}}</td>
+                    <td style="width:40%">{{product.categories.name}}</td>
+                    <td style="width:20%">{{product.spending}}</td>
+                    <td style="width:20%"><button class="btn btn-sm btn-warning"><i class="fa fa-times"></i> Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" novalidate>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width:40%">
+                            <div class="form-group">
+                                <input class="form-control" type="text" formControlName="Description" placeholder="Description" required>
+                                <div *ngIf="formErrors.Description" class="alert alert-danger">
+                                    {{ formErrors.Description }}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:40%">
+                            <div class="form-group">
+                                <select formControlName="categoryId" [(ngModel)]="defaultSelectValue">
+                                    <option disabled hidden [value]="selectUndefinedOptionValue">Category</option>
+                                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                                </select>
+                                <div *ngIf="formErrors.categoryId" class="alert alert-danger">
+                                    {{ formErrors.categoryId }}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:20%">
+                            <div class="form-group">
+                                <input class="form-control" type="number" formControlName="Spending" placeholder="Spending" step="any" required>
+
+                                <div *ngIf="formErrors.Spending" class="alert alert-danger">
+                                    {{ formErrors.Spending }}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:20%"><button class="btn btn-sm btn-warning" type="submit" [disabled]="!addProductForm.valid"><i class="fa fa-times"></i> save</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </section>
+    <aside class="col col-sm-3  flex-items-xs-top">
         <app-chart></app-chart>
         <app-calculation></app-calculation>
     </aside>
-    </div>
-    
+</div>
