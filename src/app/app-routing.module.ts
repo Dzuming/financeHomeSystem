@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 export const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'product',
+        redirectTo: 'login',
         pathMatch: 'full'
     }
 ];

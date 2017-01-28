@@ -29,6 +29,11 @@ html {
         outline: none;
         box-shadow: none;
     }
+    app-login {
+        button {
+            width: 5rem;
+        }
+    }
     app-side-nav {
         ul {
             height: 11.88rem;
