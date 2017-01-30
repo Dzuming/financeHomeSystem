@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {AuthenticationService } from '../shared/services/authentication.service'
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,9 @@ export class LoginComponent implements OnInit {
         'password': '',
     };
   public loginForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationService) { }
+  constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationService, private router: Router) {
+      this.authenticationService.logout();
+   }
 
   ngOnInit() {
     this.buildForm();
@@ -43,7 +46,11 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.value)
             .subscribe(
             data => {
-                console.log(data)
+                if (data) {
+                    this.router.navigateByUrl('product');
+                } else {
+                    
+                }
             },
             error => this.errorMessage = <any>error);
     }
