@@ -43,18 +43,18 @@ export class ChartService {
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
   }
   rawDataChart(setData) {
-    return setData.filter((data) => data.spending < 0)
-      .map((dataset) => { return { 'spending': - dataset.spending, 'category': dataset.categories.name }; });
+    return setData.filter((data) => data.Spending < 0)
+      .map((dataset) => { return { 'Spending': - dataset.Spending, 'Category': dataset.Category.name }; });
   }
 
   SumofSingleCategories(dataChart): any {
-    return d3.nest().key((d: any) => d.category)
-      .rollup((value): any => d3.sum(value, (d: any) => d.spending))
+    return d3.nest().key((d: any) => d.Category)
+      .rollup((value): any => d3.sum(value, (d: any) => d.Spending))
       .entries(dataChart);
   }
   SumofAllCategories(dataChart): any {
     return d3.nest()
-      .rollup((value): any => d3.sum(value, (d: any) => d.spending))
+      .rollup((value): any => d3.sum(value, (d: any) => d.Spending))
       .object(dataChart);
   }
   addtooltip(SumofAllCategories) {

@@ -31,7 +31,7 @@ export class CalculationComponent implements OnInit {
   private getBudget() {
     this.restService.getBudget()
       .subscribe(
-      data => this.calculateService.startingBudget = data[0].overall,
+      data => this.calculateService.startingBudget = data[0].Overall,
       error => this.errorMessage = <any>error);
   }
   getAllProducts() {

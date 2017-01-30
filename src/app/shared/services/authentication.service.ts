@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response,  RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
  
@@ -7,8 +7,15 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
     constructor(private http: Http) { }
  
-    login(username: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+    login(user): Observable<any> {
+        let body = JSON.stringify(user);
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('http://localhost:8081/authenticate', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

@@ -15,7 +15,7 @@ export class CalculateService {
         if (!budget) {
             budget = 0;
         }
-        productsSpending.map(value => sumofAllCosts += value.spending);
+        productsSpending.map(value => sumofAllCosts += value.Spending);
         return (budget + sumofAllCosts).toFixed(2);
     }
     currentDate() {
