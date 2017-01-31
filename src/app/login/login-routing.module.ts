@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
     {
         path: 'login',
         component: LoginComponent
+        
     },
 ]);
 @NgModule({

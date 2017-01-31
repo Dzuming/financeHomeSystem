@@ -31,9 +31,7 @@ export class RestService {
     addProducts(product): Observable<Product> {
         let body = JSON.stringify(product);
         let headers = new Headers({
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
         });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.productUrl + 'Product', body, options)

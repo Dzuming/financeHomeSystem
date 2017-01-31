@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -11,12 +12,10 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
-    login(user): Observable<boolean> {
-        let body = JSON.stringify(user);
+    login(credentials): Observable<boolean> {
+        let body = JSON.stringify(credentials);
         let headers = new Headers({
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
         });
         let options = new RequestOptions({ headers: headers });
         return this.http.post('http://localhost:8081/authenticate', body, options)
@@ -28,7 +27,7 @@ export class AuthenticationService {
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ user }));
+                    localStorage.setItem('id_token', token );
 
                     // return true to indicate successful login
                     return true;
@@ -39,11 +38,13 @@ export class AuthenticationService {
             })
             .catch(this.handleError);
     }
-
+    loggedIn() {
+        return tokenNotExpired();
+    }
     logout() {
         // remove user from local storage to log user out
         this.token = null;
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('id_token');
     }
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure
