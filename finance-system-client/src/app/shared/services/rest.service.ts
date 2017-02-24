@@ -6,7 +6,7 @@ import { Product } from '../models/product.model';
 export class RestService {
     private errorMessage: string;
     public product: Product[];
-    private productUrl: string = 'http://localhost:8081/';
+    private productUrl: string = 'http://46.101.130.122:8081/';
     constructor(private http: Http) { }
 
     getProducts(filter?: String): Observable<any[]> {
