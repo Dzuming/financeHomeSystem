@@ -10,7 +10,6 @@ import { CalculateService } from '../shared/services/calculate.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ChartComponent implements OnInit {
-  @ViewChild('chart') private chartContainer: ElementRef;
   private data: Array<any>;
   private errorMessage: Array<any>;
   public constructor(private restService: RestService, private chartService: ChartService, private calculateService: CalculateService) { }

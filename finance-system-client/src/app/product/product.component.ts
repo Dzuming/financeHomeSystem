@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { CalculateService } from '../shared/services/calculate.service';
 import { RestService } from '../shared/services/rest.service';
 import { ProductService } from './product.service';
+import { ChartService } from '../shared/services/chart.service';
 import { Product } from '../shared/models/product.model';
 
 @Component({
@@ -41,7 +42,9 @@ export class ProductComponent implements OnInit {
         private calculateService: CalculateService,
         private restService: RestService,
         private productService: ProductService,
+        private chartService: ChartService,
         private formBuilder: FormBuilder) { }
+
     public ngOnInit() {
         this.getProducts(this.calculateService.filterDate);
         this.getCategory();
@@ -78,6 +81,7 @@ export class ProductComponent implements OnInit {
             () => {
                 this.calculateService.calculateProfitAndSpending(this.restService.product);
                 this.calculateService.calculateBudget(this.restService.product, this.calculateService.startingBudget);
+                this.chartService.updateChart(this.restService.product)
                 this.restService.getBudget();
             });
     }

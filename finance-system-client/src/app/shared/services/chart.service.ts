@@ -6,40 +6,38 @@ export class ChartService {
   public filterProducts: Array<any>;
   private svg: any;
   private g: any;
+  private pie;
+  private arc: any;
+  private initAngle;
+  private path: any;
   private readonly color = d3.scaleOrdinal(d3.schemeCategory20b);
+  private readonly width = 300;
+  private readonly height = 300;
+  private readonly
   constructor() { }
 
   createChart(data) {
-    const width = 300;
-    const height = 300;
-    const radius = Math.min(width, height) / 2;
+    this.calculateArc(this.width, this.height);
     this.svg = d3.select('#chart')
       .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .attr('width', this.width)
+      .attr('height', this.height)
       .append('g')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
-    let arc: any = d3.arc()
-      .innerRadius(radius - 70)
-      .outerRadius(radius);
-    let pie = d3.pie()
-      .sort(null)
-      .value((d: any) => d.value)
-      (this.SumofSingleCategories(this.rawDataChart(data)));
+      .attr('transform', 'translate(' + (this.width / 2) + ',' + (this.height / 2) + ')');
+    this.pieValue(data)
     this.g = this.svg.selectAll('arc')
-      .data(pie)
+      .data(this.pie)
       .enter()
       .append('g')
-      .attr('class', 'arc');
-    this.g.append('path')
-      .attr('d', arc)
+      .attr('class', 'arc')
+      .each(d => {this.initAngle = d})
+      this.g.append('path')
+    this.path = d3.selectAll('path')
+      .attr('d', this.arc)
       .style('fill', (d: any) => this.color(d.data.key))
-      .style('stroke', (d: any) => this.color(d.data.key));
-    this.g.append('text')
-      .attr('transform', (d) => 'translate(' + arc.centroid(d) + ')')
-      .attr('text-anchor', 'middle')
-      .text((d: any) => d.data.value.toFixed(2))
-      .style('fill', '#fff');
+      .style('stroke', (d: any) => this.color(d.data.key))
+      
+    this.addText();
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
   }
@@ -57,6 +55,27 @@ export class ChartService {
     return d3.nest()
       .rollup((value): any => d3.sum(value, (d: any) => d.Spending))
       .object(dataChart);
+  }
+  pieValue(data) {
+    this.pie = d3.pie()
+      .sort(null)
+      .value((d: any) => d.value)
+      (this.SumofSingleCategories(this.rawDataChart(data)));
+  }
+  calculateArc(width, height) {
+    const radius = Math.min(width, height) / 2;
+    this.arc = d3.arc()
+      .innerRadius(radius - 70)
+      .outerRadius(radius);
+      
+  }
+  addText() {
+    this.g.data(this.pie)
+    this.g.append('text')
+      .attr('transform', (d) => 'translate(' + this.arc.centroid(d) + ')')
+      .attr('text-anchor', 'middle')
+      .text((d: any) => d.data.value.toFixed(2))
+      .style('fill', '#fff');
   }
   addtooltip(SumofAllCategories) {
     this.g.on('mouseover', function (d) {
@@ -101,9 +120,23 @@ export class ChartService {
       .text((d) => d);
   }
   updateChart(data) {
-    d3.select('svg')
-      .remove()
-      .exit();
-    this.createChart(data);
+    if (!this.svg) {
+      return;
+    }
+    this.pieValue(data)
+    this.g.selectAll('text').remove();
+    this.path = this.path.data(this.pie)
+    this.path.transition().duration(750).attrTween('d', this.arcTween.bind(null, this.arc, this.initAngle));
+    this.addText();
+    this.addLegend();
+    this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
   };
+  arcTween(arc, initAngle, a) {
+    let tempArc = arc;
+    let i = d3.interpolate(initAngle, a);
+    initAngle = i(0);
+    return function (t) {
+      return tempArc(i(t));
+    };
+  }
 }
