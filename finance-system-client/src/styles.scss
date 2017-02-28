@@ -64,9 +64,10 @@ html {
         }
     }
     app-side-nav {
+        top: 5px;
         ul {
             height: 11.88rem;
-            margin-left: 0;
+            margin-left: 0 !important;
             list-style-type: none;
             border: 1px solid #9C9C9C;
             padding: 0 !important;

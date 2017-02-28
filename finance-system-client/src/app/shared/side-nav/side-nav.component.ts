@@ -8,6 +8,10 @@ import { Product } from '../models/product.model';
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent implements OnInit {
+  public navigateUrl:Object = {
+    'Url': '/compare',
+    'name': 'Compare'
+  }
   private errorMessage: string;
   private filterDate: string;
   constructor(private chartService: ChartService, private restService: RestService, public calculateService: CalculateService, ) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CalculateService } from '../shared/services/calculate.service';
 import { RestService } from '../shared/services/rest.service';
@@ -12,6 +12,7 @@ import { Product } from '../shared/models/product.model';
 
 })
 export class ProductComponent implements OnInit {
+    @Input() urlPath: string;
     private spending;
     private errorMessage: string;
     private Profit: number = 0;

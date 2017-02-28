@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SideNavComponent } from './side-nav/side-nav.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RestService } from './services/rest.service';
 import { CalculateService } from './services/calculate.service';
@@ -12,12 +12,6 @@ import { AuthGuard } from './guards/auth.guards';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
-  declarations: [
-    SideNavComponent
-  ],
-  exports: [
-    SideNavComponent
   ],
   providers: [
     CalculateService,
