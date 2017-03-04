@@ -18,7 +18,7 @@ export class AuthenticationService {
             'Content-Type': 'application/json',
         });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('http://46.101.130.122:8081/authenticate', body, options)
+        return this.http.post('http://localhost:8081/authenticate', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
