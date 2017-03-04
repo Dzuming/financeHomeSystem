@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ProductPipe } from './product/product.pipe';
@@ -18,7 +19,8 @@ import { SideNavComponent } from './shared/side-nav/side-nav.component';
     AppRoutingModule,
     LoginModule,
     ProductModule,
-    CompareModule
+    CompareModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })

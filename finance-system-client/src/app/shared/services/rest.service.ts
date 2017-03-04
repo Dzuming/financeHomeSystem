@@ -5,7 +5,7 @@ import { Product } from '../models/product.model';
 @Injectable()
 export class RestService {
     private errorMessage: string;
-    public product: Product[];
+    
     private productUrl: string = 'http://46.101.130.122:8081/';
     constructor(private http: Http) { }
 
