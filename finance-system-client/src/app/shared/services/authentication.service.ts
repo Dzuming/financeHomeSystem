@@ -3,7 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
-
+import {URL} from '../../../config';
 @Injectable()
 export class AuthenticationService {
     public token: string;
@@ -18,7 +18,7 @@ export class AuthenticationService {
             'Content-Type': 'application/json',
         });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('http://localhost:8081/authenticate', body, options)
+        return this.http.post(URL + 'authenticate', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
