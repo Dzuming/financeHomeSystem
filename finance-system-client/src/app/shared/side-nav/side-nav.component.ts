@@ -14,7 +14,7 @@ export class SideNavComponent implements OnInit {
   }
   private errorMessage: string;
   private filterDate: string;
-  private product: Product[];
+  
   constructor(private chartService: ChartService, private restService: RestService, public calculateService: CalculateService, ) { }
 
   ngOnInit() {
@@ -23,12 +23,12 @@ export class SideNavComponent implements OnInit {
     this.restService.getProducts(filter)
       .subscribe(
       (data: Product[]) => {
-        this.product = data;
+        this.restService.product = data;
       },
       error => this.errorMessage = <any>error,
       () => {
-        this.chartService.updateChart(this.product);
-        this.calculateService.calculateProfitAndSpending(this.product);
+        this.chartService.updateChart(this.restService.product);
+        this.calculateService.calculateProfitAndSpending(this.restService.product);
       });
   }
 }
