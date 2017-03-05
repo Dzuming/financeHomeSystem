@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../models/product.model';
-import {URL} from '../../../../config';
+import {URL} from '../config';
 @Injectable()
 export class RestService {
     private errorMessage: string;
