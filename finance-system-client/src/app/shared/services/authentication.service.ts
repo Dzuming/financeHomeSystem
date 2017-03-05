@@ -3,7 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
-import {URL} from '../../../../config';
+import {URL} from '../config';
 @Injectable()
 export class AuthenticationService {
     public token: string;
