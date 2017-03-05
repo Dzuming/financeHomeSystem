@@ -6,25 +6,25 @@ import { Product } from '../models/product.model';
 export class RestService {
     private errorMessage: string;
     
-    private productUrl: string = 'http://46.101.130.122:8081/';
+    private productUrl: string = 'http://localhost:8081/';
     constructor(private http: Http) { }
 
     getProducts(filter?: String): Observable<any[]> {
-        let test = this.productUrl + 'Product/';
+        let products = URL + 'Product/';
         if (filter) {
-            test = this.productUrl + 'Product/' + filter;
+            products = URL + 'Product/' + filter;
         }
-        return this.http.get(test)
+        return this.http.get(products)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getCategory(): Observable<Product[]> {
-        return this.http.get(this.productUrl + 'Category')
+        return this.http.get(URL + 'Category')
             .map(this.extractData)
             .catch(this.handleError);
     }
     getBudget(): Observable<any[]> {
-        return this.http.get(this.productUrl + 'Budget')
+        return this.http.get(URL + 'Budget')
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -34,7 +34,7 @@ export class RestService {
             'Content-Type': 'application/json',
         });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.productUrl + 'Product', body, options)
+        return this.http.post(URL + 'Product', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
