@@ -7,7 +7,7 @@ import {URL} from '../../../../config';
 export class RestService {
     private errorMessage: string;
     constructor(private http: Http) { }
-
+    public product: Product[];
     getProducts(filter?: String): Observable<any[]> {
         let products = URL + 'Product/';
         if (filter) {

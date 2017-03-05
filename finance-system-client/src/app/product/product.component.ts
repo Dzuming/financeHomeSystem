@@ -38,7 +38,6 @@ export class ProductComponent implements OnInit {
     public categories: Array<any> = [];
     public defaultSelectValue;
     public selectUndefinedOptionValue;
-    public product: Product[];
     public constructor(
         private calculateService: CalculateService,
         private restService: RestService,
@@ -76,13 +75,13 @@ export class ProductComponent implements OnInit {
         this.restService.getProducts(filter)
             .subscribe(
             (data: Product[]) => {
-                this.product = data;
+                this.restService.product = data;
             },
             error => this.errorMessage = <any>error,
             () => {
-                this.calculateService.calculateProfitAndSpending(this.product);
-                this.calculateService.calculateBudget(this.product, this.calculateService.startingBudget);
-                this.chartService.updateChart(this.product)
+                this.calculateService.calculateProfitAndSpending(this.restService.product);
+                this.calculateService.calculateBudget(this.restService.product, this.calculateService.startingBudget);
+                this.chartService.updateChart(this.restService.product)
                 this.restService.getBudget();
             });
     }
