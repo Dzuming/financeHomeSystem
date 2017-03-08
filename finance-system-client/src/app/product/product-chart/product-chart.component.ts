@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
-import { RestService } from '../shared/services/rest.service';
-import { ChartService } from '../shared/services/chart.service';
-import { CalculateService } from '../shared/services/calculate.service';
+import { RestService } from '../../shared/services/rest.service';
+import { ChartService } from '../../shared/services/chart.service';
+import { CalculateService } from '../../shared/services/calculate.service';
 @Component({
   moduleId: 'module.id',
   selector: 'app-chart',
   templateUrl: './product-chart.component.html',
+  styleUrls: ['product-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ChartComponent implements OnInit {

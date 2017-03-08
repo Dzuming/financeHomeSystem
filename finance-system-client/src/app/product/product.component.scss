@@ -1,0 +1,51 @@
+.row {
+        padding-top: 1.875rem;
+        app-side-nav {
+            padding-left: 30px;
+        }
+        .table-striped {
+            border: 1px solid #9C9C9C;
+            margin-bottom: 0 !important;
+            thead {
+                display: block;
+                tr {
+                    outline: 1px solid #9C9C9C;
+                    th:last-child {
+                        min-width: 5.375rem;
+                    }
+                }
+            }
+            tbody {
+                max-height: 28.13rem;
+                display: block;
+                overflow-y: auto;
+                tr:not(:first-of-type) {
+                    td {
+                        border-top: 1px solid #9C9C9C
+                    }
+                }
+            }
+        }
+        form {
+            tr {
+                border: 1px solid #9C9C9C;
+                background-color: #907878;
+                td {
+                    padding-bottom: 0px;
+                }
+                td:last-child {
+                    padding-right: 1.875rem;
+                }
+                input,
+                select {
+                    padding: 0.25rem;
+                }
+            }
+            .alert-danger {
+                position: absolute;
+            }
+        }
+        button {
+        width: 3.125rem;
+    }
+    }

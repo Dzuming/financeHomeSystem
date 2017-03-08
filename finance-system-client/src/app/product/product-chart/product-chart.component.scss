@@ -1,0 +1,28 @@
+aside {
+        ul {
+            height: 11.17rem;
+            list-style-type: none;
+            border: 1px solid #9C9C9C;
+            padding: 0 !important;
+            li {
+                text-align: left;
+                align-items: center;
+                border: 1px solid #9C9C9C;
+                background-color: #eceeef;
+            }
+            span {
+                float: right;
+            }
+        }
+        .tooltip {
+            position: absolute;
+            width: auto;
+            height: auto;
+            padding: 0.625rem 1.875rem;
+            background-color: #CECECE;
+            display: block;
+        }
+        #chart {
+            padding-top: 2.5rem
+        }
+    }
