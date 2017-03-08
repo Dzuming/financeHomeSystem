@@ -10,13 +10,16 @@
             margin-right: 0 !important;
             height: 13.4rem;
             list-style-type: none;
-            border: 1px solid #9C9C9C;
             padding: 0 !important;
             li {
                 text-align: left;
                 align-items: center;
-                border: 1px solid #9C9C9C;
+                border: solid #9C9C9C;
+                border-width: 1px 0;
                 background-color: #eceeef;
+                &:first-child {
+                    border-top:0;
+                }
             }
         }     
         }
