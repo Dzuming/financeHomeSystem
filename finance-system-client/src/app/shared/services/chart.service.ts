@@ -17,6 +17,9 @@ export class ChartService {
   constructor() { }
 
   createChart(data) {
+    if (data.length === 0) {
+      return;
+    }
     this.calculateArc(this.width, this.height);
     this.svg = d3.select('#chart')
       .append('svg')
@@ -121,6 +124,7 @@ export class ChartService {
   }
   updateChart(data) {
     if (!this.svg) {
+      this.createChart(data);
       return;
     }
     this.pieValue(data)

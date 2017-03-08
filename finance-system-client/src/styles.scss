@@ -159,6 +159,9 @@ html {
         width: 3.125rem;
     }
     .loader {
+        position: absolute;
+        left: 50vw;
+        top: 50vh;
         border: 16px solid #f3f3f3;
         /* Light grey */
         border-top: 16px solid #3498db;
