@@ -1,8 +1,13 @@
-
-        
-        ul {
+@import "./src/content/variables.scss";
+        aside {
             margin-top: 5px;
+            background: #eceeef;
+            height:$max-app-height;
+            margin-right: -15px;
+            border: 1px solid #9C9C9C;
+           ul {
             margin-left: 0 !important;
+            margin-right: 0 !important;
             height: 13.4rem;
             list-style-type: none;
             border: 1px solid #9C9C9C;
@@ -13,5 +18,7 @@
                 border: 1px solid #9C9C9C;
                 background-color: #eceeef;
             }
+        }     
         }
+        
     

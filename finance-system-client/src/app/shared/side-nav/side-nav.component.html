@@ -1,7 +1,10 @@
-<ul class="row d-flex">
-    <li class="p-2 col-sm-12">User</li>
-    <li class="p-2 col-sm-12">Spending list</li>
-    <li [routerLink]="navigateUrl.Url" class="p-2 col-sm-12" (click) = "changeNavigateUrl()">{{navigateUrl.name}}</li>
-    <li class="p-2 col-sm-12">Generate raport</li>
-    <li class="p-2 col-sm-12"><input type="month" min="2017-01" max="2017-02" (change)="getProducts(calculateService.filterDate)" [(ngModel)]="calculateService.filterDate" /></li>
-</ul>
+<aside>
+    <ul class="row d-flex">
+        <li class="p-2 col-sm-12">User</li>
+        <li class="p-2 col-sm-12">Spending list</li>
+        <li [routerLink]="navigateUrl.Url" class="p-2 col-sm-12" (click)="changeNavigateUrl()">{{navigateUrl.name}}</li>
+        <li class="p-2 col-sm-12">Generate raport</li>
+        <li class="p-2 col-sm-12">
+            <input type="month" min="2017-01" max="2017-02" (change)="getProducts(calculateService.filterDate)" [(ngModel)]="calculateService.filterDate"/></li>
+    </ul>
+</aside>

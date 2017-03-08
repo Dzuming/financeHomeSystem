@@ -1,12 +1,16 @@
+@import "./src/content/variables.scss";
 .row {
         padding-top: 1.875rem;
         app-side-nav {
             padding-left: 30px;
         }
-        .table-striped {
+        section {
+            height: $max-app-height;
+            .table-striped {
             border: 1px solid #9C9C9C;
             margin-bottom: 0 !important;
             thead {
+                height: $form-header-height;
                 display: block;
                 tr {
                     outline: 1px solid #9C9C9C;
@@ -16,7 +20,7 @@
                 }
             }
             tbody {
-                max-height: 28.13rem;
+                max-height: ($max-app-height - $add-product-form-tbody - $form-header-height + $add-product-form-margin);
                 display: block;
                 overflow-y: auto;
                 tr:not(:first-of-type) {
@@ -45,7 +49,21 @@
                 position: absolute;
             }
         }
+        .add-product-form {
+            position: absolute;   
+            top:($max-app-height - $add-product-form-tbody);
+            margin-right: $standard-margin;
+            table {
+                margin-top:$add-product-form-margin;
+                tbody {
+                height: $add-product-form-tbody;
+            }    
+            }
+             
+        }
         button {
         width: 3.125rem;
     }
+        }
+        
     }
