@@ -13,7 +13,7 @@ export class AppComponent implements OnInit  {
     this.getUrlPath()
   }
    getUrlPath () {
-    this.router.events.subscribe((val) => {
+    this.router.events.subscribe(() => {
         this.urlPath = this.router.url
     });
    } 
