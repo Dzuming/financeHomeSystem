@@ -1,4 +1,7 @@
 @import "./src/content/variables.scss";
+aside {
+    height: $max-app-height;
+}
 .row {
         padding-top: 1.875rem;
         app-side-nav {

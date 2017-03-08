@@ -1,0 +1,6 @@
+@import "./src/content/variables.scss";
+ul {
+    height: $calculate-list-height;
+    position: absolute;
+    top: ($max-app-height - $calculate-list-height);
+}
