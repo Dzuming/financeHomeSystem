@@ -10,13 +10,13 @@ aside {
         section {
             height: $max-app-height;
             .table-striped {
-            border: 1px solid #9C9C9C;
+            border: 1px solid $border-grey-color;
             margin-bottom: 0 !important;
             thead {
                 height: $form-header-height;
                 display: block;
                 tr {
-                    outline: 1px solid #9C9C9C;
+                    outline: 1px solid $border-grey-color;
                     th:last-child {
                         min-width: 5.375rem;
                     }
@@ -28,15 +28,15 @@ aside {
                 overflow-y: auto;
                 tr:not(:first-of-type) {
                     td {
-                        border-top: 1px solid #9C9C9C
+                        border-top: 1px solid $border-grey-color
                     }
                 }
             }
         }
         form {
             tr {
-                border: 1px solid #9C9C9C;
-                background-color: #907878;
+                border: 1px solid $border-grey-color;
+                background-color: $background-grey-color;
                 td {
                     padding-bottom: 0px;
                 }
