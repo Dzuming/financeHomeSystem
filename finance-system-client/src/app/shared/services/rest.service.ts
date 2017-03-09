@@ -2,28 +2,28 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../models/product.model';
-import {URL} from '../config';
+import {environment} from '../../../environments/environment';
 @Injectable()
 export class RestService {
     private errorMessage: string;
     constructor(private http: Http) { }
     public product: Product[];
     getProducts(filter?: String): Observable<any[]> {
-        let products = URL + 'Product/';
+        let products = environment.URL + 'Product/';
         if (filter) {
-            products = URL + 'Product/' + filter;
+            products = environment.URL + 'Product/' + filter;
         }
         return this.http.get(products)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getCategory(): Observable<Product[]> {
-        return this.http.get(URL + 'Category')
+        return this.http.get(environment.URL + 'Category')
             .map(this.extractData)
             .catch(this.handleError);
     }
     getBudget(): Observable<any[]> {
-        return this.http.get(URL + 'Budget')
+        return this.http.get(environment.URL + 'Budget')
             .map(this.extractData)
             .catch(this.handleError);
     }
