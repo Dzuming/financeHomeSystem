@@ -1,10 +1,10 @@
-@import "./src/content/variables.scss";
+@import "./src/content/_variables.scss";
         aside {
             margin-top: 5px;
-            background: #eceeef;
+            background: $label-grey-color;
             height:$max-app-height;
             margin-right: -15px;
-            border: 1px solid #9C9C9C;
+            border: 1px solid $border-grey-color;
            ul {
             margin-left: 0 !important;
             margin-right: 0 !important;
@@ -14,9 +14,9 @@
             li {
                 text-align: left;
                 align-items: center;
-                border: solid #9C9C9C;
+                border: solid $border-grey-color;
                 border-width: 1px 0;
-                background-color: #eceeef;
+                background-color: $label-grey-color;
                 &:first-child {
                     border-top:0;
                 }

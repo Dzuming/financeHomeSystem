@@ -1,6 +1,18 @@
-@import "./src/content/variables.scss";
+@import "./src/content/_variables.scss";
 ul {
     height: $calculate-list-height;
     position: absolute;
     top: ($max-app-height - $calculate-list-height);
+    list-style-type: none;
+    border: 1px solid $border-grey-color;
+    padding: 0 !important;
+    li {
+        text-align: left;
+        align-items: center;
+        border: 1px solid $border-grey-color;
+        background-color: $label-grey-color;
+    }
+    span {
+        float: right;
+    }
 }
