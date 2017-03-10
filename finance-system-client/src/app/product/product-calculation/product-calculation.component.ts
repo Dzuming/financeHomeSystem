@@ -6,7 +6,7 @@ import { CalculateService } from '../../shared/services/calculate.service';
   moduleId: 'module.id',
   selector: 'app-calculation',
   templateUrl: './product-calculation.component.html',
-  styleUrls:['product-calculation.component.scss']
+  styleUrls: ['product-calculation.component.scss']
 })
 export class CalculationComponent implements OnInit {
   private errorMessage: string;

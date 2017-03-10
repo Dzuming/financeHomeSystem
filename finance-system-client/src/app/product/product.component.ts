@@ -14,7 +14,7 @@ import { Product } from '../shared/models/product.model';
 export class ProductComponent implements OnInit {
     private spending;
     private errorMessage: string;
-    private Profit: number = 0;
+    private Profit = 0;
     private validationMessages = {
         'Description': {
             'required': 'Description is required.',
@@ -81,7 +81,7 @@ export class ProductComponent implements OnInit {
             () => {
                 this.calculateService.calculateProfitAndSpending(this.restService.product);
                 this.calculateService.calculateBudget(this.restService.product, this.calculateService.startingBudget);
-                this.chartService.updateChart(this.restService.product)
+                this.chartService.updateChart(this.restService.product);
                 this.restService.getBudget();
             });
     }
@@ -92,10 +92,10 @@ export class ProductComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
     private tableSort() {
-        let table = document.querySelector('.table-striped');
-        let thead = table.querySelectorAll('thead');
-        let tr = [].slice.call(thead[0].rows, 0);
-        let th = [].slice.call(tr[0].cells, 0);
+        const table = document.querySelector('.table-striped'),
+            thead = table.querySelectorAll('thead'),
+            tr = [].slice.call(thead[0].rows, 0),
+            th = [].slice.call(tr[0].cells, 0);
         let isClicked;
         th.map(element => {
             element.addEventListener('click', () => {

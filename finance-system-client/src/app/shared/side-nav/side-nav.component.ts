@@ -14,14 +14,16 @@ export class SideNavComponent implements OnInit {
   private errorMessage: string;
   private filterDate: string;
   private getUrlPath: any;
-  constructor(private chartService: ChartService, private restService: RestService, public calculateService: CalculateService, private router: Router) { }
+  constructor(
+    private chartService: ChartService,
+    private restService: RestService,
+    public calculateService: CalculateService,
+    private router: Router) { }
   ngOnInit() {
     this.getUrlPath = this.router.events.subscribe(
       () => this.changeNavigateUrl(this.router.url)
     );
   }
-    
-
   public getProducts(filter) {
     this.restService.getProducts(filter)
       .subscribe(
@@ -42,11 +44,11 @@ export class SideNavComponent implements OnInit {
       'Url': '/product',
       'name': 'Product'
 
-    }]
+    }];
     if (Object.keys(this.navigateUrl).length === 0 && options[0].Url === url) {
       this.navigateUrl = options[1];
     } else {
-      this.navigateUrl = this.navigateUrl['Url'] === options[0].Url ? options[1] : options[0]
+      this.navigateUrl = this.navigateUrl['Url'] === options[0].Url ? options[1] : options[0];
     }
     this.getUrlPath.unsubscribe();
     return this.navigateUrl;

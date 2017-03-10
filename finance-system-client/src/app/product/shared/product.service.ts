@@ -5,9 +5,9 @@ export class ProductService {
 
     constructor() { }
     public sorting(table, index, reverse) {
-        let tbody = table.querySelectorAll('tbody');
-        let tr = [].slice.call(tbody[0].rows);
-        let test = tr.sort((a, b) => {
+        const tbody = table.querySelectorAll('tbody');
+        const tr = [].slice.call(tbody[0].rows);
+        const test = tr.sort((a, b) => {
             if (!isNaN(parseFloat(a.cells[index].textContent))) {
                 return parseFloat(a.cells[index].textContent) - parseFloat(b.cells[index].textContent);
             }

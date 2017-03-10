@@ -117,7 +117,6 @@
 //       expect(budget.data[3].name).toEqual('Budget 3');
 //     });
 //   }));
-// 
 //   it('Should post new Product', inject([ProductService, XHRBackend], (ProductService, mockBackend) => {
 //     const mockResponse = {
 //       data: [

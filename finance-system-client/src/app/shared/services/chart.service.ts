@@ -13,7 +13,6 @@ export class ChartService {
   private readonly color = d3.scaleOrdinal(d3.schemeCategory20b);
   private readonly width = 300;
   private readonly height = 300;
-  private readonly
   constructor() { }
 
   createChart(data) {
@@ -27,19 +26,19 @@ export class ChartService {
       .attr('height', this.height)
       .append('g')
       .attr('transform', 'translate(' + (this.width / 2) + ',' + (this.height / 2) + ')');
-    this.pieValue(data)
+    this.pieValue(data);
     this.g = this.svg.selectAll('arc')
       .data(this.pie)
       .enter()
       .append('g')
       .attr('class', 'arc')
-      .each(d => {this.initAngle = d})
-      this.g.append('path')
+      .each(d => { this.initAngle = d; });
+    this.g.append('path');
     this.path = d3.selectAll('path')
       .attr('d', this.arc)
       .style('fill', (d: any) => this.color(d.data.key))
-      .style('stroke', (d: any) => this.color(d.data.key))
-      
+      .style('stroke', (d: any) => this.color(d.data.key));
+
     this.addText();
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
@@ -70,10 +69,10 @@ export class ChartService {
     this.arc = d3.arc()
       .innerRadius(radius - 70)
       .outerRadius(radius);
-      
+
   }
   addText() {
-    this.g.data(this.pie)
+    this.g.data(this.pie);
     this.g.append('text')
       .attr('transform', (d) => 'translate(' + this.arc.centroid(d) + ')')
       .attr('text-anchor', 'middle')
@@ -82,7 +81,7 @@ export class ChartService {
   }
   addtooltip(SumofAllCategories) {
     this.g.on('mouseover', function (d) {
-      let point = d3.mouse(this),
+      const point = d3.mouse(this),
         p = { x: point[0], y: point[1] };
       d3.select('#chart')
         .append('tooltip')
@@ -98,18 +97,18 @@ export class ChartService {
     });
   };
   addLegend() {
-    let legendRectSize = 18;
-    let legendSpacing = 4;
-    let legend = this.svg.selectAll('.legend')
+    const legendRectSize = 18;
+    const legendSpacing = 4;
+    const legend = this.svg.selectAll('.legend')
       .data(this.color.domain())
       .enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d, i) => {
-        let height = legendRectSize + legendSpacing;
-        let offset = height * this.color.domain().length / 2;
-        let horz = -2 * legendRectSize;
-        let vert = i * height - offset;
+        const height = legendRectSize + legendSpacing;
+        const offset = height * this.color.domain().length / 2;
+        const horz = -2 * legendRectSize;
+        const vert = i * height - offset;
         return 'translate(' + horz + ',' + vert + ')';
       });
     legend.append('rect')
@@ -127,17 +126,17 @@ export class ChartService {
       this.createChart(data);
       return;
     }
-    this.pieValue(data)
+    this.pieValue(data);
     this.g.selectAll('text').remove();
-    this.path = this.path.data(this.pie)
+    this.path = this.path.data(this.pie);
     this.path.transition().duration(750).attrTween('d', this.arcTween.bind(null, this.arc, this.initAngle));
     this.addText();
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
   };
   arcTween(arc, initAngle, a) {
-    let tempArc = arc;
-    let i = d3.interpolate(initAngle, a);
+    const tempArc = arc;
+    const i = d3.interpolate(initAngle, a);
     initAngle = i(0);
     return function (t) {
       return tempArc(i(t));

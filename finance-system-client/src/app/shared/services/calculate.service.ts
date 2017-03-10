@@ -19,9 +19,9 @@ export class CalculateService {
         return (budget + sumofAllCosts).toFixed(2);
     }
     currentDate() {
-        let today = new Date();
+        const today = new Date();
         let mm: number | string = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
+        const yyyy = today.getFullYear();
         if (mm < 10) {
             mm = '0' + mm;
         }
