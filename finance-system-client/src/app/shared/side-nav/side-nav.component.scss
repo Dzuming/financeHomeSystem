@@ -1,27 +1,38 @@
 @import "./src/content/_variables.scss";
-        aside {
-            margin-top: 5px;
-            background: $label-grey-color;
-            height:$max-app-height;
-            margin-right: -15px;
-            border: 1px solid $border-grey-color;
-           ul {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            height: 13.4rem;
-            list-style-type: none;
-            padding: 0 !important;
-            li {
-                text-align: left;
-                align-items: center;
-                border: solid $border-grey-color;
-                border-width: 1px 0;
-                background-color: $label-grey-color;
-                &:first-child {
-                    border-top:0;
-                }
-            }
-        }     
+aside {
+    h2 {
+        height: $logo-height;
+        i {
+            margin-right: 1.3rem;
         }
-        
-    
+        color: $label-grey-color;
+        text-align: right;
+        margin-right: 1rem
+    }
+    background-color: $side-nav-background !important;
+    margin-top: 5px;
+    background: $label-grey-color;
+    height: $max-app-height;
+    margin-right: -15px;
+    border: 1px solid $border-grey-color;
+    ul {
+        margin-top: ($max-app-height - $side-nav-height - $logo-height);
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        height: $side-nav-height;
+        list-style-type: none;
+        padding: 0 !important;
+        i {
+            margin-right: 5px;
+        }
+        li {
+            font-size: 1.25rem;
+            text-align: left;
+            align-items: center;
+            border: solid $border-grey-color;
+            border-width: 1px 0;
+            background-color: $side-nav-li-color;
+            cursor: pointer;
+        }
+    }
+}
