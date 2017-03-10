@@ -122,8 +122,10 @@ export class ChartService {
       .text((d) => d);
   }
   updateChart(data) {
-    if (!this.svg) {
+    if (!this.svg && data.length !== 0 || document.getElementsByTagName('svg').length === 0 && data.length !== 0) {
       this.createChart(data);
+    } else if (data.length === 0) {
+      d3.select('svg').remove();
       return;
     }
     this.pieValue(data);
