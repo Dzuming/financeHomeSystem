@@ -12,7 +12,7 @@ import { Product } from '../shared/models/product.model';
     styleUrls: ['product.component.scss']
 })
 export class ProductComponent implements OnInit {
-    private spending;
+    private profitAndLoss;
     private errorMessage: string;
     private Profit = 0;
     private validationMessages = {
@@ -24,14 +24,14 @@ export class ProductComponent implements OnInit {
         'categoryId': {
             'required': 'Category is required.'
         },
-        'Spending': {
-            'required': 'Spending is required.'
+        'profitAndLoss': {
+            'required': 'Profit&Loss is required.'
         }
     };
     public formErrors = {
         'Description': '',
         'categoryId': '',
-        'Spending': ''
+        'profitAndLoss': ''
     };
     public addProductForm: FormGroup;
     public category;
@@ -61,7 +61,7 @@ export class ProductComponent implements OnInit {
             categoryId: [this.formErrors.categoryId, [
                 Validators.required,
             ]],
-            Spending: [this.formErrors.Spending, [
+            profitAndLoss: [this.formErrors.profitAndLoss, [
                 Validators.required,
             ]],
         });
