@@ -1,18 +1,19 @@
 @import "./src/content/_variables.scss";
-ul {
-    height: $calculate-list-height;
-    position: absolute;
-    top: ($max-app-height - $calculate-list-height);
-    list-style-type: none;
-    border: 1px solid $border-grey-color;
-    padding: 0 !important;
-    li {
-        text-align: left;
-        align-items: center;
-        border: 1px solid $border-grey-color;
-        background-color: $label-grey-color;
-    }
-    span {
-        float: right;
+.row {
+    .col-sm-6 {
+        background-color: $border-grey-color;
+        border: 1px solid darken($border-grey-color, 40%);
+        border-radius: 1rem;
+        .big-number {
+            font-size: 100px;
+            i {
+                &:before {
+                    font-size: 60px;
+                }
+            }
+            .fa-arrow-up {
+                transform: rotate(45deg);
+            }
+        }
     }
 }

@@ -1,7 +1,14 @@
-<ul class="row d-flex">
-<li class="p-2 col-sm-12">Spending: <span>{{calculateService.sumOfProfitAndSpending}}</span></li>
-<li class="p-2 col-sm-12">TODO <span>TODO</span></li>
-<li class="p-2 col-sm-12">TODO <span>TODO</span></li>
-<li class="p-2 col-sm-12">Budget: <span>{{calculateService.currentBudget}}</span></li>
-</ul>
-
+<div class="row">
+    <div class="col col-sm-6 text-center">
+        <h1>Profit</h1>
+        <div class="big-number">
+            <div>
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>{{calculateService.sumOfProfitAndSpending}}</div>
+        </div>
+    </div>
+    <div class="col col-sm-6 text-center">
+        <h1>Overall Budget</h1>
+        <div class="big-number">
+            <i class="fa fa-university" aria-hidden="true"></i>{{calculateService.currentBudget}}</div>
+    </div>
+</div>
