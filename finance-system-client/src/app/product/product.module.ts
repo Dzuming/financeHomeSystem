@@ -9,6 +9,7 @@ import { CalculationComponent } from './product-calculation/product-calculation.
 import { ChartComponent } from './product-chart/product-chart.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductRoutingModule } from './product-routing.module';
+import { NoDataDirective } from '../shared/directives/no-data.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +22,8 @@ import { ProductRoutingModule } from './product-routing.module';
   declarations: [
     ProductComponent,
     ChartComponent,
-    CalculationComponent
+    CalculationComponent,
+    NoDataDirective
   ],
   exports: [
     ProductComponent

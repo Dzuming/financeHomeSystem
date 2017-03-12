@@ -60,4 +60,17 @@ html {
             opacity: 1;
         }
     }
+    .no-data {
+        border: 1px solid black;
+        height: 600px;
+        &:before {
+            position: absolute;
+            left: 30%;
+            top: 50%;
+            font-family: FontAwesome;
+            content: '\f071 No data!';
+            color: red;
+            font-size: 50px;
+        }
+    }
 }

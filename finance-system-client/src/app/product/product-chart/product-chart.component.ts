@@ -19,10 +19,10 @@ export class ChartComponent implements OnInit {
   }
   private getData(filter) {
     this.restService.getProducts(filter).subscribe(
-      data => this.data = data,
+      data => this.restService.product = data,
       error => this.errorMessage = <any>error,
       () => {
-        this.chartService.createChart(this.data);
+        this.chartService.createChart(this.restService.product);
       });
   }
 }
