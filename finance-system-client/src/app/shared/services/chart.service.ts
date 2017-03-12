@@ -16,6 +16,7 @@ export class ChartService {
   constructor() { }
 
   createChart(data) {
+    console.log('success')
     if (data.length === 0) {
       return;
     }

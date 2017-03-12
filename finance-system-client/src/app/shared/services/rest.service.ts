@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {Subject} from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class RestService {
     public product: Product[];
+    public ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
     constructor(private http: Http) { }
     getProducts(filter?: String): Observable<any[]> {
@@ -48,5 +50,8 @@ export class RestService {
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
+    }
+    public setProduct (product: Product[]) {
+        this.ProductBehavior.next(product)
     }
 }

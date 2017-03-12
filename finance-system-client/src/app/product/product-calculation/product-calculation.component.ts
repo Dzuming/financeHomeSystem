@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
+import {Subject} from 'rxjs';
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 @Component({
@@ -11,23 +12,28 @@ import { CalculateService } from '../../shared/services/calculate.service';
 export class CalculationComponent implements OnInit {
   private errorMessage: string;
   private currentBudget: string;
+  private subjectBudget: Subject<any[]> = new Subject<any[]>() ;
+  public startingBudget: number;
   private allProducts: Array<any> = [];
+  private sumOfProfitAndSpending: string;
   constructor(private restService: RestService, public calculateService: CalculateService) { }
 
   ngOnInit() {
-    this.getProducts(this.calculateService.filterDate);
+    this.getBudget()
+    this.getAllProducts()
+    this.subjectBudget.subscribe(
+      data => this.currentBudget  = this.calculateService.calculateBudget(data, this.calculateService.startingBudget)
+    )
+    
+    this.getProducts();
   }
-  private getProducts(filter) {
-    this.restService.getProducts(filter)
+  private getProducts() {
+    this.restService.ProductBehavior
       .subscribe(
       (data: Product[]) => {
-        this.calculateService.calculateProfitAndSpending(data);
-        this.getBudget();
+        this.sumOfProfitAndSpending = this.calculateService.calculateProfitAndSpending(data);
       },
-      error => this.errorMessage = <any>error,
-      () => {
-        this.getAllProducts();
-      });
+      error => this.errorMessage = <any>error);
   }
   private getBudget() {
     this.restService.getBudget()
@@ -39,11 +45,11 @@ export class CalculationComponent implements OnInit {
     this.restService.getProducts()
       .subscribe(
       data => {
-        this.allProducts = data;
+        this.allProducts = data;        ;
       },
       error => this.errorMessage = <any>error,
-      () => {
-        this.calculateService.calculateBudget(this.allProducts, this.calculateService.startingBudget);
-      });
+      () => this.subjectBudget.next(this.allProducts) 
+        
+      );
   }
 }

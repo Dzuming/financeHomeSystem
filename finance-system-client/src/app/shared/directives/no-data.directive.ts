@@ -12,10 +12,8 @@ export class NoDataDirective implements OnChanges {
     if (changes.product.currentValue && changes.product.currentValue.length === 0) {
       console.log('overall')
       this.errorBehavior(this.el, 'add');
-      console.log('add')
     } else if (changes.product.previousValue.length === 0 && changes.product.currentValue.length !== 0){
       this.errorBehavior(this.el, 'remove');
-      console.log('remove')
     }
   }
   errorBehavior(element, behavior) {

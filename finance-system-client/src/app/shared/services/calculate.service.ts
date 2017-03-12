@@ -5,8 +5,6 @@ import { RestService } from './rest.service';
 @Injectable()
 export class CalculateService {
     private errorMessage: string;
-    private sumOfProfitAndSpending: string;
-    private currentBudget: string;
     public startingBudget: number;
     public filterDate: string = this.currentDate();
     constructor(private http: Http, private restService: RestService) { }
@@ -28,9 +26,9 @@ export class CalculateService {
         return yyyy + '-' + mm;
     }
     calculateProfitAndSpending(data) {
-        this.sumOfProfitAndSpending = this.calculateValues(data);
+        return this.calculateValues(data);
     }
     calculateBudget(product, budget) {
-        this.currentBudget = this.calculateValues(product, budget);
+        return this.calculateValues(product, budget);
     }
 }
