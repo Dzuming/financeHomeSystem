@@ -12,7 +12,6 @@ import { Product } from '../shared/models/product.model';
     styleUrls: ['product.component.scss']
 })
 export class ProductComponent implements OnInit {
-    private profitAndLoss;
     private errorMessage: string;
     private Profit = 0;
     private validationMessages = {
@@ -24,20 +23,18 @@ export class ProductComponent implements OnInit {
         'categoryId': {
             'required': 'Category is required.'
         },
-        'profitAndLoss': {
-            'required': 'Profit&Loss is required.'
+        'Spending': {
+            'required': 'Spending is required.'
         }
     };
     public formErrors = {
         'Description': '',
         'categoryId': '',
-        'profitAndLoss': ''
+        'Spending': ''
     };
     public addProductForm: FormGroup;
     public category;
     public categories: Array<any> = [];
-    public defaultSelectValue;
-    public selectUndefinedOptionValue;
     public product: Product[];
     public constructor(
         private calculateService: CalculateService,
@@ -66,7 +63,7 @@ export class ProductComponent implements OnInit {
             categoryId: [this.formErrors.categoryId, [
                 Validators.required,
             ]],
-            profitAndLoss: [this.formErrors.profitAndLoss, [
+            Spending: [this.formErrors.Spending, [
                 Validators.required,
             ]],
         });

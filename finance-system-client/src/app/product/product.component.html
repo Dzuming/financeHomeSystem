@@ -5,7 +5,7 @@
                 <tr>
                     <th style="width:40%">Description</th>
                     <th style="width:40%">Category</th>
-                    <th style="width:20%">Profit&Loss</th>
+                    <th style="width:20%">Spending</th>
                     <th style="width:20%"></th>
                 </tr>
             </thead>
@@ -43,10 +43,10 @@
                         </td>
                         <td style="width:20%">
                             <div class="form-group">
-                                <input class="form-control" type="number" formControlName="profitAndLoss" placeholder="Profit&Loss" step="any" required>
+                                <input class="form-control" type="number" formControlName="Spending" placeholder="Spending" step="any" required>
 
-                                <div *ngIf="formErrors.profitAndLoss" class="alert alert-danger">
-                                    {{ formErrors.profitAndLoss }}
+                                <div *ngIf="formErrors.Spending" class="alert alert-danger">
+                                    {{ formErrors.Spending }}
                                 </div>
                             </div>
                         </td>

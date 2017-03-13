@@ -35,7 +35,7 @@ export class RestService {
             'Content-Type': 'application/json',
         });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post(URL + 'Product', body, options)
+        return this.http.post(environment.URL + 'Product', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
