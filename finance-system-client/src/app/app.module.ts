@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CompareModule } from './compare/compare.module';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { LoaderService } from './shared/services/loader.service';
-
+import { DropdownModule } from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { LoaderService } from './shared/services/loader.service';
     LoginModule,
     ProductModule,
     CompareModule,
-    FormsModule
+    FormsModule,
+    DropdownModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
