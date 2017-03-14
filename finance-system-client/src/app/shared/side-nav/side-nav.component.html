@@ -6,19 +6,11 @@
         <li class="p-2 col-sm-12"><i class="fa fa-list" aria-hidden="true"></i>Spending list</li>
         <li [routerLink]="navigateUrl.Url" class="p-2 col-sm-12" (click)="changeNavigateUrl()"><i class="fa fa-clone" aria-hidden="true"></i>{{navigateUrl.name}}</li>
         <li class="p-2 col-sm-12"><i class="fa fa-file-text" aria-hidden="true"></i>Generate raport</li>
-        <li class="p-2 col-sm-12"><i class="fa fa-clock-o" aria-hidden="true"></i>
+        <li class="p-2 col-sm-12"><i (click)="showChildModal()" class="fa fa-clock-o" aria-hidden="true"></i>
             <input type="month" min="2017-01" max="2017-03" (change)="getProducts(calculateService.filterDate)" [(ngModel)]="calculateService.filterDate" /></li>
     </ul>
 </aside>
-<div class="btn-group" dropdown>
-    <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
-    Button dropdown <span class="caret"></span>
-  </button>
-    <ul dropdownMenu role="menu" aria-labelledby="single-button">
-        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <app-side-nav-date-modal></app-side-nav-date-modal>
 </div>

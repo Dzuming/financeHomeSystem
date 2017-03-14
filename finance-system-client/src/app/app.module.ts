@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { CompareModule } from './compare/compare.module';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { LoaderService } from './shared/services/loader.service';
-import { DropdownModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ng2-bootstrap';
+import { SideNavDateModalComponent } from './shared/side-nav/side-nav-date-modal/side-nav-date-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent
+    SideNavComponent,
+    SideNavDateModalComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,7 @@ import { DropdownModule } from 'ng2-bootstrap';
     ProductModule,
     CompareModule,
     FormsModule,
-    DropdownModule.forRoot()
+    ModalModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
