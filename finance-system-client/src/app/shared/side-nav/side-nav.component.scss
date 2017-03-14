@@ -1,13 +1,20 @@
 @import "./src/content/_variables.scss";
 aside {
     h2 {
+        color: $label-grey-color;
         height: $logo-height;
         i {
             margin-right: 1.3rem;
         }
-        color: $label-grey-color;
         text-align: right;
-        margin-right: 1rem
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+    h1 {
+        position: absolute;
+        left: 100%;
+        bottom: $side-nav-height;
+        color: $label-grey-color;
     }
     background-color: $side-nav-background !important;
     margin-top: 5px;
