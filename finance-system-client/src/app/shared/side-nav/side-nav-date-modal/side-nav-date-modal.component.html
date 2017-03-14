@@ -1,13 +1,17 @@
-<div class="modal-dialog modal-sm">
+<div class="modal-dialog modal-md">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Child modal</h4>
+            <h4 class="modal-title pull-left">Select period for product list</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
         </div>
         <div class="modal-body">
-            I am a child modal, opened from parent component!
+            <ul>
+                <li><span data="2017-03" (click)="setDate($event)">March</span></li>
+                <li><span data="2017-02" (click)="setDate($event)">February</span></li>
+                <li><span data="2017-01" (click)="setDate($event)">January</span></li>
+            </ul>
         </div>
     </div>
 </div>
