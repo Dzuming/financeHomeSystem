@@ -73,4 +73,12 @@ html {
             font-size: 50px;
         }
     }
+    .tooltip {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 0.625rem 1.875rem;
+        background-color: #CECECE;
+        display: block;
+    }
 }
