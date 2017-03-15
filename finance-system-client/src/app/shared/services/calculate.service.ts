@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs';
 import { RestService } from './rest.service';
 @Injectable()
 export class CalculateService {
     private errorMessage: string;
+    public subjectBudget: Subject<any[]> = new Subject<any[]>();
     public startingBudget: number;
     public filterDate: string = this.currentDate();
     constructor(private http: Http, private restService: RestService) { }
@@ -30,5 +32,8 @@ export class CalculateService {
     }
     calculateBudget(product, budget) {
         return this.calculateValues(product, budget);
+    }
+    setBudget(budget) {
+        this.subjectBudget.next(budget)
     }
 }
