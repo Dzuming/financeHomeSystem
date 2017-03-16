@@ -1,8 +1,8 @@
-import { SideNavDateModalDirective } from './side-nav-date-modal.directive';
+import { DataListDirective } from './data-list.directive';
 
-describe('SideNavDateModalDirective', () => {
+describe('DataListDirective', () => {
   it('should create an instance', () => {
-    const directive = new SideNavDateModalDirective();
+    const directive = new DataListDirective();
     expect(directive).toBeTruthy();
   });
 });
