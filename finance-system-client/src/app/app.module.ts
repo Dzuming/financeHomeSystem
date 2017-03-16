@@ -10,12 +10,14 @@ import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { LoaderService } from './shared/services/loader.service';
 import { ModalModule } from 'ng2-bootstrap';
 import { SideNavDateModalComponent } from './shared/side-nav/side-nav-date-modal/side-nav-date-modal.component';
+import { DataListDirective } from './shared/side-nav/directives/data-list.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     SideNavComponent,
-    SideNavDateModalComponent
+    SideNavDateModalComponent,
+    DataListDirective
   ],
   imports: [
     BrowserModule,

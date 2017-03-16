@@ -7,6 +7,7 @@ import { RestService } from './rest.service';
 export class CalculateService {
     private errorMessage: string;
     public subjectBudget: Subject<any[]> = new Subject<any[]>();
+    public selectedData: Subject<string> = new Subject<string>();
     public startingBudget: number;
     public filterDate: string = this.currentDate();
     constructor(private http: Http, private restService: RestService) { }
@@ -35,5 +36,8 @@ export class CalculateService {
     }
     setBudget(budget) {
         this.subjectBudget.next(budget)
+    }
+    setData(data) {
+        this.selectedData.next(data)
     }
 }
