@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CalculateService } from '../../services/calculate.service';
 import { ChartService } from '../../services/chart.service';
 import { RestService } from '../../services/rest.service';
 import { Product } from '../../models/product.model';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 @Component({
   selector: 'app-side-nav-date-modal',
   templateUrl: './side-nav-date-modal.component.html',
   styleUrls: ['./side-nav-date-modal.component.scss']
 })
 export class SideNavDateModalComponent implements OnInit {
+  @ViewChild('childModal') public childModal: ModalDirective;
   @Input() selectedData: string;
   public product: Product[];
   private errorMessage: string;
@@ -17,7 +19,7 @@ export class SideNavDateModalComponent implements OnInit {
 
   ngOnInit() {
     this.calculateService.selectedData.subscribe(data => this.setDate(data))
-    
+
   }
   public getProducts(filter) {
     this.restService.getProducts(filter)
@@ -38,6 +40,11 @@ export class SideNavDateModalComponent implements OnInit {
     let value = dataAttr.nodeValue;
     this.calculateService.filterDate = value;
     this.getProducts(value);
-    console.log(value)
+  }
+  public showModal(): void {
+    this.childModal.show();
+  }
+  public hideModal() {
+    this.childModal.hide();
   }
 }

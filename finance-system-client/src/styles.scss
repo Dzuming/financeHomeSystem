@@ -81,4 +81,14 @@ html {
         background-color: #CECECE;
         display: block;
     }
+    .modal-body {
+        ul {
+            list-style: none;
+            li {
+                span {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }

@@ -1,21 +1,24 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalculateService } from '../services/calculate.service';
-import { ModalDirective } from 'ng2-bootstrap/modal';
+import { SideNavDateModalComponent } from './side-nav-date-modal/side-nav-date-modal.component';
+import { ModalDirective, ModalModule } from 'ng2-bootstrap';
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['side-nav.component.scss'],
 })
 export class SideNavComponent implements OnInit {
-  @ViewChild('childModal') public childModal: ModalDirective;
+  @ViewChild('childModal') childModal: SideNavDateModalComponent;
   public navigateUrl: Object = {};
   private filterDate: string;
   private getUrlPath: any;
-  
+
   constructor(
     public calculateService: CalculateService,
-    private router: Router) { }
+    private router: Router,
+    private viewContainerRef: ViewContainerRef
+  ) { }
   ngOnInit() {
     this.getUrlPath = this.router.events.subscribe(
       () => this.changeNavigateUrl(this.router.url)
@@ -38,9 +41,7 @@ export class SideNavComponent implements OnInit {
     this.getUrlPath.unsubscribe();
     return this.navigateUrl;
   }
-  public showChildModal(): void {
-    this.childModal.show();
-  }
 
-  
+
+
 }
