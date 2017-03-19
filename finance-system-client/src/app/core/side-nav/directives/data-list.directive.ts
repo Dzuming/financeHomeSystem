@@ -24,17 +24,28 @@ export class DataListDirective implements OnInit {
     let endMonthAndYear = endDate.split('-', 2).map((data => {
       return parseInt(data);
     }));
-    let i = endMonthAndYear[1];
+    this.addDataToModal(startMonthAndYear, endMonthAndYear);
+  }
+
+  public addDataToModal(startDate, endDate) {
+    let iterator = endDate[1];
     let modalBody = this.elementRef.nativeElement;
     modalBody.insertAdjacentHTML('afterBegin', '<ul>');
     let ul = modalBody.querySelector('ul');
-    while (i >= startMonthAndYear[1]) {
-      console.log(modalBody)
-      ul.insertAdjacentHTML('afterBegin', '<li><span data="2017-0' + i + '"</span>' + this.months[i - 1] + '</li>');
-      i--;
+    while (iterator >= startDate[1]) {
+      ul.insertAdjacentHTML('afterBegin', '<li><span data="2017-0' + iterator + '"</span>' + this.months[iterator - 1] + '</li>');
+      iterator--;
     }
-    this.renderer.listen(ul, 'click', event => {
-      this.calculateService.setData(event);
+    this.selectProductOnClick(ul)
+  }
+
+  selectProductOnClick(element) {
+    let span = element.querySelectorAll('span');
+    span.forEach(element => {
+      this.renderer.listen(element, 'click', event => {
+        this.calculateService.setData(event);
+      })
     })
+
   }
 }

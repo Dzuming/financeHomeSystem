@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
-
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 @Component({
   moduleId: 'module.id',
   selector: 'app-calculation',
   templateUrl: './product-calculation.component.html',
-  styleUrls: ['product-calculation.component.scss']
+  styleUrls: ['product-calculation.component.scss'],
 })
 export class CalculationComponent implements OnInit {
   private errorMessage: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import * as d3 from 'd3';
 import { RestService } from '../../shared/services/rest.service';
 import { ChartService } from '../../shared/services/chart.service';
