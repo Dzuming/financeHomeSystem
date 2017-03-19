@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { CalculateService } from '../../services/calculate.service';
-import { ChartService } from '../../services/chart.service';
-import { RestService } from '../../services/rest.service';
-import { Product } from '../../models/product.model';
+import { CalculateService } from '../../../shared/services/calculate.service';
+import { ChartService } from '../../../shared/services/chart.service';
+import { RestService } from '../../../shared/services/rest.service';
+import { Product } from '../../../shared/models/product.model';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 @Component({
   selector: 'app-side-nav-date-modal',

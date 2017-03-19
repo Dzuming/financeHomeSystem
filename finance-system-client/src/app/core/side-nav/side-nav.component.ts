@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalculateService } from '../services/calculate.service';
+import { CalculateService } from '../../shared/services/calculate.service';
 import { SideNavDateModalComponent } from './side-nav-date-modal/side-nav-date-modal.component';
 import { ModalDirective, ModalModule } from 'ng2-bootstrap';
 @Component({

@@ -50,8 +50,7 @@ export class ProductComponent implements OnInit {
         this.buildForm();
         this.restService.ProductBehavior.subscribe(
       data => this.product = data,
-      error => this.errorMessage = <any>error),
-      () => this.chartService.createChart(this.product)
+      error => this.errorMessage = <any>error)
     }
     public buildForm(): void {
         this.addProductForm = this.formBuilder.group({

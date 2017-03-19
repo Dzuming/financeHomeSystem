@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, HostListener, Renderer } from '@angular/core';
-import { CalculateService } from '../../services/calculate.service';
+import { CalculateService } from '../../../shared/services/calculate.service';
 import { Subject } from 'rxjs';
 @Directive({
   selector: '[appDataList]'
