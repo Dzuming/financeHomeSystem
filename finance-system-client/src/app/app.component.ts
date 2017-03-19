@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  public urlPath: string;
+  urlPath: string;
   constructor(private router: Router) { }
   ngOnInit() {
     this.getUrlPath();

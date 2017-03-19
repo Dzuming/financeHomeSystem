@@ -16,7 +16,7 @@ export class DataListDirective implements OnInit {
       }
     )
   }
-  public compareData(startDate, endDate) {
+  private compareData(startDate, endDate) {
     let startMonthAndYear = startDate.split('-', 2).map((data => {
       return parseInt(data);
     }));
@@ -27,9 +27,14 @@ export class DataListDirective implements OnInit {
     this.addDataToModal(startMonthAndYear, endMonthAndYear);
   }
 
-  public addDataToModal(startDate, endDate) {
-    let iterator = endDate[1];
+  private addDataToModal(startDate, endDate) {
     let modalBody = this.elementRef.nativeElement;
+    if (modalBody.querySelector('ul')) {
+      return;
+      
+    }
+    let iterator = endDate[1];
+    
     modalBody.insertAdjacentHTML('afterBegin', '<ul>');
     let ul = modalBody.querySelector('ul');
     while (iterator >= startDate[1]) {
@@ -39,7 +44,7 @@ export class DataListDirective implements OnInit {
     this.selectProductOnClick(ul)
   }
 
-  selectProductOnClick(element) {
+  private selectProductOnClick(element) {
     let span = element.querySelectorAll('span');
     span.forEach(element => {
       this.renderer.listen(element, 'click', event => {

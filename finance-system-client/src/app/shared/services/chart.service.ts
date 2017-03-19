@@ -16,7 +16,6 @@ export class ChartService {
   constructor() { }
 
   createChart(data) {
-    console.log('test')
     if (data.length === 0) {
       return;
     }
@@ -81,9 +80,7 @@ export class ChartService {
       .style('fill', '#fff');
   }
   addtooltip(SumofAllCategories) {
-    console.log(this.g)
-    this.g.on('mouseover', function (d) {
-      console.log('over')
+    this.g.on('mouseenter', function (d) {
       const point = d3.mouse(this),
         p = { x: point[0], y: point[1] };
       d3.select('#chart')
@@ -94,7 +91,7 @@ export class ChartService {
         .style('opacity', 1)
         .text(d.data.key + ': ' + ((d.data.value / SumofAllCategories) * 100).toFixed(2) + '%');
     });
-    this.g.on('mouseout', function (d) {
+    this.g.on('mouseleave', function (d) {
       d3.selectAll('tooltip')
         .remove();
     });
@@ -125,7 +122,6 @@ export class ChartService {
       .text((d) => d);
   }
   updateChart(data) {
-    console.log('test')
     if (!this.svg && data.length !== 0 || document.getElementsByTagName('svg').length === 0 && data.length !== 0) {
       this.createChart(data);
     } else if (data.length === 0) {
