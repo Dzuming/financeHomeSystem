@@ -39,7 +39,6 @@ export class DataListDirective implements OnInit {
     modalBody.insertAdjacentHTML('afterBegin', '<ul>');
     let ul = modalBody.querySelector('ul');
     while (iterator >= startMonth) {
-      
       ul.insertAdjacentHTML('afterBegin', '<li><span data= "' + this.calculateService.transformDate(iterator, endYear)  + '"</span>' + this.months[iterator - 1] + '</li>');
       iterator--;
     }

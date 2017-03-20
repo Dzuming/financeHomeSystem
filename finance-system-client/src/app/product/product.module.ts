@@ -10,6 +10,7 @@ import { ChartComponent } from './product-chart/product-chart.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductRoutingModule } from './product-routing.module';
 import { NoDataDirective } from '../shared/directives/no-data.directive';
+import { ProductTableComponent } from './product-table/product-table.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import { NoDataDirective } from '../shared/directives/no-data.directive';
     HttpModule,
     ReactiveFormsModule,
     SharedModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    ProductTableComponent
   ],
   declarations: [
     ProductComponent,
