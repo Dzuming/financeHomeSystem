@@ -12,11 +12,11 @@ export class DataListDirective implements OnInit {
   ngOnInit() {
     this.calculateService.subjectBudget.subscribe(
       data => {
-        this.compareData(data[0].DateCreated, data[data.length - 1].DateCreated)
+        this.createData(data[0].DateCreated, data[data.length - 1].DateCreated)
       }
     )
   }
-  private compareData(startDate, endDate) {
+  private createData(startDate, endDate) {
     let startMonthAndYear = startDate.split('-', 2).map((data => {
       return parseInt(data);
     }));
@@ -29,16 +29,18 @@ export class DataListDirective implements OnInit {
 
   private addDataToModal(startDate, endDate) {
     let modalBody = this.elementRef.nativeElement;
+    let startMonth = startDate[1];
+    let endMonth = endDate[1];
+    let endYear = endDate[0];
     if (modalBody.querySelector('ul')) {
       return;
-      
     }
-    let iterator = endDate[1];
-    
+    let iterator = endMonth;
     modalBody.insertAdjacentHTML('afterBegin', '<ul>');
     let ul = modalBody.querySelector('ul');
-    while (iterator >= startDate[1]) {
-      ul.insertAdjacentHTML('afterBegin', '<li><span data="2017-0' + iterator + '"</span>' + this.months[iterator - 1] + '</li>');
+    while (iterator >= startMonth) {
+      
+      ul.insertAdjacentHTML('afterBegin', '<li><span data= "' + this.calculateService.transformDate(iterator, endYear)  + '"</span>' + this.months[iterator - 1] + '</li>');
       iterator--;
     }
     this.selectProductOnClick(ul)

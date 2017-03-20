@@ -9,7 +9,7 @@ export class CalculateService {
     public subjectBudget: Subject<any[]> = new Subject<any[]>();
     public selectedData: Subject<string> = new Subject<string>();
     public startingBudget: number;
-    public filterDate: string = this.currentDate();
+    public filterDate: string = this.transformDate(this.getMonthOrYear(new Date().getMonth() + 1), this.getMonthOrYear(new Date().getFullYear()));
     constructor(private http: Http, private restService: RestService) { }
     calculateValues(productsSpending, budget?: number) {
         let sumofAllCosts = 0;
@@ -19,10 +19,12 @@ export class CalculateService {
         productsSpending.map(value => sumofAllCosts += value.Spending);
         return (budget + sumofAllCosts).toFixed(2);
     }
-    currentDate() {
+    getMonthOrYear(method) {
         const today = new Date();
-        let mm: number | string = today.getMonth() + 1;
-        const yyyy = today.getFullYear();
+        let mm: number | string = method;
+        return mm
+    }
+    transformDate(mm, yyyy) {
         if (mm < 10) {
             mm = '0' + mm;
         }
