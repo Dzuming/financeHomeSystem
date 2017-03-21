@@ -12,6 +12,7 @@ import { ProductRoutingModule } from './product-routing.module';
 import { NoDataDirective } from '../shared/directives/no-data.directive';
 import { ProductTableComponent } from './product-table/product-table.component';
 import { ProductFormComponent } from './product-form/product-form.component';
+import { TableSortDirective } from './shared/table-sort.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
     CalculationComponent,
     ProductTableComponent,
     NoDataDirective,
+    TableSortDirective,
     ProductFormComponent
   ],
   exports: [

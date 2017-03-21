@@ -21,29 +21,12 @@ export class ProductComponent implements OnInit {
         ) { }
 
     public ngOnInit() {
-        this.tableSort();
         this.restService.ProductBehavior.subscribe(
-      data => this.product = data,
-      error => this.errorMessage = <any>error)
+            data => this.product = data,
+            error => this.errorMessage = <any>error)
     }
     
     
     
-    private tableSort() {
-        const table = document.querySelector('.table-striped'),
-            thead = table.querySelectorAll('thead'),
-            tr = [].slice.call(thead[0].rows, 0),
-            th = [].slice.call(tr[0].cells, 0);
-        let isClicked;
-        th.map(element => {
-            element.addEventListener('click', () => {
-                if (element.cellIndex >= th.length - 1) {
-                    return 0;
-                } else {
-                    isClicked = isClicked === false ? true : false;
-                    this.productService.sorting(table, element.cellIndex, isClicked);
-                }
-            }, true);
-        });
-    }
+    
 }

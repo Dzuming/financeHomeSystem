@@ -13,12 +13,14 @@ import { LoaderService } from './shared/services/loader.service';
 import { ModalModule } from 'ng2-bootstrap';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     SideNavComponent,
     SideNavDateModalComponent,
-    DataListDirective
+    DataListDirective,
+    
   ],
   imports: [
     BrowserModule,
