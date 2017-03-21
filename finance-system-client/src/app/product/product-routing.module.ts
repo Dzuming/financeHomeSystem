@@ -1,16 +1,15 @@
-import { NgModule, ModuleWithProviders  } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductComponent } from './product.component';
+import { ProductSpendingComponent } from './product-spending/product-spending.component';
 import { AuthGuard } from '../shared/guards/auth.guards';
- export const productRouting: ModuleWithProviders  = RouterModule.forChild (  [
+export const productRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'product',
-        component: ProductComponent,
-        canActivate: [AuthGuard]
+        path: 'product/:param', component: ProductComponent, canActivate: [AuthGuard]
     },
 ]);
 @NgModule({
-  imports: [productRouting],
-  exports: [RouterModule]
+    imports: [productRouting],
+    exports: [RouterModule]
 })
 export class ProductRoutingModule { }

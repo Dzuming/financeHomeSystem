@@ -8,34 +8,43 @@ import { CalculateService } from '../../shared/services/calculate.service';
 })
 export class SideNavComponent implements OnInit {
   public navigateUrl: Object = {};
+  public costUrl: Object = {};
   private filterDate: string;
   private getUrlPath: any;
-
+  private compareOrProduct = [{
+    'Url': '/compare',
+    'name': 'Compare'
+  }, {
+    'Url': '/product/spending',
+    'name': 'Product'
+  }];
+  private spendingOrProfit = [{
+    'Url': '/product/profit',
+    'name': 'Profit List'
+  }, {
+    'Url': '/product/spending',
+    'name': 'Spending List'
+  }];
   constructor(
     public calculateService: CalculateService,
     private router: Router
   ) { }
   ngOnInit() {
     this.getUrlPath = this.router.events.subscribe(
-      () => this.changeNavigateUrl(this.router.url)
+      () => {
+         this.navigateUrl = this.changeNavigateUrl(this.compareOrProduct, this.navigateUrl, this.router.url);
+          this.costUrl = this.changeNavigateUrl(this.spendingOrProfit, this.costUrl, this.router.url);
+      }
     );
   }
-  public changeNavigateUrl(url?: string) {
-    const options = [{
-      'Url': '/compare',
-      'name': 'Compare'
-    }, {
-      'Url': '/product',
-      'name': 'Product'
-
-    }];
-    if (Object.keys(this.navigateUrl).length === 0 && options[0].Url === url) {
-      this.navigateUrl = options[1];
+  public changeNavigateUrl(options, container, url?: string) {
+    if (Object.keys(container).length === 0 && options[0].Url === url) {
+      container = options[1];
     } else {
-      this.navigateUrl = this.navigateUrl['Url'] === options[0].Url ? options[1] : options[0];
+      container = container['Url'] === options[0].Url ? options[1] : options[0];
     }
     this.getUrlPath.unsubscribe();
-    return this.navigateUrl;
+    return container;
   }
 
 
