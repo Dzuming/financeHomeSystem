@@ -15,14 +15,14 @@ export class SideNavComponent implements OnInit {
     'Url': '/compare',
     'name': 'Compare'
   }, {
-    'Url': '/product/spending',
+    'Url': '/product/Spending',
     'name': 'Product'
   }];
   private spendingOrProfit = [{
-    'Url': '/product/profit',
+    'Url': '/product/Profit',
     'name': 'Profit List'
   }, {
-    'Url': '/product/spending',
+    'Url': '/product/Spending',
     'name': 'Spending List'
   }];
   constructor(
