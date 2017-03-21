@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit() {
+    
   }
-
 }

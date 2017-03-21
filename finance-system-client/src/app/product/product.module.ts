@@ -11,6 +11,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductRoutingModule } from './product-routing.module';
 import { NoDataDirective } from '../shared/directives/no-data.directive';
 import { ProductTableComponent } from './product-table/product-table.component';
+import { ProductSpendingComponent } from './product-spending/product-spending.component';
+import { ProductProfitComponent } from './product-profit/product-profit.component';
+import { ProductFormComponent } from './product-form/product-form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,14 +21,17 @@ import { ProductTableComponent } from './product-table/product-table.component';
     HttpModule,
     ReactiveFormsModule,
     SharedModule,
-    ProductRoutingModule,
-    ProductTableComponent
+    ProductRoutingModule
   ],
   declarations: [
     ProductComponent,
     ChartComponent,
     CalculationComponent,
-    NoDataDirective
+    ProductTableComponent,
+    NoDataDirective,
+    ProductSpendingComponent,
+    ProductProfitComponent,
+    ProductFormComponent
   ],
   exports: [
     ProductComponent

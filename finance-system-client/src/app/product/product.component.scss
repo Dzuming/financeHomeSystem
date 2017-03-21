@@ -2,71 +2,16 @@
 aside {
     height: $max-app-height;
 }
+
 .row {
-        padding-top: 1.875rem;
-        app-side-nav {
-            padding-left: 30px;
-        }
-        section {
-            height: $max-app-height;
-            .table-striped {
-            border: 1px solid $border-grey-color;
-            margin-bottom: 0 !important;
-            thead {
-                height: $form-header-height;
-                display: block;
-                tr {
-                    outline: 1px solid $border-grey-color;
-                    th:last-child {
-                        min-width: 5.375rem;
-                    }
-                }
-            }
-            tbody {
-                max-height: ($max-app-height - $add-product-form-tbody - $form-header-height + $add-product-form-margin);
-                display: block;
-                overflow-y: auto;
-                tr:not(:first-of-type) {
-                    td {
-                        border-top: 1px solid $border-grey-color
-                    }
-                }
-            }
-        }
-        form {
-            tr {
-                border: 1px solid $border-grey-color;
-                background-color: $background-grey-color;
-                td {
-                    padding-bottom: 0px;
-                }
-                td:last-child {
-                    padding-right: 1.875rem;
-                }
-                input,
-                select {
-                    padding: 0.25rem;
-                }
-            }
-            .alert-danger {
-                position: absolute;
-            }
-        }
-        .add-product-form {
-            position: absolute;   
-            top:($max-app-height - $add-product-form-tbody);
-            margin-right: $standard-margin;
-            table {
-                margin-top:$add-product-form-margin;
-                tbody {
-                height: $add-product-form-tbody;
-            }    
-            }
-             
-        }
+    padding-top: 1.875rem;
+    app-side-nav {
+        padding-left: 30px;
+    }
+    section {
+        height: $max-app-height;
         button {
-        width: 3.125rem;
-    }
+            width: 3.125rem;
         }
-        
     }
+}
