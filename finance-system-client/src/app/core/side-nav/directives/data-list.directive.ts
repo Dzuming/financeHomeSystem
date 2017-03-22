@@ -12,7 +12,7 @@ export class DataListDirective implements OnInit {
   ngOnInit() {
     this.calculateService.subjectBudget.subscribe(
       data => {
-        this.createData(data[0].DateCreated, data[data.length - 1].DateCreated)
+        this.createData(data[data.length - 1].DateCreated, data[0].DateCreated)
       }
     )
   }

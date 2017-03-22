@@ -19,14 +19,16 @@ exports.create = function(req, res) {
 }
 
 exports.index = function(req, res) {
-
-    Product.find({}, (err, Product) => {
-        if (!req.params.DateCreated) {
-            res.status(200).json(Product)
-        } else {
-            res.status(200).json(Product.filter(element =>
-                element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
-                .includes(req.params.DateCreated.toString())))
-        }
-    }).populate("Category")
+    Product.find({})
+        .populate("Category")
+        .sort({ 'DateCreated': 'desc' })
+        .exec((err, Product) => {
+            if (!req.params.DateCreated) {
+                res.status(200).json(Product)
+            } else {
+                res.status(200).json(Product.filter(element =>
+                    element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
+                    .includes(req.params.DateCreated.toString())))
+            }
+        })
 }
