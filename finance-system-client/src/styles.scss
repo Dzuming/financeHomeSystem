@@ -29,133 +29,66 @@ html {
         outline: none;
         box-shadow: none;
     }
-    app-login {
-        .container {
-            width: 50rem;
-            margin-top: 12.5rem;
-            color: #782F18;
-            #form-container {
-                background-color: #8D887F;
-                border: 2px solid #625E55;
-                margin: 0 15rem;
-                .fa {
-                    margin-top: 2.635rem;
-                    position: absolute;
-                    left: 16.500rem;
-                }
-                label {
-                    float: left;
-                }
-                input {
-                    border: 1px solid black !important;
-                    padding-left: 2.2rem
-                }
-                .btn-primary {
-                    background-color: #782F18;
-                    border: 1px solid #2E0B00;
-                }
-            }
-            h2 {
-                padding-bottom: 2rem;
-            }
-        }
-        button {
-            width: 5rem;
+    .loader {
+        background: linear-gradient(to left, #304352, #d7d2cc);
+        width: 100vw;
+        height: 100vh;
+        &:before {
+            margin-left: 40vw;
+            margin-bottom: 100vh;
+            font-family: FontAwesome;
+            content: "\f155";
+            font-size: 30rem;
+            color: #1F4F37;
+            animation: loader 1.5s infinite;
         }
     }
-    app-side-nav {
-        top: 5px;
-        ul {
-            height: 11.88rem;
-            margin-left: 0 !important;
-            list-style-type: none;
-            border: 1px solid #9C9C9C;
-            padding: 0 !important;
-            li {
-                text-align: left;
-                align-items: center;
-                border: 1px solid #9C9C9C;
-                background-color: #eceeef;
-            }
+    @keyframes loader {
+        0% {
+            opacity: 0;
+        }
+        25% {
+            opacity: 0.25;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        75% {
+            opacity: 0.75;
+        }
+        100% {
+            opacity: 1;
         }
     }
-    aside {
-        ul {
-            height: 11.17rem;
-            list-style-type: none;
-            border: 1px solid #9C9C9C;
-            padding: 0 !important;
-            li {
-                text-align: left;
-                align-items: center;
-                border: 1px solid #9C9C9C;
-                background-color: #eceeef;
-            }
-            span {
-                float: right;
-            }
-        }
-        .tooltip {
+    .no-data {
+        border: 1px solid black;
+        height: 600px;
+        &:before {
             position: absolute;
-            width: auto;
-            height: auto;
-            padding: 0.625rem 1.875rem;
-            background-color: #CECECE;
-            display: block;
-        }
-        #chart {
-            padding-top: 2.5rem
+            left: 30%;
+            top: 50%;
+            font-family: FontAwesome;
+            content: '\f071 No data!';
+            color: red;
+            font-size: 50px;
         }
     }
-    .row {
-        padding-top: 1.875rem;
-        app-side-nav {
-            padding-left: 30px;
-        }
-        .table-striped {
-            border: 1px solid #9C9C9C;
-            margin-bottom: 0 !important;
-            thead {
-                display: block;
-                tr {
-                    outline: 1px solid #9C9C9C;
-                    th:last-child {
-                        min-width: 5.375rem;
-                    }
-                }
-            }
-            tbody {
-                max-height: 28.13rem;
-                display: block;
-                overflow-y: auto;
-                tr:not(:first-of-type) {
-                    td {
-                        border-top: 1px solid #9C9C9C
-                    }
-                }
-            }
-        }
-        form {
-            tr {
-                border: 1px solid #9C9C9C;
-                background-color: #907878;
-                td {
-                    padding-bottom: 0px;
-                }
-                td:last-child {
-                    padding-right: 1.875rem;
-                }
-                input,
-                select {
-                    padding: 0.25rem;
-                }
-            }
-            .alert-danger {
-                position: absolute;
-            }
-        }
+    .tooltip {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 0.625rem 1.875rem;
+        background-color: #CECECE;
+        display: block;
     }
-    button {
-        width: 3.125rem;
+    .modal-body {
+        ul {
+            list-style: none;
+            li {
+                span {
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

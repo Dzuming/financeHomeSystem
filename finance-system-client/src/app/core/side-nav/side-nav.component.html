@@ -1,0 +1,12 @@
+<aside>
+    <h2><i class="fa fa-money" aria-hidden="true"></i>Finance System</h2>
+    <h1>Spending</h1>
+    <ul class="row d-flex">
+        <li class="p-2 col-sm-12"><i class="fa fa-user-circle" aria-hidden="true"></i>User</li>
+        <li [routerLink]="costUrl.Url" class="p-2 col-sm-12" (click)="costUrl = changeNavigateUrl(spendingOrProfit, costUrl)"><i class=" fa fa-list " aria-hidden="true "></i>{{costUrl.name}}</li>
+        <li [routerLink]="navigateUrl.Url " class="p-2 col-sm-12 " (click)="navigateUrl = changeNavigateUrl(compareOrProduct, navigateUrl) "><i class="fa fa-clone " aria-hidden="true "></i>{{navigateUrl.name}}</li>
+        <li class="p-2 col-sm-12 "><i class="fa fa-file-text " aria-hidden="true "></i>Generate raport</li>
+        <li (click)="childModal.showModal(); " class="p-2 col-sm-12 "><i class="fa fa-clock-o " aria-hidden="true "></i>{{calculateService.filterDate}}</li>
+    </ul>
+</aside>
+<app-side-nav-date-modal #childModal [selectedData]="selectedData "></app-side-nav-date-modal>

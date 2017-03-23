@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
+    styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
     private errorMessage;
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
             data => {
                 if (data) {
-                    this.router.navigateByUrl('product');
+                    this.router.navigateByUrl('product/Spending');
                 }
             },
             error => this.errorMessage = <any>error);

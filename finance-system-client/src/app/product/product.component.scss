@@ -1,0 +1,17 @@
+@import "./src/content/_variables.scss";
+aside {
+    height: $max-app-height;
+}
+
+.row {
+    padding-top: 1.875rem;
+    app-side-nav {
+        padding-left: 30px;
+    }
+    section {
+        height: $max-app-height;
+        button {
+            width: 3.125rem;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@import "./src/content/_variables.scss";
+.row {
+    .col-sm-6 {
+        background-color: $border-grey-color;
+        border: 1px solid darken($border-grey-color, 40%);
+        border-radius: 1rem;
+        .big-number {
+            font-size: 100px;
+            i {
+                &:before {
+                    font-size: 60px;
+                }
+            }
+            .fa-arrow-up {
+                transform: rotate(45deg);
+            }
+        }
+    }
+}
