@@ -13,7 +13,7 @@
         }
     }
     tbody {
-        max-height: ($max-app-height - $add-product-form-tbody - $form-header-height + $add-product-form-margin);
+        max-height: ( $max-app-height - $add-product-form-tbody - $form-header-height);
         display: block;
         overflow-y: auto;
         tr:not(:first-of-type) {
