@@ -1,31 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { RestService } from '../../shared/services/rest.service';
+import { CalculateService } from '../../shared/services/calculate.service';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-product-form',
-  templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+    selector: 'app-product-form',
+    templateUrl: './product-form.component.html',
+    styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
+    private title;
+    private getUrlPath: any;
+    constructor(private restService: RestService, private formBuilder: FormBuilder, private calculateService: CalculateService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
-  constructor(private restService: RestService, private formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.buildForm();
-    this.getCategory();
-  }
-  public addProduct() {
+    ngOnInit() {
+        this.buildForm();
+        this.getCategory();
+         this.getUrlPath = this.router.events.subscribe(() => {
+        this.activatedRoute.params.subscribe(param => {
+        this.getUrlPath.unsubscribe();
+        this.title = param['param'];
+        if (param['param'] === 'Spending') {
+          
+          
+        } else {
+          
+        }
+      });
+         });
+    }
+    public addProduct() {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
         }
-        this.restService.addProducts(this.addProductForm.value)
+        this.restService.addSpendings(this.addProductForm.value)
             .subscribe(
             data => {
-                // this.getProducts(this.calculateService.filterDate);
+                this.getProducts(this.calculateService.filterDate);
                 this.addProductForm.reset();
             },
             error => this.errorMessage = <any>error);
+    }
+    private getProducts(filter) {
+        this.restService.getSpendings(filter)
+            .subscribe(
+            data => this.restService.setProduct(data));
     }
     private getCategory() {
         this.restService.getCategory()
@@ -33,7 +53,7 @@ export class ProductFormComponent implements OnInit {
             data => this.categories = data,
             error => this.errorMessage = <any>error);
     }
-  public buildForm(): void {
+    public buildForm(): void {
         this.addProductForm = this.formBuilder.group({
             Description: [this.formErrors.Description, [
                 Validators.required,
@@ -53,7 +73,7 @@ export class ProductFormComponent implements OnInit {
         this.onValueChanged();
 
     }
-private errorMessage: string;
+    private errorMessage: string;
     private Profit = 0;
     private validationMessages = {
         'Description': {

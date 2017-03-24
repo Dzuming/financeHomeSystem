@@ -1,16 +1,16 @@
 "use strict"
 
 const mongoose = require('mongoose');
-const Product = mongoose.model('Product');
+const profit = mongoose.model('profit');
 
 exports.create = function(req, res) {
-    let newProduct = new Product({
+    let newProfit = new profit({
         Category: req.body.categoryId,
         Description: req.body.Description,
-        Spending: req.body.Spending,
+        Profit: req.body.Profit,
         DateCreated: Date.now()
     })
-    newProduct.save((error => {
+    newProfit.save((error => {
         if (error) res.status(500).send(error);
         res.status(201).json({
             message: 'Question created successfully'
@@ -19,14 +19,14 @@ exports.create = function(req, res) {
 }
 
 exports.index = function(req, res) {
-    Product.find({})
+    profit.find({})
         .populate("Category")
         .sort({ 'DateCreated': 'desc' })
-        .exec((err, Product) => {
+        .exec((err, profit) => {
             if (!req.params.DateCreated) {
-                res.status(200).json(Product)
+                res.status(200).json(profit)
             } else {
-                res.status(200).json(Product.filter(element =>
+                res.status(200).json(profit.filter(element =>
                     element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
                     .includes(req.params.DateCreated.toString())))
             }

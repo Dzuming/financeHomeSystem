@@ -22,7 +22,7 @@ export class SideNavDateModalComponent implements OnInit {
 
   }
   public getProducts(filter) {
-    this.restService.getProducts(filter)
+    this.restService.getSpendings(filter)
       .subscribe(
       (data: Product[]) => {
         this.product = data;

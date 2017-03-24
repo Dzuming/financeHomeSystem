@@ -12,7 +12,7 @@ export class CalculationComponent implements OnInit {
   private errorMessage: string;
   private currentBudget: string;
   public startingBudget: number;
-  private allProducts: Array<any> = [];
+  private allSpendings: Array<any> = [];
   private sumOfProfitAndSpending: string;
   constructor(private restService: RestService, public calculateService: CalculateService) { }
 
@@ -23,9 +23,9 @@ export class CalculationComponent implements OnInit {
       data => this.currentBudget  = this.calculateService.calculateBudget(data, this.calculateService.startingBudget)
     )
     
-    this.getProducts();
+    this.getSpendings();
   }
-  private getProducts() {
+  private getSpendings() {
     this.restService.ProductBehavior
       .subscribe(
       (data: Product[]) => {
@@ -40,13 +40,13 @@ export class CalculationComponent implements OnInit {
       error => this.errorMessage = <any>error);
   }
   getAllProducts() {
-    this.restService.getProducts()
+    this.restService.getSpendings()
       .subscribe(
       data => {
-        this.allProducts = data;
+        this.allSpendings = data;
       },
       error => this.errorMessage = <any>error,
-      () => this.calculateService.setBudget(this.allProducts)
+      () => this.calculateService.setBudget(this.allSpendings)
         
       );
   }

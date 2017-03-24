@@ -10,12 +10,21 @@ export class RestService {
     public ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
     constructor(private http: Http) { }
-    getProducts(filter?: String): Observable<any[]> {
-        let products = environment.URL + 'Product/';
+    getSpendings(filter?: String): Observable<any[]> {
+        let spendingUrl = environment.URL + 'Spending/';
         if (filter) {
-            products = environment.URL + 'Product/' + filter;
+            spendingUrl = environment.URL + 'Spending/' + filter;
         }
-        return this.http.get(products)
+        return this.http.get(spendingUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getProfits(filter?: String): Observable<any[]> {
+        let profitUrl = environment.URL + 'Profit/';
+        if (filter) {
+            profitUrl = environment.URL + 'Profit/' + filter;
+        }
+        return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -29,13 +38,13 @@ export class RestService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    addProducts(product): Observable<Product> {
+    addSpendings(product): Observable<Product> {
         const body = JSON.stringify(product);
         const headers = new Headers({
             'Content-Type': 'application/json',
         });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post(environment.URL + 'Product', body, options)
+        return this.http.post(environment.URL + 'Spending', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

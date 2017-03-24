@@ -14,19 +14,19 @@ export class ProductTableComponent implements OnInit {
   public title: string; 
   private errorMessage: string;
   private getUrlPath: any;
-  constructor(private restService: RestService, private activatedRouter: ActivatedRoute, private calculateService: CalculateService, private chartService: ChartService, private router: Router) { }
+  constructor(private restService: RestService, private activatedRoute: ActivatedRoute, private calculateService: CalculateService, private chartService: ChartService, private router: Router) { }
 
   ngOnInit() {
     this.restService.ProductBehavior.subscribe(data => this.product = data)
     this.getUrlPath = this.router.events.subscribe(() => {
-      this.activatedRouter.params.subscribe(param => {
+      this.activatedRoute.params.subscribe(param => {
         this.getUrlPath.unsubscribe();
         this.title = param['param'];
         if (param['param'] === 'Spending') {
-          this.getProducts(this.restService.getProducts(this.calculateService.filterDate));
+          this.getProducts(this.restService.getSpendings(this.calculateService.filterDate));
           
         } else {
-          console.log('ddd')
+          this.getProducts(this.restService.getProfits(this.calculateService.filterDate));
         }
       });
     })
