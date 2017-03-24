@@ -1,23 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "./src/content/_variables.scss";
 @import "./node_modules/bootstrap/scss/_variables.scss";
 @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
-$enable-flex: true !default;
 html {
-    width: 98%;
-    @include media-breakpoint-up(xs) {
+    height: $max-app-height;
+    width: $max-app-width;
+    max-height: 100%;
+    max-width: 100%;
+    @include media-breakpoint-up(md) {
         font-size: 12px;
     }
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(lg) {
         font-size: 13px;
     }
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(xl) {
         font-size: 14px;
     }
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(xxl) {
         font-size: 15px;
     }
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(xxxl) {
         font-size: 16px;
     }
     body {

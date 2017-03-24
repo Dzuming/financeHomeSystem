@@ -21,12 +21,10 @@
  
  .add-product-form {
      position: absolute;
-     top: ($max-app-height - $add-product-form-tbody);
+     bottom: 0;
      margin-right: $standard-margin;
      table {
-         margin-top: $add-product-form-margin;
-         tbody {
-             height: $add-product-form-tbody;
-         }
+         margin-bottom: 0;
+         height: $add-product-form-tbody;
      }
  }

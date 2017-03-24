@@ -1,5 +1,10 @@
 @import "./src/content/_variables.scss";
 aside {
+    background-color: $side-nav-background !important;
+    background: $label-grey-color;
+    height: $max-app-height;
+    margin-right: -15px;
+    border: 1px solid $border-grey-color;
     h2 {
         color: $label-grey-color;
         height: $logo-height;
@@ -12,20 +17,14 @@ aside {
     }
     h1 {
         position: absolute;
-        bottom: $side-nav-height;
         color: $label-grey-color;
     }
-    background-color: $side-nav-background !important;
-    margin-top: 5px;
-    background: $label-grey-color;
-    height: $max-app-height;
-    margin-right: -15px;
-    border: 1px solid $border-grey-color;
     ul {
-        margin-top: ($max-app-height - $side-nav-height - $logo-height);
+        position: absolute;
+        bottom: 0;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        height: $side-nav-height;
+        margin-bottom: 0;
         list-style-type: none;
         padding: 0 !important;
         i {
