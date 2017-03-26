@@ -6,4 +6,9 @@ const BudgetSchema = new Schema({
     Overall: { type: Number },
     DateCreated: { type: Date, default: '' },
 });
+BudgetSchema.statics.createBudget = function(newBudget) {
+    newBudget.save((error => {
+        if (error) res.status(500).send(error);
+    }))
+};
 mongoose.model('Budget', BudgetSchema);

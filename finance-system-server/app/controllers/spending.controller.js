@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 const spending = mongoose.model('spending');
-
-exports.create = function(req, res) {
+const Budget = mongoose.model('Budget');
+exports.create = function(req, res, next) {
     let newSpending = new spending({
         Category: req.body.categoryId,
         Description: req.body.Description,
@@ -16,8 +16,14 @@ exports.create = function(req, res) {
             message: 'Question created successfully'
         });
     }))
+    Budget.find({}, (err, Value) => {
+        let newBudget = new Budget({
+            Overall: Value[Value.length - 1].Overall + req.body.Spending,
+            DateCreated: Date.now()
+        })
+        Budget.createBudget(newBudget)
+    })
 }
-
 exports.index = function(req, res) {
     spending.find({})
         .populate("Category")

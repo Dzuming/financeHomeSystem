@@ -8,4 +8,7 @@ const SpendingSchema = new Schema({
     Description: { type: String, default: '' },
     Spending: { type: Number, default: '' }
 });
+SpendingSchema.statics.sumValues = function(element, prop) {
+    return element.reduce((accumulator, current) => accumulator + current[prop], 0);
+};
 mongoose.model('spending', SpendingSchema);

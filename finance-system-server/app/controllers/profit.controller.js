@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const profit = mongoose.model('profit');
-
+const Budget = mongoose.model('Budget');
 exports.create = function(req, res) {
     let newProfit = new profit({
         Category: req.body.categoryId,
@@ -16,6 +16,13 @@ exports.create = function(req, res) {
             message: 'Question created successfully'
         });
     }))
+    Budget.find({}, (err, Value) => {
+        let newBudget = new Budget({
+            Overall: Value[Value.length - 1].Overall + req.body.Profit,
+            DateCreated: Date.now()
+        })
+        Budget.createBudget(newBudget)
+    })
 }
 
 exports.index = function(req, res) {
