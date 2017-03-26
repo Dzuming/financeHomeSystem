@@ -18,15 +18,11 @@ export class ProductComponent implements OnInit {
         private restService: RestService,
         private productService: ProductService,
         private chartService: ChartService,
-        ) { }
+    ) { }
 
     public ngOnInit() {
         this.restService.ProductBehavior.subscribe(
             data => this.product = data,
             error => this.errorMessage = <any>error)
     }
-    
-    
-    
-    
 }

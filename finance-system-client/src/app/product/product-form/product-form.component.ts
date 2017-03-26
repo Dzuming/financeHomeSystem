@@ -16,18 +16,15 @@ export class ProductFormComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.getCategory();
-         this.getUrlPath = this.router.events.subscribe(() => {
-        this.activatedRoute.params.subscribe(param => {
-        this.getUrlPath.unsubscribe();
-        this.title = param['param'];
-        if (param['param'] === 'Spending') {
-          
-          
-        } else {
-          
-        }
-      });
-         });
+        this.getUrlPath = this.router.events.subscribe(() => {
+            this.activatedRoute.params.subscribe(param => {
+                this.getUrlPath.unsubscribe();
+                this.title = param['param'];
+                if (param['param'] === 'Spending') {
+                } else {
+                }
+            });
+        });
     }
     public addProduct() {
         if (!this.addProductForm.value) {

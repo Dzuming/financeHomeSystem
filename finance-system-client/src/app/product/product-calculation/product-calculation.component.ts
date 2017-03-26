@@ -10,10 +10,10 @@ import { CalculateService } from '../../shared/services/calculate.service';
 })
 export class CalculationComponent implements OnInit {
   private errorMessage: string;
-  private currentBudget: string;
+  public currentBudget: string;
   public startingBudget: number;
   private allSpendings: Array<any> = [];
-  private sumOfProfitAndSpending: string;
+  public sumOfProfitAndSpending: string;
   constructor(private restService: RestService, public calculateService: CalculateService) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class CalculationComponent implements OnInit {
       .subscribe(
       (data: Product[]) => {
         this.sumOfProfitAndSpending = this.calculateService.calculateProfitAndSpending(data);
-         this.getBudget()
+        this.getBudget();
       },
       error => this.errorMessage = <any>error);
   }

@@ -17,6 +17,6 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
     this.restService.ProductBehavior.subscribe(
       data => this.product = data,
-      error => this.errorMessage = <any>error)
+      error => this.errorMessage = <any>error);
   }
 }
