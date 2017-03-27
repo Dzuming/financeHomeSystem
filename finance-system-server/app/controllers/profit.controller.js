@@ -16,13 +16,14 @@ exports.create = function(req, res) {
             message: 'Question created successfully'
         });
     }))
-    Budget.find({}, (err, Value) => {
-        let newBudget = new Budget({
-            Overall: Value[Value.length - 1].Overall + req.body.Profit,
-            DateCreated: Date.now()
+    Budget.findOne({}, (err, Value) => {
+            let newBudget = new Budget({
+                Overall: Value[Value.length - 1].Overall + req.body.Profit,
+                DateCreated: Date.now()
+            })
+            Budget.createBudget(newBudget)
         })
-        Budget.createBudget(newBudget)
-    })
+        .sort({ 'DateCreated': 'desc' })
 }
 
 exports.index = function(req, res) {

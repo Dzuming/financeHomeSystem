@@ -8,6 +8,7 @@ exports.create = function(req, res, next) {
         Category: req.body.categoryId,
         Description: req.body.Description,
         Spending: req.body.Spending,
+        User: req.body.userId,
         DateCreated: Date.now()
     })
     newSpending.save((error => {
@@ -16,17 +17,20 @@ exports.create = function(req, res, next) {
             message: 'Question created successfully'
         });
     }))
-    Budget.find({}, (err, Value) => {
-        let newBudget = new Budget({
-            Overall: Value[Value.length - 1].Overall + req.body.Spending,
-            DateCreated: Date.now()
+    Budget.findOne({}, (err, Value) => {
+            let newBudget = new Budget({
+                Overall: Value.Overall + req.body.Spending,
+                DateCreated: Date.now()
+            })
+            Budget.createBudget(newBudget)
         })
-        Budget.createBudget(newBudget)
-    })
+        .sort({ 'DateCreated': 'desc' })
 }
 exports.index = function(req, res) {
     spending.find({})
+        .select('-User[Password]')
         .populate("Category")
+        .populate("User", "Email")
         .sort({ 'DateCreated': 'desc' })
         .exec((err, spending) => {
             if (!req.params.DateCreated) {

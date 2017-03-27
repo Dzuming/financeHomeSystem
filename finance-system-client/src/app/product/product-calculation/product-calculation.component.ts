@@ -31,7 +31,7 @@ export class CalculationComponent implements OnInit {
   private getBudget() {
     this.restService.getBudget()
       .subscribe(
-      data => this.currentBudget = data[data.length - 1].Overall,
+      data => this.currentBudget = data['Overall'],
       error => this.errorMessage = <any>error);
   }
 }

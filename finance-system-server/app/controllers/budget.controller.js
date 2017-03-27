@@ -11,32 +11,9 @@ let profitValue;
 //     johndoe.save(function(err) { if (err) console.log('Error on save!') });
 // }
 exports.index = function(req, res) {
-    Budget.find({}, (err, Budget) => {
-        res.status(200).json(Budget);
-    })
-}
-exports.create = function(param) {
-    Promise.all([
-        spending.find({})
-        .populate("Category")
-        .exec((err, value) => {
-            spendingValue = spending.sumValues(value, 'Spending')
-        }),
-        profit.find({})
-        .populate("Category")
-        .exec((err, value) => {
-            profitValue = spending.sumValues(value, 'Profit')
+    Budget
+        .findOne({}, (err, Budget) => {
+            res.status(200).json(Budget);
         })
-    ]).then(function() {
-        Budget.find({}, (err, Value) => {
-            let newBudget = new Budget({
-                Overall: Value[0].Overall + param,
-                DateCreated: Date.now()
-            })
-
-            newBudget.save((error => {
-                if (error) res.status(500).send(error);
-            }))
-        })
-    })
+        .sort({ 'DateCreated': 'desc' })
 }
