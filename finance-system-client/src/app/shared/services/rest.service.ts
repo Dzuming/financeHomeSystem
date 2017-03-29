@@ -11,9 +11,9 @@ export class RestService {
     private errorMessage: string;
     constructor(private http: Http) { }
     getSpendings(filter?: String): Observable<any[]> {
-        let spendingUrl = environment.URL + 'Spending/';
+        let spendingUrl = environment.URL  + 'Spending/';
         if (filter) {
-            spendingUrl = environment.URL + 'Spending/' + filter;
+            spendingUrl = environment.URL + 'Spending/dawidpoliszak@op.pl/' + filter;
         }
         return this.http.get(spendingUrl)
             .map(this.extractData)
@@ -35,6 +35,12 @@ export class RestService {
     }
     getBudget(): Observable<any[]> {
         return this.http.get(environment.URL + 'Budget')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getPeriod(): Observable<any[]> {
+        return this.http.get(environment.URL + 'Period')
             .map(this.extractData)
             .catch(this.handleError);
     }

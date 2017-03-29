@@ -29,14 +29,16 @@ exports.create = function(req, res) {
 exports.index = function(req, res) {
     profit.find({})
         .populate("Category")
+        .populate("User", "Email")
         .sort({ 'DateCreated': 'desc' })
         .exec((err, profit) => {
-            if (!req.params.DateCreated) {
-                res.status(200).json(profit)
-            } else {
-                res.status(200).json(profit.filter(element =>
-                    element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
-                    .includes(req.params.DateCreated.toString())))
-            }
+            res.status(200).json(profit.filter(element => {
+                if (!req.params.DateCreated && element.User) {
+                    return element.User.Email === req.params.Email
+                } else if (element.User) {
+                    return element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
+                        .includes(req.params.DateCreated.toString()) && element.User.Email === req.params.Email
+                }
+            }))
         })
 }

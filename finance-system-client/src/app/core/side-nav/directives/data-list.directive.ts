@@ -1,4 +1,5 @@
 import { Directive, ElementRef, OnInit, HostListener, Renderer } from '@angular/core';
+import { RestService } from '../../../shared/services/rest.service';
 import { CalculateService } from '../../../shared/services/calculate.service';
 import { Subject } from 'rxjs/Subject';
 @Directive({
@@ -8,11 +9,11 @@ export class DataListDirective implements OnInit {
   private startDate: string;
   private endDate: string;
   private readonly months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  constructor(private calculateService: CalculateService, private elementRef: ElementRef, private renderer: Renderer) { }
+  constructor(private calculateService: CalculateService, private restService: RestService, private elementRef: ElementRef, private renderer: Renderer) { }
   ngOnInit() {
-    this.calculateService.subjectBudget.subscribe(
+    this.restService.getPeriod().subscribe(
       data => {
-        this.createData(data[data.length - 1].DateCreated, data[0].DateCreated);
+        this.createData(data['startDate'], data['endDate']);
       }
     );
   }

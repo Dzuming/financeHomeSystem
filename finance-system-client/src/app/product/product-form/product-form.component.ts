@@ -31,7 +31,9 @@ export class ProductFormComponent implements OnInit {
             this.buildForm();
             return;
         }
-        this.restService.addSpendings(this.addProductForm.value)
+        let productsToPost = this.addProductForm.value;
+        productsToPost.userId = localStorage.getItem('userId')
+        this.restService.addSpendings(productsToPost)
             .subscribe(
             data => {
                 this.getProducts(this.calculateService.filterDate);

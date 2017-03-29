@@ -7,8 +7,8 @@
             <th style="width:20%"></th>
         </tr>
     </thead>
-    <tbody [product]="product" appNoData>
-        <tr role="row" *ngFor="let product of product ">
+    <tbody [products]="products" appNoData>
+        <tr role="row" *ngFor="let product of products">
             <td style="width:40%">{{product.Description}}</td>
             <td style="width:40%">{{product.Category.name}}</td>
             <td *ngIf="product.Spending" style="width:20%">{{product.Spending}}</td>

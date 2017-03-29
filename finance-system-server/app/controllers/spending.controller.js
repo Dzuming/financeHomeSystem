@@ -28,17 +28,27 @@ exports.create = function(req, res, next) {
 }
 exports.index = function(req, res) {
     spending.find({})
-        .select('-User[Password]')
         .populate("Category")
         .populate("User", "Email")
         .sort({ 'DateCreated': 'desc' })
         .exec((err, spending) => {
-            if (!req.params.DateCreated) {
-                res.status(200).json(spending)
-            } else {
-                res.status(200).json(spending.filter(element =>
-                    element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
-                    .includes(req.params.DateCreated.toString())))
-            }
+            res.status(200).json(spending.filter(element => {
+                if (!req.params.DateCreated && element.User) {
+                    return element.User.Email === req.params.Email
+                } else if (element.User) {
+                    return element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
+                        .includes(req.params.DateCreated.toString()) && element.User.Email === req.params.Email
+                }
+            }))
+        })
+}
+exports.period = function(req, res) {
+    spending.find({})
+        .select('DateCreated')
+        .exec((err, spending) => {
+            res.status(200).json({
+                'startDate': spending[0].DateCreated.toISOString().split('T')[0],
+                'endDate': spending[spending.length - 1].DateCreated.toISOString().split('T')[0]
+            })
         })
 }

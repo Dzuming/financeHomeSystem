@@ -10,14 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent implements OnInit {
-  public product: Product[];
+  public products: Product[];
   public title: string;
   private errorMessage: string;
   private getUrlPath: any;
   constructor(private restService: RestService, private activatedRoute: ActivatedRoute, private calculateService: CalculateService, private chartService: ChartService, private router: Router) { }
 
   ngOnInit() {
-    this.restService.ProductBehavior.subscribe(data => this.product = data);
+    this.restService.ProductBehavior.subscribe(data => this.products = data);
     this.getUrlPath = this.router.events.subscribe(() => {
       this.activatedRoute.params.subscribe(param => {
         this.getUrlPath.unsubscribe();
@@ -39,7 +39,7 @@ export class ProductTableComponent implements OnInit {
       },
       error => this.errorMessage = <any>error,
       () => {
-        this.chartService.updateChart(this.product);
+        this.chartService.updateChart(this.products);
         this.restService.getBudget();
       });
   }
