@@ -32,6 +32,10 @@ aside {
             margin-right: 5px;
         }
         li {
+            &:hover {
+                background-color: $active-color !important;
+                color: $label-grey-color;
+            }
             font-size: 1.25rem;
             text-align: left;
             align-items: center;
@@ -41,4 +45,9 @@ aside {
             cursor: pointer;
         }
     }
+}
+
+.active {
+    background-color: $active-color !important;
+    color: $label-grey-color;
 }
