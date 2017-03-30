@@ -54,7 +54,8 @@ exports.authenticate = function(req, res) {
                     success: true,
                     message: 'Enjoy your token!',
                     token: token,
-                    _id: user._id
+                    _id: user._id,
+                    Email: user.Email,
                 });
             }
         }

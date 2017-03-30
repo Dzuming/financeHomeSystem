@@ -23,6 +23,7 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 const token = response.json() && response.json().token;
                 const userId = response.json() && response.json()._id;
+                const email = response.json() && response.json().Email;
                 if (token) {
                     // set token property
                     this.token = token;
@@ -30,6 +31,7 @@ export class AuthenticationService {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('id_token', token);
                     localStorage.setItem('userId', userId);
+                    localStorage.setItem('email', email);
                     // return true to indicate successful login
                     return true;
                 } else {

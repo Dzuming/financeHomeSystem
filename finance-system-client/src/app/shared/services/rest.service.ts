@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 import { Product } from '../models/product.model';
 import { environment } from '../../../environments/environment';
 @Injectable()
@@ -11,19 +11,13 @@ export class RestService {
     private errorMessage: string;
     constructor(private http: Http) { }
     getSpendings(filter?: String): Observable<any[]> {
-        let spendingUrl = environment.URL  + 'Spending/';
-        if (filter) {
-            spendingUrl = environment.URL + 'Spending/dawidpoliszak@op.pl/' + filter;
-        }
+        let spendingUrl = environment.URL + 'Spending/' + localStorage.getItem('email') + '/' + filter;
         return this.http.get(spendingUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getProfits(filter?: String): Observable<any[]> {
-        let profitUrl = environment.URL + 'Profit/';
-        if (filter) {
-            profitUrl = environment.URL + 'Profit/' + filter;
-        }
+        let profitUrl = environment.URL + 'Profit/' + localStorage.getItem('email') + + filter;
         return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -66,7 +60,7 @@ export class RestService {
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
-    public setProduct (product: Product[]) {
+    public setProduct(product: Product[]) {
         this.ProductBehavior.next(product)
     }
 }

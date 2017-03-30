@@ -13,7 +13,11 @@ let profitValue;
 exports.index = function(req, res) {
     Budget
         .findOne({}, (err, Budget) => {
-            res.status(200).json(Budget);
+            res.status(200).json(Budget.filter(element => {
+                if (element.User) {
+                    return element.User.Email === req.params.Email
+                }
+            }))
         })
         .sort({ 'DateCreated': 'desc' })
 }

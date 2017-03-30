@@ -17,14 +17,20 @@ exports.create = function(req, res, next) {
             message: 'Question created successfully'
         });
     }))
-    Budget.findOne({}, (err, Value) => {
+    Budget.find({}, (err, Value) => {
             let newBudget = new Budget({
-                Overall: Value.Overall + req.body.Spending,
-                DateCreated: Date.now()
+                Overall: Value[0].Overall - req.body.Spending,
+                DateCreated: Date.now(),
+                User: req.body.userId
             })
             Budget.createBudget(newBudget)
         })
         .sort({ 'DateCreated': 'desc' })
+        .exec((err, spending) => spending.filter(element => {
+            if (element.User) {
+                element.User.Email === req.params.Email
+            }
+        }))
 }
 exports.index = function(req, res) {
     spending.find({})
@@ -33,9 +39,7 @@ exports.index = function(req, res) {
         .sort({ 'DateCreated': 'desc' })
         .exec((err, spending) => {
             res.status(200).json(spending.filter(element => {
-                if (!req.params.DateCreated && element.User) {
-                    return element.User.Email === req.params.Email
-                } else if (element.User) {
+                if (element.User) {
                     return element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
                         .includes(req.params.DateCreated.toString()) && element.User.Email === req.params.Email
                 }
