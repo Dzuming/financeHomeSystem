@@ -3,14 +3,16 @@
 .row {
     position: absolute;
     bottom: 0;
+    margin-right: 15px !important;
+    margin-left: 0 !important;
     .col-sm-12 {
         background-color: $border-grey-color;
         border: 1px solid darken($border-grey-color, 40%);
         border-radius: 1rem;
         .big-number {
-            font-size: 6.25rem;
+            font-size: 6rem;
             @include media-breakpoint-down(xl) {
-                font-size: 5rem;
+                font-size: 4.5rem;
             }
             i {
                 &:before {

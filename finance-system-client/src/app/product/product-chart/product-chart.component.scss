@@ -1,4 +1,7 @@
 @import "./src/content/_variables.scss";
-#chart {
+.row {
+    border: 1px solid $border-grey-color;
+    background-color: $modal-background-color;
     padding-top: 2.5rem;
+    padding: 0 -15px;
 }

@@ -1,6 +1,6 @@
 @import "./src/content/_variables.scss";
 aside {
-    background-color: $side-nav-background !important;
+    background-color: $modal-background-color !important;
     background: $label-grey-color;
     height: $max-app-height;
     margin-right: -15px;
@@ -27,6 +27,7 @@ aside {
         margin-bottom: 0;
         list-style-type: none;
         padding: 0 !important;
+        color: $modal-text-color;
         i {
             margin-right: 5px;
         }
@@ -36,7 +37,7 @@ aside {
             align-items: center;
             border: solid $border-grey-color;
             border-width: 1px 0;
-            background-color: $side-nav-li-color;
+            background-color: $modal-background-subcolor;
             cursor: pointer;
         }
     }

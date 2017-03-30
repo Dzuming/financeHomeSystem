@@ -10,7 +10,7 @@ export class TableSortDirective implements OnInit {
     this.tableSort()
   }
   private tableSort() {
-        const table = document.querySelector('.table-striped'),
+        const table = document.querySelector('.table'),
             thead = table.querySelectorAll('thead'),
             tr = [].slice.call(thead[0].rows, 0),
             th = [].slice.call(tr[0].cells, 0);
