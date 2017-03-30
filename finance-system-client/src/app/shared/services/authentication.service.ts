@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthenticationService {
     public token: string;
-    constructor(private http: Http) {
+    constructor(private http: Http, private router: Router) {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
@@ -48,6 +49,7 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('id_token');
+        this.router.navigateByUrl('/login');
     }
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure

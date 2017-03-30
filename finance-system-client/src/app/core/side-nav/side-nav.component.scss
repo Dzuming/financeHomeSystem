@@ -1,6 +1,11 @@
 @import "./src/content/_variables.scss";
 aside {
-    background-color: $side-nav-background !important;
+    img {
+        margin-top: 50px;
+        width: 200px;
+        height: 200px;
+    }
+    background-color: $modal-background-color !important;
     background: $label-grey-color;
     height: $max-app-height;
     margin-right: -15px;
@@ -27,17 +32,30 @@ aside {
         margin-bottom: 0;
         list-style-type: none;
         padding: 0 !important;
+        color: $modal-text-color;
         i {
             margin-right: 5px;
         }
         li {
+            &:hover {
+                background-color: $active-color !important;
+                color: $label-grey-color;
+            }
             font-size: 1.25rem;
             text-align: left;
             align-items: center;
             border: solid $border-grey-color;
             border-width: 1px 0;
-            background-color: $side-nav-li-color;
+            background-color: $modal-background-subcolor;
             cursor: pointer;
+            &:last-child {
+                color: red;
+            }
         }
     }
+}
+
+.active {
+    background-color: $active-color !important;
+    color: $label-grey-color;
 }

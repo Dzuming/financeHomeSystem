@@ -1,12 +1,14 @@
 <aside>
     <h2><i class="fa fa-money" aria-hidden="true"></i>Finance System</h2>
-    <h1>Spending</h1>
+    <img class="img-fluid rounded-circle img-thumbnail mx-auto d-block" alt="Responsive image" src="https://aos.iacpublishinglabs.com/question/aq/300px-169px/animals-thought-color-blind_50b0d41f7e24c13.jpg?domain=cx.aos.ask.com">
+    <h2 class="text-center">Dawid Poliszak</h2>
     <ul class="row d-flex">
-        <li class="p-2 col-sm-12"><i class="fa fa-user-circle" aria-hidden="true"></i>User</li>
-        <li [routerLink]="costUrl.Url" class="p-2 col-sm-12" (click)="costUrl = changeNavigateUrl(spendingOrProfit, costUrl)"><i class=" fa fa-list " aria-hidden="true "></i>{{costUrl.name}}</li>
-        <li [routerLink]="navigateUrl.Url " class="p-2 col-sm-12 " (click)="navigateUrl = changeNavigateUrl(compareOrProduct, navigateUrl) "><i class="fa fa-clone " aria-hidden="true "></i>{{navigateUrl.name}}</li>
+        <li [routerLink]="'/compare'" [routerLinkActive]="['active']" class="p-2 col-sm-12"><i class=" fa fa-clone " aria-hidden="true "></i>Compare</li>
+        <li [routerLink]="'/product/Spending'" [routerLinkActive]="['active']" class="p-2 col-sm-12"><i class="fa fa-list " aria-hidden="true "></i>Spending list</li>
+        <li [routerLink]="'/product/Profit'" [routerLinkActive]="['active']" class="p-2 col-sm-12"><i class="fa fa-list-alt" aria-hidden="true "></i>Profit list</li>
         <li class="p-2 col-sm-12 "><i class="fa fa-file-text " aria-hidden="true "></i>Generate raport</li>
-        <li (click)="childModal.showModal(); " class="p-2 col-sm-12 "><i class="fa fa-clock-o " aria-hidden="true "></i>{{calculateService.filterDate}}</li>
+        <li (click)="childModal.showModal();" class="p-2 col-sm-12 "><i class="fa fa-clock-o " aria-hidden="true "></i>{{calculateService.filterDate}}</li>
+        <li [routerLink]="'/login'" (click)="authenticationService.logout();" class="p-2 col-sm-12"><i class="fa fa-sign-out" aria-hidden="true "></i>Logout</li>
     </ul>
 </aside>
 <app-side-nav-date-modal #childModal [selectedData]="selectedData "></app-side-nav-date-modal>
