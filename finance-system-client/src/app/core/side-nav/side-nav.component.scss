@@ -1,5 +1,11 @@
 @import "./src/content/_variables.scss";
 aside {
+    img {
+        margin-top: 50px;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
     background-color: $modal-background-color !important;
     background: $label-grey-color;
     height: $max-app-height;
@@ -43,6 +49,9 @@ aside {
             border-width: 1px 0;
             background-color: $modal-background-subcolor;
             cursor: pointer;
+            &:last-child {
+                color: red;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import { CalculateService } from '../../shared/services/calculate.service';
 })
 export class SideNavComponent implements OnInit {
   private filterDate: string;
+  // public currentUser = localStorage.getItem('id_token')
   constructor(
     public calculateService: CalculateService
   ) { }
