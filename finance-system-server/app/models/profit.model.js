@@ -6,6 +6,7 @@ const ProfitSchema = new Schema({
     Category: { type: Schema.ObjectId, ref: 'Category' },
     DateCreated: { type: Date, default: '' },
     Description: { type: String, default: '' },
-    Profit: { type: Number, default: '' }
+    Profit: { type: Number, default: '' },
+    User: { type: Schema.ObjectId, ref: 'User' }
 });
 mongoose.model('profit', ProfitSchema);

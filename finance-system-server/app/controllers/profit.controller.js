@@ -19,7 +19,8 @@ exports.create = function(req, res) {
     Budget.findOne({}, (err, Value) => {
             let newBudget = new Budget({
                 Overall: Value[Value.length - 1].Overall + req.body.Profit,
-                DateCreated: Date.now()
+                DateCreated: Date.now(),
+                User: req.body.userId
             })
             Budget.createBudget(newBudget)
         })

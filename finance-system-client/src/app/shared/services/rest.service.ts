@@ -17,7 +17,7 @@ export class RestService {
             .catch(this.handleError);
     }
     getProfits(filter?: String): Observable<any[]> {
-        let profitUrl = environment.URL + 'Profit/' + localStorage.getItem('email') + + filter;
+        let profitUrl = environment.URL + 'Profit/' + localStorage.getItem('email') + '/' + filter;
         return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -28,7 +28,7 @@ export class RestService {
             .catch(this.handleError);
     }
     getBudget(): Observable<any[]> {
-        return this.http.get(environment.URL + 'Budget')
+        return this.http.get(environment.URL + 'Budget/' + localStorage.getItem('email'))
             .map(this.extractData)
             .catch(this.handleError);
     }

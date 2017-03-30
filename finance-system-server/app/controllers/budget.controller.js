@@ -12,12 +12,16 @@ let profitValue;
 // }
 exports.index = function(req, res) {
     Budget
-        .findOne({}, (err, Budget) => {
-            res.status(200).json(Budget.filter(element => {
+        .find({})
+        .populate("User", "Email")
+        .exec((err, Budget) => {
+            let allBudget = Budget.filter(element => {
                 if (element.User) {
                     return element.User.Email === req.params.Email
                 }
-            }))
+            })
+            res.status(200).json(allBudget[allBudget.length - 1])
         })
-        .sort({ 'DateCreated': 'desc' })
+
+
 }

@@ -18,6 +18,9 @@ exports.create = function(req, res, next) {
         });
     }))
     Budget.find({}, (err, Value) => {
+            if (!Value[0].Overall) {
+                Value[0].Overall = 10000;
+            }
             let newBudget = new Budget({
                 Overall: Value[0].Overall - req.body.Spending,
                 DateCreated: Date.now(),

@@ -13,7 +13,7 @@ module.exports = function(app) {
 
     app.get('/Category', category.index);
 
-    app.get('/Budget', budget.index);
+    app.get('/Budget/:Email', budget.index);
 
     app.get('/user', user.index);
     app.post('/user', user.create);
