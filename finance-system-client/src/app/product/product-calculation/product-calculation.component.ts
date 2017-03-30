@@ -10,44 +10,28 @@ import { CalculateService } from '../../shared/services/calculate.service';
 })
 export class CalculationComponent implements OnInit {
   private errorMessage: string;
-  private currentBudget: string;
+  public currentBudget: string;
   public startingBudget: number;
-  private allProducts: Array<any> = [];
-  private sumOfProfitAndSpending: string;
+  private allSpendings: Array<any> = [];
+  public sumOfProfitAndSpending: string;
   constructor(private restService: RestService, public calculateService: CalculateService) { }
 
   ngOnInit() {
-    this.getBudget()
-    this.getAllProducts()
-    this.calculateService.subjectBudget.subscribe(
-      data => this.currentBudget  = this.calculateService.calculateBudget(data, this.calculateService.startingBudget)
-    )
-    
-    this.getProducts();
+    this.getSpendings();
   }
-  private getProducts() {
+  private getSpendings() {
     this.restService.ProductBehavior
       .subscribe(
       (data: Product[]) => {
         this.sumOfProfitAndSpending = this.calculateService.calculateProfitAndSpending(data);
+        this.getBudget();
       },
       error => this.errorMessage = <any>error);
   }
   private getBudget() {
     this.restService.getBudget()
       .subscribe(
-      data => this.calculateService.startingBudget = data[0].Overall,
+      data => this.currentBudget = data['Overall'],
       error => this.errorMessage = <any>error);
-  }
-  getAllProducts() {
-    this.restService.getProducts()
-      .subscribe(
-      data => {
-        this.allProducts = data;
-      },
-      error => this.errorMessage = <any>error,
-      () => this.calculateService.setBudget(this.allProducts)
-        
-      );
   }
 }

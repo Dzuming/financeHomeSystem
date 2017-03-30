@@ -18,11 +18,10 @@ export class SideNavDateModalComponent implements OnInit {
     private restService: RestService) { }
 
   ngOnInit() {
-    this.calculateService.selectedData.subscribe(data => this.setDate(data))
-
+    this.calculateService.selectedData.subscribe(data => this.setDate(data));
   }
   public getProducts(filter) {
-    this.restService.getProducts(filter)
+    this.restService.getSpendings(filter)
       .subscribe(
       (data: Product[]) => {
         this.product = data;
@@ -35,9 +34,9 @@ export class SideNavDateModalComponent implements OnInit {
   }
 
   public setDate(event) {
-    let target = event.target || event.srcElement || event.currentTarget;
-    let dataAttr = target.attributes.data;
-    let value = dataAttr.nodeValue;
+    const target = event.target || event.srcElement || event.currentTarget;
+    const dataAttr = target.attributes.data;
+    const value = dataAttr.nodeValue;
     this.calculateService.filterDate = value;
     this.getProducts(value);
   }

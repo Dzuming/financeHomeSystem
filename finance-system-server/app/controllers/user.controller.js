@@ -15,7 +15,11 @@ exports.index = function(req, res) {
 exports.create = function(req, res) {
     const passwordAndSalt = User.method.encryptPassword(req.body.Password, User.method.genRandomString(16));
     let newUser = new User({
-        Name: req.body.Name,
+        Name: {
+            First: req.body.Name.First,
+            Second: req.body.Name.Second
+        },
+        Email: req.body.Email,
         Password: passwordAndSalt.passwordHash,
         Salt: passwordAndSalt.salt,
         Admin: false
@@ -30,9 +34,8 @@ exports.create = function(req, res) {
 
 exports.authenticate = function(req, res) {
     User.findOne({
-        name: req.body.name
+        Email: req.body.Email
     }, function(err, user) {
-
         if (err) throw err;
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
@@ -50,7 +53,8 @@ exports.authenticate = function(req, res) {
                 res.json({
                     success: true,
                     message: 'Enjoy your token!',
-                    token: token
+                    token: token,
+                    _id: user._id
                 });
             }
         }

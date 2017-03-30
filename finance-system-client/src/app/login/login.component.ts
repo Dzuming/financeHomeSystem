@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     private errorMessage;
     private formErrors = {
-        'Name': '',
+        'Email': '',
         'Password': '',
     };
     public loginForm: FormGroup;
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     }
     public buildForm(): void {
         this.loginForm = this.formBuilder.group({
-            Name: [this.formErrors.Name, [
+            Email: [this.formErrors.Email, [
                 Validators.required,
                 Validators.minLength(4),
                 Validators.maxLength(24)

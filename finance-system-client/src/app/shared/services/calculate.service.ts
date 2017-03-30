@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { RestService } from './rest.service';
 @Injectable()
 export class CalculateService {
@@ -9,7 +9,10 @@ export class CalculateService {
     public subjectBudget: Subject<any[]> = new Subject<any[]>();
     public selectedData: Subject<string> = new Subject<string>();
     public startingBudget: number;
-    public filterDate: string = this.transformDate(this.getMonthOrYear(new Date().getMonth() + 1), this.getMonthOrYear(new Date().getFullYear()));
+    public filterDate: string = this.transformDate(
+        this.getMonthOrYear(new Date().getMonth() + 1),
+        this.getMonthOrYear(new Date().getFullYear())
+    );
     constructor(private http: Http, private restService: RestService) { }
     calculateValues(productsSpending, budget?: number) {
         let sumofAllCosts = 0;
@@ -21,8 +24,8 @@ export class CalculateService {
     }
     getMonthOrYear(method) {
         const today = new Date();
-        let mm: number | string = method;
-        return mm
+        const date: number | string = method;
+        return date;
     }
     transformDate(mm, yyyy) {
         if (mm < 10) {
@@ -37,9 +40,9 @@ export class CalculateService {
         return this.calculateValues(product, budget);
     }
     setBudget(budget) {
-        this.subjectBudget.next(budget)
+        this.subjectBudget.next(budget);
     }
     setData(data) {
-        this.selectedData.next(data)
+        this.selectedData.next(data);
     }
 }
