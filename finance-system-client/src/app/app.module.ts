@@ -11,21 +11,19 @@ import { CompareModule } from './compare/compare.module';
 import { CoreModule } from './core/core.module';
 import { LoaderService } from './shared/services/loader.service';
 import { ModalModule } from 'ng2-bootstrap';
-
-
-
+import { RegistrationModule } from './registration/registration.module';
 @NgModule({
   declarations: [
     AppComponent,
     SideNavComponent,
     SideNavDateModalComponent,
-    DataListDirective,
-    
+    DataListDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    RegistrationModule,
     ProductModule,
     CompareModule,
     CoreModule,
