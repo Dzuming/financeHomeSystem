@@ -5,13 +5,13 @@ const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const config = require('../../config/config');
-
+const fs = require('fs');
 exports.index = function(req, res) {
     User.find({}, (err, User) => {
         res.status(200).json(User);
     })
 }
-
+let img = 'C:/Users/dell/Desktop/Dawid.png';
 exports.create = function(req, res) {
     const passwordAndSalt = User.method.encryptPassword(req.body.Password, User.method.genRandomString(16));
     let newUser = new User({
@@ -21,6 +21,10 @@ exports.create = function(req, res) {
         },
         Email: req.body.Email,
         Password: passwordAndSalt.passwordHash,
+        Avatar: {
+            data: fs.readFileSync(img),
+            contentType: 'image/png'
+        },
         Salt: passwordAndSalt.salt,
         Admin: false
     })
@@ -51,11 +55,13 @@ exports.authenticate = function(req, res) {
                 var token = jwt.sign({ user: user }, config.secret, { expiresIn: '1h' });
                 // return the information including token as JSON
                 res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token,
-                    _id: user._id,
-                    Email: user.Email,
+                    'success': true,
+                    'message': 'Enjoy your token!',
+                    'token': token,
+                    '_id': user._id,
+                    'Avatar': user.Avatar,
+                    'Name': user.Name,
+                    'Email': user.Email,
                 });
             }
         }

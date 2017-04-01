@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     },
     Email: String,
     Password: String,
+    Avatar: { data: Buffer, contentType: String },
     Salt: String,
     Admin: Boolean
 });

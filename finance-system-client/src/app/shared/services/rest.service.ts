@@ -9,15 +9,16 @@ export class RestService {
     public product: Product[];
     public ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
+    private user = JSON.parse(localStorage.getItem('User'));
     constructor(private http: Http) { }
     getSpendings(filter?: String): Observable<any[]> {
-        let spendingUrl = environment.URL + 'Spending/' + localStorage.getItem('email') + '/' + filter;
+        let spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getProfits(filter?: String): Observable<any[]> {
-        let profitUrl = environment.URL + 'Profit/' + localStorage.getItem('email') + '/' + filter;
+        let profitUrl = environment.URL + 'Profit/' + this.user.Email + '/' + filter;
         return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -28,7 +29,7 @@ export class RestService {
             .catch(this.handleError);
     }
     getBudget(): Observable<any[]> {
-        return this.http.get(environment.URL + 'Budget/' + localStorage.getItem('email'))
+        return this.http.get(environment.URL + 'Budget/' + this.user.Email)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -53,11 +54,9 @@ export class RestService {
         return body || {};
     }
     private handleError(error: any) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
         const errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        console.error(errMsg);
         return Observable.throw(errMsg);
     }
     public setProduct(product: Product[]) {

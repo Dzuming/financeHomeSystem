@@ -32,7 +32,8 @@ export class ProductFormComponent implements OnInit {
             return;
         }
         let productsToPost = this.addProductForm.value;
-        productsToPost.userId = localStorage.getItem('userId')
+        let user = JSON.parse(localStorage.getItem('User'));
+        productsToPost.userId = user.id
         this.restService.addSpendings(productsToPost)
             .subscribe(
             data => {

@@ -5,12 +5,11 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
+import { User } from '../models/user.model'
 @Injectable()
 export class AuthenticationService {
     public token: string;
     constructor(private http: Http, private router: Router) {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
     }
 
     login(credentials): Observable<boolean> {
@@ -23,16 +22,26 @@ export class AuthenticationService {
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 const token = response.json() && response.json().token;
-                const userId = response.json() && response.json()._id;
-                const email = response.json() && response.json().Email;
+                const user: User = {
+                    'id': response.json() && response.json()._id,
+                    'Name': {
+                        'First': response.json() && response.json().Name.First,
+                        'Second': response.json() && response.json().Name.Second
+                    },
+                    'Email': response.json() && response.json().Email,
+                    'Avatar': {
+                        'data': response.json() && btoa(String.fromCharCode.apply(null, response.json().Avatar.data.data)),
+                        'contentType': response.json() && response.json().Avatar.contentType
+                    }
+
+                }
                 if (token) {
                     // set token property
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('User', JSON.stringify(user));
                     localStorage.setItem('id_token', token);
-                    localStorage.setItem('userId', userId);
-                    localStorage.setItem('email', email);
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -48,7 +57,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         this.token = null;
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('User');
         this.router.navigateByUrl('/login');
     }
     private handleError(error: any) {

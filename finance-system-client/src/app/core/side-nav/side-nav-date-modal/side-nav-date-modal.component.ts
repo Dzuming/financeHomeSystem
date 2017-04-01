@@ -12,7 +12,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 export class SideNavDateModalComponent implements OnInit {
   @ViewChild('childModal') public childModal: ModalDirective;
   @Input() selectedData: string;
-  public product: Product[];
+  public products: Product[];
   private errorMessage: string;
   constructor(private calculateService: CalculateService, private chartService: ChartService,
     private restService: RestService) { }
@@ -24,12 +24,12 @@ export class SideNavDateModalComponent implements OnInit {
     this.restService.getSpendings(filter)
       .subscribe(
       (data: Product[]) => {
-        this.product = data;
+        this.products = data;
       },
       error => this.errorMessage = <any>error,
       () => {
-        this.restService.setProduct(this.product);
-        this.chartService.updateChart(this.product);
+        this.restService.setProduct(this.products);
+        this.chartService.updateChart(this.products);
       });
   }
 

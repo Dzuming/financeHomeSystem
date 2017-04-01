@@ -12,7 +12,7 @@ import { Product } from '../shared/models/product.model';
 })
 export class ProductComponent implements OnInit {
     private errorMessage: string;
-    public product: Product[];
+    public products: Product[];
     public constructor(
         private calculateService: CalculateService,
         private restService: RestService,
@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
 
     public ngOnInit() {
         this.restService.ProductBehavior.subscribe(
-            data => this.product = data,
+            data => this.products = data,
             error => this.errorMessage = <any>error)
     }
 }
