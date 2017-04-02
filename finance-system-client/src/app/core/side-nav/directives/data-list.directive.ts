@@ -9,7 +9,11 @@ export class DataListDirective implements OnInit {
   private startDate: string;
   private endDate: string;
   private readonly months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  constructor(private calculateService: CalculateService, private restService: RestService, private elementRef: ElementRef, private renderer: Renderer) { }
+  constructor(
+    private calculateService: CalculateService,
+    private restService: RestService,
+    private elementRef: ElementRef,
+    private renderer: Renderer) { }
   ngOnInit() {
     this.restService.getPeriod().subscribe(
       data => {

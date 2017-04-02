@@ -6,11 +6,13 @@ import { Product } from '../models/product.model';
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class RestService {
-    public product: Product[];
-    public ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
+    product: Product[];
+    ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
     private user = JSON.parse(localStorage.getItem('User'));
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http) { }
+
     getSpendings(filter?: String): Observable<any[]> {
         let spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
@@ -59,7 +61,7 @@ export class RestService {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-    public setProduct(product: Product[]) {
+    setProduct(product: Product[]) {
         this.ProductBehavior.next(product)
     }
 }

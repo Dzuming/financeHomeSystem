@@ -11,7 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProductFormComponent implements OnInit {
     private title;
     private getUrlPath: any;
-    constructor(private restService: RestService, private formBuilder: FormBuilder, private calculateService: CalculateService, private router: Router, private activatedRoute: ActivatedRoute) { }
+    constructor(
+        private restService: RestService,
+        private formBuilder: FormBuilder,
+        private calculateService: CalculateService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.buildForm();
@@ -26,7 +31,7 @@ export class ProductFormComponent implements OnInit {
             });
         });
     }
-    public addProduct() {
+    addProduct() {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
@@ -53,7 +58,7 @@ export class ProductFormComponent implements OnInit {
             data => this.categories = data,
             error => this.errorMessage = <any>error);
     }
-    public buildForm(): void {
+    buildForm(): void {
         this.addProductForm = this.formBuilder.group({
             Description: [this.formErrors.Description, [
                 Validators.required,
@@ -88,7 +93,7 @@ export class ProductFormComponent implements OnInit {
             'required': 'Spending is required.'
         }
     };
-    public onValueChanged(data?: any) {
+    onValueChanged(data?: any) {
         if (!this.addProductForm) { return; }
         const form = this.addProductForm;
 
@@ -100,14 +105,14 @@ export class ProductFormComponent implements OnInit {
         }
     }
 
-    public checkErrorValidate(form, field) {
+    checkErrorValidate(form, field) {
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
             this.addError(control, field);
         }
     }
 
-    public addError(control, field) {
+    addError(control, field) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
@@ -115,11 +120,11 @@ export class ProductFormComponent implements OnInit {
             }
         }
     }
-    public formErrors = {
+    formErrors = {
         'Description': '',
         'categoryId': '',
         'Spending': ''
     };
-    public addProductForm: FormGroup;
-    public categories: Array<any> = [];
+    addProductForm: FormGroup;
+    categories: Array<any> = [];
 }

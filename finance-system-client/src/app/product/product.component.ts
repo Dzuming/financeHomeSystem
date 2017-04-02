@@ -12,15 +12,15 @@ import { Product } from '../shared/models/product.model';
 })
 export class ProductComponent implements OnInit {
     private errorMessage: string;
-    public products: Product[];
-    public constructor(
+     products: Product[];
+     constructor(
         private calculateService: CalculateService,
         private restService: RestService,
         private productService: ProductService,
         private chartService: ChartService,
     ) { }
 
-    public ngOnInit() {
+     ngOnInit() {
         this.restService.ProductBehavior.subscribe(
             data => this.products = data,
             error => this.errorMessage = <any>error)

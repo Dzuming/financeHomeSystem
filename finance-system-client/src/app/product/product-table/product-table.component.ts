@@ -10,11 +10,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent implements OnInit {
-  public products: Product[];
-  public title: string;
+  products: Product[];
+  title: string;
   private errorMessage: string;
   private getUrlPath: any;
-  constructor(private restService: RestService, private activatedRoute: ActivatedRoute, private calculateService: CalculateService, private chartService: ChartService, private router: Router) { }
+  constructor(
+    private restService: RestService,
+    private activatedRoute: ActivatedRoute,
+    private calculateService: CalculateService,
+    private chartService: ChartService,
+    private router: Router) { }
 
   ngOnInit() {
     this.restService.ProductBehavior.subscribe(data => this.products = data);

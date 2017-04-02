@@ -13,7 +13,10 @@ import { Product } from '../../shared/models/product.model';
 export class ChartComponent implements OnInit {
   private products: Array<Product>;
   private errorMessage: Array<any>;
-  public constructor(private restService: RestService, private chartService: ChartService, private calculateService: CalculateService) { }
+  constructor(
+    private restService: RestService,
+    private chartService: ChartService,
+    private calculateService: CalculateService) { }
   ngOnInit() {
     this.restService.ProductBehavior.subscribe(
       data => this.products = data,

@@ -1,11 +1,11 @@
 export class User {
-    public id: number;
-    public Name: {
+     id: number;
+     Name: {
         'First': string,
         'Second': string
     };
-    public Email: string;
-    public Avatar: {
+     Email: string;
+     Avatar: {
         'data': String,
         'contentType': String
     }

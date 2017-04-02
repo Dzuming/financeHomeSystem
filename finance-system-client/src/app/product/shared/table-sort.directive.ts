@@ -26,7 +26,7 @@ export class TableSortDirective implements OnInit {
             }, true);
         });
     }
-  public sorting(table, index, reverse) {
+   sorting(table, index, reverse) {
         const tbody = table.querySelectorAll('tbody');
         const tr = [].slice.call(tbody[0].rows);
         const test = tr.sort((a, b) => {

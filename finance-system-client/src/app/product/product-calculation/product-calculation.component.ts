@@ -9,12 +9,14 @@ import { CalculateService } from '../../shared/services/calculate.service';
   styleUrls: ['product-calculation.component.scss'],
 })
 export class CalculationComponent implements OnInit {
+  sumOfProfitAndSpending: string;
+  currentBudget: string;
+  startingBudget: number;
   private errorMessage: string;
-  public currentBudget: string;
-  public startingBudget: number;
   private allSpendings: Array<any> = [];
-  public sumOfProfitAndSpending: string;
-  constructor(private restService: RestService, public calculateService: CalculateService) { }
+  constructor(
+    private calculateService: CalculateService,
+    private restService: RestService) { }
 
   ngOnInit() {
     this.getSpendings();

@@ -13,14 +13,17 @@ export class LoginComponent implements OnInit {
         'Email': '',
         'Password': '',
     };
-    public loginForm: FormGroup;
-    constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationService, private router: Router) {
+    loginForm: FormGroup;
+    constructor(
+        private formBuilder: FormBuilder,
+        private authenticationService: AuthenticationService,
+        private router: Router) {
     }
 
     ngOnInit() {
         this.buildForm();
     }
-    public buildForm(): void {
+    buildForm(): void {
         this.loginForm = this.formBuilder.group({
             Email: [this.formErrors.Email, [
                 Validators.required,
@@ -37,7 +40,7 @@ export class LoginComponent implements OnInit {
         // this.onValueChanged();
 
     }
-    public login() {
+    login() {
 
         if (!this.loginForm.value) {
             this.buildForm();

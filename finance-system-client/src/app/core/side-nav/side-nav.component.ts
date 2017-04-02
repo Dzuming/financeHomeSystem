@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild, SecurityContext } from '@angular/core';
-import {DomSanitizer, } from '@angular/platform-browser';
+import { DomSanitizer, } from '@angular/platform-browser';
+import { User } from '../../shared/models/user.model';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 @Component({
@@ -9,18 +10,17 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 })
 export class SideNavComponent implements OnInit {
   private filterDate: string;
-  private user = JSON.parse(localStorage.getItem('User'));
+  private user: User;
   constructor(
-    public calculateService: CalculateService,
-    public authenticationService: AuthenticationService,
-    public domSanitizer: DomSanitizer
-  ) { }
+    private calculateService: CalculateService,
+    private authenticationService: AuthenticationService,
+    private domSanitizer: DomSanitizer) { }
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('User'));
   }
-get getImg() {
-    
+  get getImg(): string {
     return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.user.Avatar.data}`);
-}
+  }
 
 
 }

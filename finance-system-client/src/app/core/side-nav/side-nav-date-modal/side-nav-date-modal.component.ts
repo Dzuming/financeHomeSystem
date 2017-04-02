@@ -10,40 +10,42 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
   styleUrls: ['./side-nav-date-modal.component.scss']
 })
 export class SideNavDateModalComponent implements OnInit {
-  @ViewChild('childModal') public childModal: ModalDirective;
+  @ViewChild('childModal') childModal: ModalDirective;
   @Input() selectedData: string;
-  public products: Product[];
+  products: Product[];
   private errorMessage: string;
-  constructor(private calculateService: CalculateService, private chartService: ChartService,
+  constructor(
+    private calculateService: CalculateService,
+    private chartService: ChartService,
     private restService: RestService) { }
 
   ngOnInit() {
-    this.calculateService.selectedData.subscribe(data => this.setDate(data));
+    this.calculateService.selectedData.subscribe((data: any): void => this.setDateFromPeriod(data));
   }
-  public getProducts(filter) {
+  getProducts(filter: string): void {
     this.restService.getSpendings(filter)
       .subscribe(
       (data: Product[]) => {
         this.products = data;
       },
-      error => this.errorMessage = <any>error,
+      (error: string) => this.errorMessage = <any>error,
       () => {
         this.restService.setProduct(this.products);
         this.chartService.updateChart(this.products);
       });
   }
 
-  public setDate(event) {
+  setDateFromPeriod(event: Event): void {
     const target = event.target || event.srcElement || event.currentTarget;
-    const dataAttr = target.attributes.data;
+    const dataAttr = target['attributes'].data;
     const value = dataAttr.nodeValue;
     this.calculateService.filterDate = value;
     this.getProducts(value);
   }
-  public showModal(): void {
+  showModal(): void {
     this.childModal.show();
   }
-  public hideModal() {
+  hideModal(): void {
     this.childModal.hide();
   }
 }

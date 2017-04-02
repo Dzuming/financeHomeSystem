@@ -4,8 +4,10 @@ import { RestService } from '../services/rest.service';
   selector: '[appNoData]'
 })
 export class NoDataDirective implements OnChanges {
-  @Input() public products: any;
-  constructor(private el: ElementRef, private restService: RestService) {
+  @Input() products: any;
+  constructor(
+    private el: ElementRef,
+    private restService: RestService) {
 
   }
   ngOnChanges(changes) {

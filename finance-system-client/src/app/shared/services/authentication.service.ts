@@ -8,9 +8,10 @@ import { environment } from '../../../environments/environment';
 import { User } from '../models/user.model'
 @Injectable()
 export class AuthenticationService {
-    public token: string;
-    constructor(private http: Http, private router: Router) {
-    }
+    token: string;
+    constructor(
+        private http: Http,
+        private router: Router) { }
 
     login(credentials): Observable<boolean> {
         const body = JSON.stringify(credentials);

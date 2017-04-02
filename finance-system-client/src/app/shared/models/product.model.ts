@@ -1,8 +1,8 @@
 export class Product {
-    public description: string;
-    public categories: Array<any> = [];
-    public Spending: number;
-    public User: {
+     description: string;
+     categories: Array<any> = [];
+     Spending: number;
+     User: {
         Email: string;
     };
 }

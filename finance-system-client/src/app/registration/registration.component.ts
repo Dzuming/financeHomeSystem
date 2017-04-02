@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-public registrationForm: FormGroup;
-private formErrors = {
+    registrationForm: FormGroup;
+    private formErrors = {
         'Email': '',
         'Password': '',
     };
-  constructor(private formBuilder: FormBuilder) { }
+    constructor(
+        private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
-    this.buildForm();
-  }
-  public buildForm(): void {
+    ngOnInit() {
+        this.buildForm();
+    }
+    buildForm(): void {
         this.registrationForm = this.formBuilder.group({
             Email: [this.formErrors.Email, [
                 Validators.required,
@@ -33,7 +34,7 @@ private formErrors = {
         // this.onValueChanged();
 
     }
-register() {
-  
-}
+    register() {
+
+    }
 }
