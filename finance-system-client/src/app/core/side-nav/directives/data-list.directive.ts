@@ -2,13 +2,14 @@ import { Directive, ElementRef, OnInit, HostListener, Renderer } from '@angular/
 import { RestService } from '../../../shared/services/rest.service';
 import { CalculateService } from '../../../shared/services/calculate.service';
 import { Subject } from 'rxjs/Subject';
+import { Period } from '../../../shared/models/period.model';
 @Directive({
   selector: '[appDataList]'
 })
 export class DataListDirective implements OnInit {
   private startDate: string;
   private endDate: string;
-  private readonly months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  private readonly months: Array<string> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   constructor(
     private calculateService: CalculateService,
     private restService: RestService,
@@ -16,23 +17,19 @@ export class DataListDirective implements OnInit {
     private renderer: Renderer) { }
   ngOnInit() {
     this.restService.getPeriod().subscribe(
-      data => {
-        this.createData(data['startDate'], data['endDate']);
-      }
-    );
+      (data: Period): void => { this.createData(data.startDate, data.endDate); });
   }
-  private createData(startDate, endDate) {
-    const startMonthAndYear = startDate.split('-', 2).map((data => {
+  private createData(startDate: string, endDate: string): void {
+    this.addDataToModal(this.getMonthAndYear(startDate), this.getMonthAndYear(endDate));
+  }
+  private getMonthAndYear(date: string): Array<number> {
+    let data: Array<number> = [];
+    data = date.split('-', 2).map(((data: string): number => {
       return parseInt(data, 10);
     }));
-
-    const endMonthAndYear = endDate.split('-', 2).map((data => {
-      return parseInt(data, 10);
-    }));
-    this.addDataToModal(startMonthAndYear, endMonthAndYear);
+    return data
   }
-
-  private addDataToModal(startDate, endDate) {
+  private addDataToModal(startDate: Array<number>, endDate: Array<number>): void {
     const modalBody = this.elementRef.nativeElement;
     const startMonth = startDate[1];
     const endMonth = endDate[1];
@@ -52,11 +49,11 @@ export class DataListDirective implements OnInit {
     }
     this.selectProductOnClick(ul);
   }
-  private selectProductOnClick(element) {
-    let span = element.querySelectorAll('span');
+  private selectProductOnClick(element: NodeSelector): void {
+    let span: any = element.querySelectorAll('span');
     span.forEach(element => {
       this.renderer.listen(element, 'click', event => {
-        this.calculateService.setData(event);
+        return this.calculateService.setData(event);
       });
     });
   }

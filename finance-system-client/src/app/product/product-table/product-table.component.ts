@@ -22,7 +22,7 @@ export class ProductTableComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.restService.ProductBehavior.subscribe(data => this.products = data);
+    this.restService.ProductBehavior.subscribe((data: Product[]): Product[] => this.products = data);
     this.getUrlPath = this.router.events.subscribe(() => {
       this.activatedRoute.params.subscribe(param => {
         this.getUrlPath.unsubscribe();
@@ -36,10 +36,10 @@ export class ProductTableComponent implements OnInit {
     });
 
   }
-  private getProducts(method) {
+  private getProducts(method: any): void {
     method
       .subscribe(
-      (data: Product[]) => {
+      (data: Product[]): void => {
         this.restService.setProduct(data);
       },
       error => this.errorMessage = <any>error,

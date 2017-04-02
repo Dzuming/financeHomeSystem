@@ -3,40 +3,45 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Product } from '../models/product.model';
+import { Budget } from '../models/budget.model';
+import { Period } from '../models/period.model';
+import { Category } from '../models/category.model';
 import { environment } from '../../../environments/environment';
+import { User } from '../models/user.model'
+import { ErrorObservable } from "rxjs/observable/ErrorObservable";
 @Injectable()
 export class RestService {
     product: Product[];
     ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
-    private user = JSON.parse(localStorage.getItem('User'));
+    private user: User = JSON.parse(localStorage.getItem('User'));
     constructor(
         private http: Http) { }
 
-    getSpendings(filter?: String): Observable<any[]> {
+    getSpendings(filter: String): Observable<any[]> {
         let spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getProfits(filter?: String): Observable<any[]> {
+    getProfits(filter: String): Observable<any[]> {
         let profitUrl = environment.URL + 'Profit/' + this.user.Email + '/' + filter;
         return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getCategory(): Observable<Product[]> {
+    getCategory(): Observable<Category[]> {
         return this.http.get(environment.URL + 'Category')
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getBudget(): Observable<any[]> {
+    getBudget(): Observable<Budget> {
         return this.http.get(environment.URL + 'Budget/' + this.user.Email)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getPeriod(): Observable<any[]> {
+    getPeriod(): Observable<Period> {
         return this.http.get(environment.URL + 'Period')
             .map(this.extractData)
             .catch(this.handleError);
@@ -51,17 +56,17 @@ export class RestService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    private extractData(res: Response) {
+    private extractData(res: Response): void {
         const body = res.json();
         return body || {};
     }
-    private handleError(error: any) {
+    private handleError(error: any): ErrorObservable {
         const errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-    setProduct(product: Product[]) {
+    setProduct(product: Product[]): void {
         this.ProductBehavior.next(product)
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
+import { Budget } from '../../shared/models/budget.model';
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 @Component({
@@ -10,10 +11,9 @@ import { CalculateService } from '../../shared/services/calculate.service';
 })
 export class CalculationComponent implements OnInit {
   sumOfProfitAndSpending: string;
-  currentBudget: string;
+  currentBudget: number;
   startingBudget: number;
   private errorMessage: string;
-  private allSpendings: Array<any> = [];
   constructor(
     private calculateService: CalculateService,
     private restService: RestService) { }
@@ -21,7 +21,7 @@ export class CalculationComponent implements OnInit {
   ngOnInit() {
     this.getSpendings();
   }
-  private getSpendings() {
+  private getSpendings(): void {
     this.restService.ProductBehavior
       .subscribe(
       (data: Product[]) => {
@@ -30,10 +30,10 @@ export class CalculationComponent implements OnInit {
       },
       error => this.errorMessage = <any>error);
   }
-  private getBudget() {
+  private getBudget(): void {
     this.restService.getBudget()
       .subscribe(
-      data => this.currentBudget = data['Overall'],
+      (data: Budget) => this.currentBudget = data.Overall,
       error => this.errorMessage = <any>error);
   }
 }
