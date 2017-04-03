@@ -27,7 +27,7 @@ export class AuthenticationService {
                     'id': response.json() && response.json()._id,
                     'Name': {
                         'First': response.json() && response.json().Name.First,
-                        'Second': response.json() && response.json().Name.Second
+                        'Last': response.json() && response.json().Name.Last
                     },
                     'Email': response.json() && response.json().Email,
                     'Avatar': {

@@ -2,7 +2,7 @@ export class User {
      id: number;
      Name: {
         'First': string,
-        'Second': string
+        'Last': string
     };
      Email: string;
      Avatar: {

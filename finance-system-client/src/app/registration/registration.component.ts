@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Registration } from '../shared/models/registration.model'
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+    registration: Registration;
     registrationForm: FormGroup;
     private formErrors = {
+        'Name': '',
+        'Last': '',
         'Email': '',
         'Password': '',
     };
@@ -16,9 +20,14 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        console.log(this.registration)
     }
     buildForm(): void {
         this.registrationForm = this.formBuilder.group({
+            Name: this.formBuilder.group({
+                First: [Validators.minLength(4)],
+                Last: [Validators.minLength(4)]
+            }),
             Email: [this.formErrors.Email, [
                 Validators.required,
                 Validators.minLength(4),
@@ -28,13 +37,9 @@ export class RegistrationComponent implements OnInit {
                 Validators.required,
             ]]
         });
-        // this.loginForm.valueChanges
-        //     .subscribe(data => this.onValueChanged(data));
-
-        // this.onValueChanged();
 
     }
-    register() {
+    addUser() {
 
     }
 }

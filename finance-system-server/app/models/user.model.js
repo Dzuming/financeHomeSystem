@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     Password: String,
     Avatar: { data: Buffer, contentType: String },
     Salt: String,
-    Admin: Boolean,
+    Admin: { type: Boolean, default: false },
     Active: { type: Boolean, default: false }
 });
 mongoose.model('User', UserSchema);

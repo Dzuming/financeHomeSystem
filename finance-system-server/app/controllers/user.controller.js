@@ -17,7 +17,7 @@ exports.create = function(req, res) {
     let newUser = new User({
         Name: {
             First: req.body.Name.First,
-            Second: req.body.Name.Second
+            Last: req.body.Name.Last
         },
         Email: req.body.Email,
         Password: passwordAndSalt.passwordHash,
@@ -26,7 +26,6 @@ exports.create = function(req, res) {
             contentType: 'image/png'
         },
         Salt: passwordAndSalt.salt,
-        Admin: false
     })
     newUser.save((error => {
         if (error) res.status(500).send(error);
