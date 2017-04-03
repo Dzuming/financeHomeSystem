@@ -21,6 +21,6 @@ export class ProductComponent implements OnInit {
     ngOnInit() {
         this.restService.ProductBehavior.subscribe(
             (data: Product[]): Product[] => this.products = data,
-            error => this.errorMessage = <any>error)
+            error => this.errorMessage = <any>error);
     }
 }

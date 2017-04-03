@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
-import { User } from '../models/user.model'
-import { ErrorObservable } from "rxjs/observable/ErrorObservable";
+import { User } from '../models/user.model';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class AuthenticationService {
     token: string;
@@ -34,8 +34,7 @@ export class AuthenticationService {
                         'data': response.json() && btoa(String.fromCharCode.apply(null, response.json().Avatar.data.data)),
                         'contentType': response.json() && response.json().Avatar.contentType
                     }
-
-                }
+                };
                 if (token) {
                     this.token = token;
                     localStorage.setItem('User', JSON.stringify(user));

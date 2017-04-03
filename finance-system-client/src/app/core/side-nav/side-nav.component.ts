@@ -9,11 +9,11 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
   styleUrls: ['side-nav.component.scss'],
 })
 export class SideNavComponent implements OnInit {
+  user: User;
   private filterDate: string;
-  private user: User;
   constructor(
-    private calculateService: CalculateService,
-    private authenticationService: AuthenticationService,
+    public calculateService: CalculateService,
+    public authenticationService: AuthenticationService,
     private domSanitizer: DomSanitizer) { }
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('User'));

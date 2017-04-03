@@ -8,9 +8,9 @@ export class ProductPipe implements PipeTransform {
     if (products) {
       return products.filter(item => {
         if (item.User) {
-          return item.User.Email === args
+          return item.User.Email === args;
         }
-      })
+      });
     }
   }
 }

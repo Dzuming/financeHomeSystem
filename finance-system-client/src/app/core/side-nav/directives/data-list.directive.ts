@@ -9,7 +9,8 @@ import { Period } from '../../../shared/models/period.model';
 export class DataListDirective implements OnInit {
   private startDate: string;
   private endDate: string;
-  private readonly months: Array<string> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  private readonly months: Array<string> = ['January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   constructor(
     private calculateService: CalculateService,
     private restService: RestService,
@@ -23,11 +24,10 @@ export class DataListDirective implements OnInit {
     this.addDataToModal(this.getMonthAndYear(startDate), this.getMonthAndYear(endDate));
   }
   private getMonthAndYear(date: string): Array<number> {
-    let data: Array<number> = [];
-    data = date.split('-', 2).map(((data: string): number => {
-      return parseInt(data, 10);
+    const data = date.split('-', 2).map(((value: string): number => {
+      return parseInt(value, 10);
     }));
-    return data
+    return data;
   }
   private addDataToModal(startDate: Array<number>, endDate: Array<number>): void {
     const modalBody = this.elementRef.nativeElement;
@@ -49,8 +49,8 @@ export class DataListDirective implements OnInit {
     }
     this.selectProductOnClick(ul);
   }
-  private selectProductOnClick(element: NodeSelector): void {
-    let span: any = element.querySelectorAll('span');
+  private selectProductOnClick(node: NodeSelector): void {
+    const span: any = node.querySelectorAll('span');
     span.forEach(element => {
       this.renderer.listen(element, 'click', event => {
         return this.calculateService.setData(event);

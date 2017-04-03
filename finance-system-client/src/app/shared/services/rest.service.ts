@@ -7,8 +7,8 @@ import { Budget } from '../models/budget.model';
 import { Period } from '../models/period.model';
 import { Category } from '../models/category.model';
 import { environment } from '../../../environments/environment';
-import { User } from '../models/user.model'
-import { ErrorObservable } from "rxjs/observable/ErrorObservable";
+import { User } from '../models/user.model';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class RestService {
     product: Product[];
@@ -19,13 +19,13 @@ export class RestService {
         private http: Http) { }
 
     getSpendings(filter: String): Observable<any[]> {
-        let spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
+        const spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getProfits(filter: String): Observable<any[]> {
-        let profitUrl = environment.URL + 'Profit/' + this.user.Email + '/' + filter;
+        const profitUrl = environment.URL + 'Profit/' + this.user.Email + '/' + filter;
         return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -67,6 +67,6 @@ export class RestService {
         return Observable.throw(errMsg);
     }
     setProduct(product: Product[]): void {
-        this.ProductBehavior.next(product)
+        this.ProductBehavior.next(product);
     }
 }

@@ -7,7 +7,7 @@ export class TableSortDirective implements OnInit {
 
     constructor() { }
     ngOnInit() {
-        this.tableSort()
+        this.tableSort();
     }
     private tableSort(): void {
         const table = document.querySelector('.table'),

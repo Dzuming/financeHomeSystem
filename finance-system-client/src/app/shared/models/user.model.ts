@@ -8,5 +8,5 @@ export class User {
      Avatar: {
         'data': String,
         'contentType': String
-    }
+    };
 }

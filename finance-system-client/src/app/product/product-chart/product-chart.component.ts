@@ -11,7 +11,7 @@ import { Product } from '../../shared/models/product.model';
   styleUrls: ['product-chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  private products: Product[];
+  products: Product[];
   private errorMessage: Array<any>;
   constructor(
     private restService: RestService,

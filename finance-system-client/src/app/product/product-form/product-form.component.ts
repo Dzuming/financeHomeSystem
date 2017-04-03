@@ -12,12 +12,13 @@ import { Category } from '../../shared/models/category.model';
 export class ProductFormComponent implements OnInit {
     addProductForm: FormGroup;
     categories: Category[];
+    title: string;
+    defaultSelectValue = '';
     formErrors = {
         'Description': '',
         'categoryId': '',
         'Spending': ''
     };
-    private title: string;
     private getUrlPath: any;
     private errorMessage: string;
     private validationMessages = {
@@ -58,9 +59,9 @@ export class ProductFormComponent implements OnInit {
             this.buildForm();
             return;
         }
-        let productsToPost = this.addProductForm.value;
-        let user = JSON.parse(localStorage.getItem('User'));
-        productsToPost.userId = user.id
+        const productsToPost = this.addProductForm.value;
+        const user = JSON.parse(localStorage.getItem('User'));
+        productsToPost.userId = user.id;
         this.restService.addSpendings(productsToPost)
             .subscribe(
             data => {

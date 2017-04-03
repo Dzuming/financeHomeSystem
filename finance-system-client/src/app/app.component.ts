@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.getUrlPath();
   }
-  getUrlPath():void {
+  getUrlPath(): void {
     this.router.events.subscribe(() => {
       this.urlPath = this.router.url;
     });

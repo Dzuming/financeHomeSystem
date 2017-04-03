@@ -14,7 +14,9 @@ export class NoDataDirective implements OnChanges {
   ngOnChanges(changes: any): void {
     if (changes.products.currentValue && changes.products.currentValue.length === 0) {
       this.errorBehavior(this.el, 'add');
-    } else if (changes.products.previousValue && changes.products.previousValue.length === 0 && changes.products.currentValue.length !== 0) {
+    } else if (changes.products.previousValue &&
+      changes.products.previousValue.length === 0 &&
+      changes.products.currentValue.length !== 0) {
       this.errorBehavior(this.el, 'remove');
     }
   }
