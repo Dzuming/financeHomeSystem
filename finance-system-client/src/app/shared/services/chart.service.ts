@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import * as d3 from 'd3';
 @Injectable()
 export class ChartService {
-
-  public filterProducts: Array<any>;
+  filterProducts: Array<any>;
   private svg: any;
   private g: any;
   private pie;

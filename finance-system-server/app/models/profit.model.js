@@ -2,10 +2,11 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ProductSchema = new Schema({
+const ProfitSchema = new Schema({
     Category: { type: Schema.ObjectId, ref: 'Category' },
     DateCreated: { type: Date, default: '' },
     Description: { type: String, default: '' },
-    Spending: { type: Number, default: '' }
+    Profit: { type: Number, default: '' },
+    User: { type: Schema.ObjectId, ref: 'User' }
 });
-mongoose.model('Product', ProductSchema);
+mongoose.model('profit', ProfitSchema);

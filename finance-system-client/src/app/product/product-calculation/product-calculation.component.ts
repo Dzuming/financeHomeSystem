@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
+import { Budget } from '../../shared/models/budget.model';
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 @Component({
@@ -9,45 +10,30 @@ import { CalculateService } from '../../shared/services/calculate.service';
   styleUrls: ['product-calculation.component.scss'],
 })
 export class CalculationComponent implements OnInit {
+  sumOfProfitAndSpending: string;
+  currentBudget: number;
+  startingBudget: number;
   private errorMessage: string;
-  private currentBudget: string;
-  public startingBudget: number;
-  private allProducts: Array<any> = [];
-  private sumOfProfitAndSpending: string;
-  constructor(private restService: RestService, public calculateService: CalculateService) { }
+  constructor(
+    private calculateService: CalculateService,
+    private restService: RestService) { }
 
   ngOnInit() {
-    this.getBudget()
-    this.getAllProducts()
-    this.calculateService.subjectBudget.subscribe(
-      data => this.currentBudget  = this.calculateService.calculateBudget(data, this.calculateService.startingBudget)
-    )
-    
-    this.getProducts();
+    this.getSpendings();
   }
-  private getProducts() {
+  private getSpendings(): void {
     this.restService.ProductBehavior
       .subscribe(
       (data: Product[]) => {
         this.sumOfProfitAndSpending = this.calculateService.calculateProfitAndSpending(data);
+        this.getBudget();
       },
       error => this.errorMessage = <any>error);
   }
-  private getBudget() {
+  private getBudget(): void {
     this.restService.getBudget()
       .subscribe(
-      data => this.calculateService.startingBudget = data[0].Overall,
+      (data: Budget) => this.currentBudget = data.Overall,
       error => this.errorMessage = <any>error);
-  }
-  getAllProducts() {
-    this.restService.getProducts()
-      .subscribe(
-      data => {
-        this.allProducts = data;
-      },
-      error => this.errorMessage = <any>error,
-      () => this.calculateService.setBudget(this.allProducts)
-        
-      );
   }
 }

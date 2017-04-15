@@ -1,5 +1,5 @@
 @import "./src/content/_variables.scss";
-.table-striped {
+.table {
     border: 1px solid $border-grey-color;
     margin-bottom: 0 !important;
     thead {
@@ -7,18 +7,26 @@
         display: block;
         tr {
             outline: 1px solid $border-grey-color;
-            th:last-child {
-                min-width: 5.375rem;
+            th {
+                background-color: $modal-background-subcolor !important;
+                color: $modal-text-color !important;
+                &:last-child {
+                    min-width: 5.375rem;
+                }
             }
         }
     }
     tbody {
-        max-height: ($max-app-height - $add-product-form-tbody - $form-header-height + $add-product-form-margin);
+        max-height: ( $max-app-height - $add-product-form-tbody - $form-header-height);
         display: block;
         overflow-y: auto;
-        tr:not(:first-of-type) {
-            td {
-                border-top: 1px solid $border-grey-color
+        tr {
+            color: $label-grey-color;
+            background-color: $modal-background-color;
+            &:not(:first-of-type) {
+                td {
+                    border-top: 1px solid $border-grey-color
+                }
             }
         }
     }

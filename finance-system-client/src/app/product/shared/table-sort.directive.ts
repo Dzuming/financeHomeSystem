@@ -1,21 +1,21 @@
 import { Directive, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appTableSort]'
+    selector: '[appTableSort]'
 })
 export class TableSortDirective implements OnInit {
 
-  constructor() { }
-  ngOnInit() {
-    this.tableSort()
-  }
-  private tableSort() {
-        const table = document.querySelector('.table-striped'),
+    constructor() { }
+    ngOnInit() {
+        this.tableSort();
+    }
+    private tableSort(): void {
+        const table = document.querySelector('.table'),
             thead = table.querySelectorAll('thead'),
             tr = [].slice.call(thead[0].rows, 0),
             th = [].slice.call(tr[0].cells, 0);
         let isClicked;
-        th.map(element => {
+        th.map((element: HTMLTableCellElement): void => {
             element.addEventListener('click', () => {
                 if (element.cellIndex >= th.length - 1) {
                     return 0;
@@ -26,7 +26,7 @@ export class TableSortDirective implements OnInit {
             }, true);
         });
     }
-  public sorting(table, index, reverse) {
+    sorting(table: NodeSelector, index: number, reverse: boolean): void {
         const tbody = table.querySelectorAll('tbody');
         const tr = [].slice.call(tbody[0].rows);
         const test = tr.sort((a, b) => {

@@ -1,39 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { RestService } from '../../shared/services/rest.service';
+import { CalculateService } from '../../shared/services/calculate.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Category } from '../../shared/models/category.model';
 @Component({
-  selector: 'app-product-form',
-  templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+    selector: 'app-product-form',
+    templateUrl: './product-form.component.html',
+    styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
+    addProductForm: FormGroup;
+    categories: Category[];
+    title: string;
+    formErrors = {
+        'Description': '',
+        'categoryId': '',
+        'Spending': ''
+    };
+    private getUrlPath: any;
+    private errorMessage: string;
+    private validationMessages = {
+        'Description': {
+            'required': 'Description is required.',
+            'minlength': 'Description must be at least 4 characters long.',
+            'maxlength': 'Description cannot be more than 24 characters long.'
+        },
+        'categoryId': {
+            'required': 'Category is required.'
+        },
+        'Spending': {
+            'required': 'Spending is required.'
+        }
+    };
+    constructor(
+        private restService: RestService,
+        private formBuilder: FormBuilder,
+        private calculateService: CalculateService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute) { }
 
-  constructor(private restService: RestService, private formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.buildForm();
-    this.getCategory();
-  }
-  public addProduct() {
+    ngOnInit() {
+        this.buildForm();
+        this.getCategory();
+        this.getUrlPath = this.router.events.subscribe(() => {
+            this.activatedRoute.params.subscribe(param => {
+                this.getUrlPath.unsubscribe();
+                this.title = param['param'];
+                if (param['param'] === 'Spending') {
+                } else {
+                }
+            });
+        });
+    }
+    addProduct(): void {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
         }
-        this.restService.addProducts(this.addProductForm.value)
+        const productsToPost = this.addProductForm.value;
+        const user = JSON.parse(localStorage.getItem('User'));
+        productsToPost.userId = user.id;
+        this.restService.addSpendings(productsToPost)
             .subscribe(
             data => {
-                // this.getProducts(this.calculateService.filterDate);
+                this.getProducts(this.calculateService.filterDate);
                 this.addProductForm.reset();
             },
             error => this.errorMessage = <any>error);
     }
-    private getCategory() {
+    private getProducts(filter: string): void {
+        this.restService.getSpendings(filter)
+            .subscribe(
+            data => this.restService.setProduct(data));
+    }
+    private getCategory(): void {
         this.restService.getCategory()
             .subscribe(
             data => this.categories = data,
             error => this.errorMessage = <any>error);
     }
-  public buildForm(): void {
+    buildForm(): void {
         this.addProductForm = this.formBuilder.group({
             Description: [this.formErrors.Description, [
                 Validators.required,
@@ -53,25 +100,9 @@ export class ProductFormComponent implements OnInit {
         this.onValueChanged();
 
     }
-private errorMessage: string;
-    private Profit = 0;
-    private validationMessages = {
-        'Description': {
-            'required': 'Description is required.',
-            'minlength': 'Description must be at least 4 characters long.',
-            'maxlength': 'Description cannot be more than 24 characters long.'
-        },
-        'categoryId': {
-            'required': 'Category is required.'
-        },
-        'Spending': {
-            'required': 'Spending is required.'
-        }
-    };
-    public onValueChanged(data?: any) {
+    onValueChanged(data?: string): void {
         if (!this.addProductForm) { return; }
         const form = this.addProductForm;
-
         for (const field in this.formErrors) {
             if (this.formErrors.hasOwnProperty(field)) {
                 this.formErrors[field] = '';
@@ -80,14 +111,14 @@ private errorMessage: string;
         }
     }
 
-    public checkErrorValidate(form, field) {
+    checkErrorValidate(form: FormGroup, field: string): void {
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
             this.addError(control, field);
         }
     }
 
-    public addError(control, field) {
+    addError(control: AbstractControl, field: string): void {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
@@ -95,11 +126,4 @@ private errorMessage: string;
             }
         }
     }
-    public formErrors = {
-        'Description': '',
-        'categoryId': '',
-        'Spending': ''
-    };
-    public addProductForm: FormGroup;
-    public categories: Array<any> = [];
 }

@@ -11,12 +11,15 @@ import { Product } from '../../shared/models/product.model';
   styleUrls: ['product-chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  private product: Array<Product>;
+  products: Product[];
   private errorMessage: Array<any>;
-  public constructor(private restService: RestService, private chartService: ChartService, private calculateService: CalculateService) { }
+  constructor(
+    private restService: RestService,
+    private chartService: ChartService,
+    private calculateService: CalculateService) { }
   ngOnInit() {
     this.restService.ProductBehavior.subscribe(
-      data => this.product = data,
-      error => this.errorMessage = <any>error)
+      (data: Product[]) => this.products = data,
+      error => this.errorMessage = <any>error);
   }
 }

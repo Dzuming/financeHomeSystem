@@ -5,20 +5,27 @@ const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const config = require('../../config/config');
-
+const fs = require('fs');
 exports.index = function(req, res) {
     User.find({}, (err, User) => {
         res.status(200).json(User);
     })
 }
-
+let img = 'C:/Users/dell/Desktop/Dawid.png';
 exports.create = function(req, res) {
     const passwordAndSalt = User.method.encryptPassword(req.body.Password, User.method.genRandomString(16));
     let newUser = new User({
-        Name: req.body.Name,
+        Name: {
+            First: req.body.Name.First,
+            Last: req.body.Name.Last
+        },
+        Email: req.body.Email,
         Password: passwordAndSalt.passwordHash,
+        Avatar: {
+            data: req.body.Image.data,
+            contentType: req.body.Type
+        },
         Salt: passwordAndSalt.salt,
-        Admin: false
     })
     newUser.save((error => {
         if (error) res.status(500).send(error);
@@ -30,9 +37,8 @@ exports.create = function(req, res) {
 
 exports.authenticate = function(req, res) {
     User.findOne({
-        name: req.body.name
+        Email: req.body.Email
     }, function(err, user) {
-
         if (err) throw err;
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
@@ -48,9 +54,13 @@ exports.authenticate = function(req, res) {
                 var token = jwt.sign({ user: user }, config.secret, { expiresIn: '1h' });
                 // return the information including token as JSON
                 res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
+                    'success': true,
+                    'message': 'Enjoy your token!',
+                    'token': token,
+                    '_id': user._id,
+                    'Avatar': user.Avatar,
+                    'Name': user.Name,
+                    'Email': user.Email,
                 });
             }
         }

@@ -8,22 +8,24 @@ import { Router } from '@angular/router';
     styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    private errorMessage;
+    loginForm: FormGroup;
+    private errorMessage: string;
     private formErrors = {
-        'Name': '',
-        'Password': '',
+        'Email': '',
+        'Password': ''
     };
-    public loginForm: FormGroup;
-    constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationService, private router: Router) {
-        this.authenticationService.logout();
+    constructor(
+        private formBuilder: FormBuilder,
+        private authenticationService: AuthenticationService,
+        private router: Router) {
     }
 
     ngOnInit() {
         this.buildForm();
     }
-    public buildForm(): void {
+    buildForm(): void {
         this.loginForm = this.formBuilder.group({
-            Name: [this.formErrors.Name, [
+            Email: [this.formErrors.Email, [
                 Validators.required,
                 Validators.minLength(4),
                 Validators.maxLength(24)
@@ -32,14 +34,8 @@ export class LoginComponent implements OnInit {
                 Validators.required,
             ]]
         });
-        // this.loginForm.valueChanges
-        //     .subscribe(data => this.onValueChanged(data));
-
-        // this.onValueChanged();
-
     }
-    public login() {
-
+    login(): void {
         if (!this.loginForm.value) {
             this.buildForm();
             return;

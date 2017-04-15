@@ -1,7 +1,12 @@
 export class User {
-    public id: number;
-    public username: string;
-    public password: string;
-    public firstName: string;
-    public lastName: string;
+     id: number;
+     Name: {
+        'First': string,
+        'Last': string
+    };
+     Email: string;
+     Avatar: {
+        'data': String,
+        'contentType': String
+    };
 }

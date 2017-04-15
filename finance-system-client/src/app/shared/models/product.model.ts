@@ -1,5 +1,8 @@
 export class Product {
-    public description: string;
-    public categories: Array<any> = [];
-    public Spending = 0;
+     Description: string;
+     Categories: Array<any> = [];
+     Spending: number;
+     User: {
+        Email: string;
+    };
 }

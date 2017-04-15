@@ -1,27 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "./src/content/_variables.scss";
 @import "./node_modules/bootstrap/scss/_variables.scss";
 @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
-$enable-flex: true !default;
 html {
-    width: 98%;
-    @include media-breakpoint-up(xs) {
-        font-size: 12px;
+    height: $max-app-height;
+    width: $max-app-width;
+    max-height: 100%;
+    max-width: 100%;
+    .row {
+        margin-right: 0 !important;
     }
-    @include media-breakpoint-up(sm) {
-        font-size: 13px;
+    .col-sm-10 {
+        padding-right: 0 !important;
     }
     @include media-breakpoint-up(md) {
-        font-size: 14px;
+        font-size: 12px;
     }
     @include media-breakpoint-up(lg) {
-        font-size: 15px;
+        font-size: 13px;
     }
     @include media-breakpoint-up(xl) {
+        font-size: 14px;
+    }
+    @include media-breakpoint-up(xxl) {
+        font-size: 15px;
+    }
+    @include media-breakpoint-up(xxxl) {
         font-size: 16px;
     }
     body {
         -webkit-appearance: none;
+        background: $base-background;
     }
     input {
         padding: 0;
@@ -30,7 +40,7 @@ html {
         box-shadow: none;
     }
     .loader {
-        background: linear-gradient(to left, #304352, #d7d2cc);
+        background: $base-background;
         width: 100vw;
         height: 100vh;
         &:before {

@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { RestService } from './rest.service';
+import { Product } from '../models/product.model';
 @Injectable()
 export class CalculateService {
     private errorMessage: string;
-    public subjectBudget: Subject<any[]> = new Subject<any[]>();
-    public selectedData: Subject<string> = new Subject<string>();
-    public startingBudget: number;
-    public filterDate: string = this.transformDate(this.getMonthOrYear(new Date().getMonth() + 1), this.getMonthOrYear(new Date().getFullYear()));
-    constructor(private http: Http, private restService: RestService) { }
-    calculateValues(productsSpending, budget?: number) {
+    selectedData: Subject<string> = new Subject<string>();
+    startingBudget: number;
+    filterDate: string = this.transformDate(
+        this.getMonthOrYear(new Date().getMonth() + 1),
+        this.getMonthOrYear(new Date().getFullYear())
+    );
+    constructor(
+        private http: Http,
+        private restService: RestService) { }
+
+    calculateValues(productsSpending: Product[], budget?: number): string {
         let sumofAllCosts = 0;
         if (!budget) {
             budget = 0;
@@ -19,27 +25,24 @@ export class CalculateService {
         productsSpending.map(value => sumofAllCosts += value.Spending);
         return (budget + sumofAllCosts).toFixed(2);
     }
-    getMonthOrYear(method) {
+    getMonthOrYear(method: number): number {
         const today = new Date();
-        let mm: number | string = method;
-        return mm
+        const date: number | string = method;
+        return date;
     }
-    transformDate(mm, yyyy) {
+    transformDate(mm: number | string, yyyy: number | string): string {
         if (mm < 10) {
             mm = '0' + mm;
         }
         return yyyy + '-' + mm;
     }
-    calculateProfitAndSpending(data) {
+    calculateProfitAndSpending(data: Product[]): string {
         return this.calculateValues(data);
     }
-    calculateBudget(product, budget) {
-        return this.calculateValues(product, budget);
+    calculateBudget(products: Product[], budget: number): string {
+        return this.calculateValues(products, budget);
     }
-    setBudget(budget) {
-        this.subjectBudget.next(budget)
-    }
-    setData(data) {
-        this.selectedData.next(data)
+    setData(data: string): void {
+        this.selectedData.next(data);
     }
 }

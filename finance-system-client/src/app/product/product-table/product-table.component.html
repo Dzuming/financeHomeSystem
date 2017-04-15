@@ -1,4 +1,4 @@
-<table class="col-sm table table-striped">
+<table class="col-sm table">
     <thead class="thead-default">
         <tr>
             <th style="width:40%">Description</th>
@@ -7,11 +7,12 @@
             <th style="width:20%"></th>
         </tr>
     </thead>
-    <tbody [product]="product" appNoData>
-        <tr role="row" *ngFor="let product of product ">
+    <tbody [products]="products" appNoData>
+        <tr role="row" *ngFor="let product of products">
             <td style="width:40%">{{product.Description}}</td>
             <td style="width:40%">{{product.Category.name}}</td>
-            <td style="width:20%">{{product.Spending}}</td>
+            <td *ngIf="product.Spending" style="width:20%">{{product.Spending}}</td>
+            <td *ngIf="product.Profit" style="width:20%">{{product.Profit}}</td>
             <td style="width:20%"><button class="btn btn-sm btn-warning"> Edit</button></td>
         </tr>
     </tbody>

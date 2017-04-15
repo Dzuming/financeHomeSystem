@@ -9,11 +9,12 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent implements OnInit {
   urlPath: string;
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router) { }
   ngOnInit() {
     this.getUrlPath();
   }
-  getUrlPath() {
+  getUrlPath(): void {
     this.router.events.subscribe(() => {
       this.urlPath = this.router.url;
     });

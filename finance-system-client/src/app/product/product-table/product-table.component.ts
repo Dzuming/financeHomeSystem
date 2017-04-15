@@ -10,37 +10,41 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent implements OnInit {
-  public product: Product[];
-  public title: string; 
+  products: Product[];
+  title: string;
   private errorMessage: string;
   private getUrlPath: any;
-  constructor(private restService: RestService, private activatedRouter: ActivatedRoute, private calculateService: CalculateService, private chartService: ChartService, private router: Router) { }
+  constructor(
+    private restService: RestService,
+    private activatedRoute: ActivatedRoute,
+    private calculateService: CalculateService,
+    private chartService: ChartService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.restService.ProductBehavior.subscribe(data => this.product = data)
+    this.restService.ProductBehavior.subscribe((data: Product[]): Product[] => this.products = data);
     this.getUrlPath = this.router.events.subscribe(() => {
-      this.activatedRouter.params.subscribe(param => {
+      this.activatedRoute.params.subscribe(param => {
         this.getUrlPath.unsubscribe();
         this.title = param['param'];
         if (param['param'] === 'Spending') {
-          this.getProducts(this.restService.getProducts(this.calculateService.filterDate));
-          
+          this.getProducts(this.restService.getSpendings(this.calculateService.filterDate));
         } else {
-          console.log('ddd')
+          this.getProducts(this.restService.getProfits(this.calculateService.filterDate));
         }
       });
-    })
+    });
 
   }
-  private getProducts(method) {
+  private getProducts(method: any): void {
     method
       .subscribe(
-      (data: Product[]) => {
-        this.restService.setProduct(data)
+      (data: Product[]): void => {
+        this.restService.setProduct(data);
       },
       error => this.errorMessage = <any>error,
       () => {
-        this.chartService.updateChart(this.product);
+        this.chartService.updateChart(this.products);
         this.restService.getBudget();
       });
   }
