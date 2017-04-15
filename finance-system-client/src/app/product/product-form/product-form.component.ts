@@ -13,7 +13,6 @@ export class ProductFormComponent implements OnInit {
     addProductForm: FormGroup;
     categories: Category[];
     title: string;
-    defaultSelectValue = '';
     formErrors = {
         'Description': '',
         'categoryId': '',

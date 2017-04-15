@@ -22,8 +22,8 @@ exports.create = function(req, res) {
         Email: req.body.Email,
         Password: passwordAndSalt.passwordHash,
         Avatar: {
-            data: fs.readFileSync(img),
-            contentType: 'image/png'
+            data: req.body.Image.data,
+            contentType: req.body.Type
         },
         Salt: passwordAndSalt.salt,
     })

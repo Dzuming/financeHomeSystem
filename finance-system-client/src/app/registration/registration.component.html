@@ -2,12 +2,10 @@
     <div id="form-container" class="text-center">
         <h2>Registration</h2>
         <form [formGroup]="registrationForm" (ngSubmit)=" addUser()" novalidate>
-            <div class="form-group">
-                <label for="Name">Name</label>
+            <div class="form-group" formGroupName="Name">
+                <label for="First">First</label>
                 <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
-                <input type="text" formControlName="Name" class="form-control" placeholder="Name" />
-            </div>
-            <div class="form-group">
+                <input type="text" formControlName="First" class="form-control" placeholder="First" />
                 <label for="Last">Last</label>
                 <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
                 <input type="text" formControlName="Last" class="form-control" placeholder="Last" />
@@ -25,7 +23,7 @@
             <div class="form-group">
                 <label for="Image">Image</label>
                 <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
-                <input type="file" formControlName="Image" class="form-control" placeholder="Image" />
+                <input type="file" (change)="fileChange($event)" formControlName="Image" class="form-control" accept=".png" />
             </div>
             <div class="form-group">
                 <button class="btn btn-primary">Login</button>

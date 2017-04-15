@@ -56,6 +56,16 @@ export class RestService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    addUser(user): Observable<Product> {
+        const body = JSON.stringify(user);
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+        });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(environment.URL + 'user', body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response): void {
         const body = res.json();
         return body || {};
