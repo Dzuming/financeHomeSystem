@@ -19,7 +19,10 @@ export class SideNavComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('User'));
   }
   get getImg(): string {
-    return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.user.Avatar.data}`);
+    if (this.user) {
+      return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.user.Avatar.data}`);
+    }
+    
   }
 
 

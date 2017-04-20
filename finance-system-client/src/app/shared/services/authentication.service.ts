@@ -38,7 +38,7 @@ export class AuthenticationService {
                 if (token) {
                     this.token = token;
                     localStorage.setItem('User', JSON.stringify(user));
-                    localStorage.setItem('id_token', token);
+                    localStorage.setItem('token', token);
                     return true;
                 } else {
                     return false;

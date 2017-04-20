@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const Budget = mongoose.model('Budget');
 const spending = mongoose.model('spending');
 const profit = mongoose.model('profit');
-let spendingValue;
-let profitValue;
 // exports.create = function(req, res) {
 //     var johndoe = new Budget({
 //         Overall: 10000

@@ -1,4 +1,4 @@
-<aside>
+<aside *ngIf="getImg">
     <h2><i class="fa fa-money" aria-hidden="true"></i>Finance System</h2>
     <img class="img-fluid rounded-circle img-thumbnail mx-auto d-block" alt="Responsive image" src="{{getImg}}">
     <h2 class="text-center">{{user.Name.First}} {{user.Name.Last}}</h2>
