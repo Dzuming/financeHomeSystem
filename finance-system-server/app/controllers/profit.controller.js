@@ -8,6 +8,7 @@ exports.create = function(req, res) {
         Category: req.body.categoryId,
         Description: req.body.Description,
         Profit: req.body.Profit,
+        User: req.body.userId,
         DateCreated: Date.now()
     })
     newProfit.save((error => {
@@ -16,17 +17,24 @@ exports.create = function(req, res) {
             message: 'Question created successfully'
         });
     }))
-    Budget.findOne({}, (err, Value) => {
+    Budget.find({}, (err, Value) => {
+            if (!Value[0].Overall) {
+                Value[0].Overall = 10000;
+            }
             let newBudget = new Budget({
-                Overall: Value[Value.length - 1].Overall + req.body.Profit,
+                Overall: Value[0].Overall + req.body.Profit,
                 DateCreated: Date.now(),
                 User: req.body.userId
             })
             Budget.createBudget(newBudget)
         })
         .sort({ 'DateCreated': 'desc' })
+        .exec((err, profit) => profit.filter(element => {
+            if (element.User) {
+                element.User.Email === req.params.Email
+            }
+        }))
 }
-
 exports.index = function(req, res) {
     profit.find({})
         .populate("Category")

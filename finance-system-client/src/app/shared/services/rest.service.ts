@@ -18,15 +18,9 @@ export class RestService {
     constructor(
         private http: Http) { }
 
-    getSpendings(filter: String): Observable<any[]> {
-        const spendingUrl = environment.URL + 'Spending/' + this.user.Email + '/' + filter;
+    getIncomeStatement(filter: String, type): Observable<any[]> {
+        const spendingUrl = environment.URL + type + '/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getProfits(filter: String): Observable<any[]> {
-        const profitUrl = environment.URL + 'Profit/' + this.user.Email + '/' + filter;
-        return this.http.get(profitUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -46,13 +40,13 @@ export class RestService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    addSpendings(product): Observable<Product> {
+    addIncomeStatement(product, type): Observable<Product> {
         const body = JSON.stringify(product);
         const headers = new Headers({
             'Content-Type': 'application/json',
         });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post(environment.URL + 'Spending', body, options)
+        return this.http.post(environment.URL + type, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

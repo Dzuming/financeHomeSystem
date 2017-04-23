@@ -1,12 +1,12 @@
-<form class="add-product-form" [formGroup]="addProductForm" (ngSubmit)="addProduct()" novalidate>
+<form class="add-product-form" [formGroup]="addProductForm" (ngSubmit)="addIncomeStatement(addProductMethod)" novalidate>
     <table class="table">
         <tbody>
             <tr>
                 <td style="width:40%">
                     <div class="form-group">
                         <input class="form-control" type="text" formControlName="Description" placeholder="Description" required>
-                        <div *ngIf="formErrors.Description" class="alert alert-danger">
-                            {{ formErrors.Description }}
+                        <div *ngIf="formFields.Description" class="alert alert-danger">
+                            {{ formFields.Description }}
                         </div>
                     </div>
                 </td>
@@ -16,18 +16,15 @@
                                     <option disabled hidden [value]="''">Category</option>
                                     <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
                                 </select>
-                        <div *ngIf="formErrors.categoryId" class="alert alert-danger">
-                            {{ formErrors.categoryId }}
+                        <div *ngIf="formFields.categoryId" class="alert alert-danger">
+                            {{ formFields.categoryId }}
                         </div>
                     </div>
                 </td>
                 <td style="width:20%">
-                    <div class="form-group">
-                        <input class="form-control" type="number" formControlName="Spending" placeholder="{{title}}" step="any" required>
-
-                        <div *ngIf="formErrors.Spending" class="alert alert-danger">
-                            {{ formErrors.Spending }}
-                        </div>
+                    <input class="form-control" type="number" formControlName="incomeStatement" placeholder="{{type}}" step="any">
+                    <div *ngIf="formFields.incomeStatement" class="alert alert-danger">
+                        {{ formFields.incomeStatement }}
                     </div>
                 </td>
                 <td style="width:20%"><button class="btn btn-sm btn-warning" type="submit" [disabled]="!addProductForm.valid"> save</button></td>
