@@ -23,7 +23,7 @@ export class SideNavDateModalComponent implements OnInit {
     this.calculateService.selectedData.subscribe((data: any): void => this.setDateFromPeriod(data));
   }
   getProducts(filter: string): void {
-    this.restService.getSpendings(filter)
+    this.restService.getIncomeStatement(filter, '/Spending')
       .subscribe(
       (data: Product[]) => {
         this.products = data;

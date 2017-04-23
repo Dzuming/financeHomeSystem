@@ -17,12 +17,12 @@ export class CalculateService {
         private http: Http,
         private restService: RestService) { }
 
-    calculateValues(productsSpending: Product[], budget?: number): string {
+    calculateValues(incomeStatement: Product[], budget?: number): string {
         let sumofAllCosts = 0;
         if (!budget) {
             budget = 0;
         }
-        productsSpending.map(value => sumofAllCosts += value.Spending);
+        incomeStatement.map(value => sumofAllCosts += value.Spending);
         return (budget + sumofAllCosts).toFixed(2);
     }
     getMonthOrYear(method: number): number {

@@ -4,6 +4,7 @@ import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from '../../shared/models/category.model';
+import { Product } from "app/shared/models/product.model";
 @Component({
     selector: 'app-product-form',
     templateUrl: './product-form.component.html',
@@ -12,11 +13,11 @@ import { Category } from '../../shared/models/category.model';
 export class ProductFormComponent implements OnInit {
     addProductForm: FormGroup;
     categories: Category[];
-    title: string;
-    formErrors = {
+    type: string;
+    formFields = {
         'Description': '',
         'categoryId': '',
-        'Spending': ''
+        'incomeStatement': ''
     };
     private getUrlPath: any;
     private errorMessage: string;
@@ -29,8 +30,8 @@ export class ProductFormComponent implements OnInit {
         'categoryId': {
             'required': 'Category is required.'
         },
-        'Spending': {
-            'required': 'Spending is required.'
+        'incomeStatement': {
+            'required': 'Value is required.'
         }
     };
     constructor(
@@ -46,14 +47,11 @@ export class ProductFormComponent implements OnInit {
         this.getUrlPath = this.router.events.subscribe(() => {
             this.activatedRoute.params.subscribe(param => {
                 this.getUrlPath.unsubscribe();
-                this.title = param['param'];
-                if (param['param'] === 'Spending') {
-                } else {
-                }
+                this.type = param['param'];
             });
         });
     }
-    addProduct(): void {
+    addIncomeStatement(method): void {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
@@ -61,16 +59,18 @@ export class ProductFormComponent implements OnInit {
         const productsToPost = this.addProductForm.value;
         const user = JSON.parse(localStorage.getItem('User'));
         productsToPost.userId = user.id;
-        this.restService.addSpendings(productsToPost)
+        productsToPost[this.type] = productsToPost.incomeStatement;
+        delete productsToPost.incomeStatement;
+        this.restService.addIncomeStatement(productsToPost, this.type)
             .subscribe(
             data => {
-                this.getProducts(this.calculateService.filterDate);
+                this.getIncomeStatement(this.calculateService.filterDate);
                 this.addProductForm.reset();
             },
             error => this.errorMessage = <any>error);
     }
-    private getProducts(filter: string): void {
-        this.restService.getSpendings(filter)
+    private getIncomeStatement(filter: string): void {
+        this.restService.getIncomeStatement(filter, this.type)
             .subscribe(
             data => this.restService.setProduct(data));
     }
@@ -82,18 +82,18 @@ export class ProductFormComponent implements OnInit {
     }
     buildForm(): void {
         this.addProductForm = this.formBuilder.group({
-            Description: [this.formErrors.Description, [
+            Description: [this.formFields.Description, [
                 Validators.required,
                 Validators.minLength(4),
                 Validators.maxLength(24)
             ]],
-            categoryId: [this.formErrors.categoryId, [
+            categoryId: [this.formFields.categoryId, [
                 Validators.required,
             ]],
-            Spending: [this.formErrors.Spending, [
+            incomeStatement: [this.formFields.incomeStatement, [
                 Validators.required,
             ]],
-        });
+        })
         this.addProductForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
 
@@ -103,9 +103,9 @@ export class ProductFormComponent implements OnInit {
     onValueChanged(data?: string): void {
         if (!this.addProductForm) { return; }
         const form = this.addProductForm;
-        for (const field in this.formErrors) {
-            if (this.formErrors.hasOwnProperty(field)) {
-                this.formErrors[field] = '';
+        for (const field in this.formFields) {
+            if (this.formFields.hasOwnProperty(field)) {
+                this.formFields[field] = '';
                 this.checkErrorValidate(form, field);
             }
         }
@@ -122,7 +122,7 @@ export class ProductFormComponent implements OnInit {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
-                this.formErrors[field] += messages[key] + ' ';
+                this.formFields[field] += messages[key] + ' ';
             }
         }
     }

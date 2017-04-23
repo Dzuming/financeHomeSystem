@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProductTableComponent implements OnInit {
   products: Product[];
-  title: string;
+  type: string;
   private errorMessage: string;
   private getUrlPath: any;
   constructor(
@@ -26,13 +26,9 @@ export class ProductTableComponent implements OnInit {
     this.getUrlPath = this.router.events.subscribe(() => {
       this.activatedRoute.params.subscribe(param => {
         this.getUrlPath.unsubscribe();
-        this.title = param['param'];
-        if (param['param'] === 'Spending') {
-          this.getProducts(this.restService.getSpendings(this.calculateService.filterDate));
-        } else {
-          this.getProducts(this.restService.getProfits(this.calculateService.filterDate));
-        }
-      });
+        this.type = param['param'];
+        this.getProducts(this.restService.getIncomeStatement(this.calculateService.filterDate, this.type));
+      })
     });
 
   }
