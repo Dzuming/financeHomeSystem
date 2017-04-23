@@ -51,7 +51,7 @@ export class ProductFormComponent implements OnInit {
             });
         });
     }
-    addIncomeStatement(method): void {
+    addIncomeStatement(): void {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
