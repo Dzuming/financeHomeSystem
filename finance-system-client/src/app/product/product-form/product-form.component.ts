@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
@@ -11,15 +11,15 @@ import { Product } from "app/shared/models/product.model";
     styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
+    @Input() categories: Category[];
+    @Input() type: string;
+    @Output() onAdd = new EventEmitter();
     addProductForm: FormGroup;
-    categories: Category[];
-    type: string;
     formFields = {
         'Description': '',
         'categoryId': '',
         'incomeStatement': ''
     };
-    private getUrlPath: any;
     private errorMessage: string;
     private validationMessages = {
         'Description': {
@@ -37,21 +37,12 @@ export class ProductFormComponent implements OnInit {
     constructor(
         private restService: RestService,
         private formBuilder: FormBuilder,
-        private calculateService: CalculateService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute) { }
+        private calculateService: CalculateService) { }
 
     ngOnInit() {
         this.buildForm();
-        this.getCategory();
-        this.getUrlPath = this.router.events.subscribe(() => {
-            this.activatedRoute.params.subscribe(param => {
-                this.getUrlPath.unsubscribe();
-                this.type = param['param'];
-            });
-        });
     }
-    addIncomeStatement(method): void {
+    submit(): void {
         if (!this.addProductForm.value) {
             this.buildForm();
             return;
@@ -61,24 +52,10 @@ export class ProductFormComponent implements OnInit {
         productsToPost.userId = user.id;
         productsToPost[this.type] = productsToPost.incomeStatement;
         delete productsToPost.incomeStatement;
-        this.restService.addIncomeStatement(productsToPost, this.type)
-            .subscribe(
-            data => {
-                this.getIncomeStatement(this.calculateService.filterDate);
-                this.addProductForm.reset();
-            },
-            error => this.errorMessage = <any>error);
-    }
-    private getIncomeStatement(filter: string): void {
-        this.restService.getIncomeStatement(filter, this.type)
-            .subscribe(
-            data => this.restService.setProduct(data));
-    }
-    private getCategory(): void {
-        this.restService.getCategory()
-            .subscribe(
-            data => this.categories = data,
-            error => this.errorMessage = <any>error);
+        this.onAdd.emit(productsToPost)
+        if (productsToPost) {
+            this.addProductForm.reset();
+        }
     }
     buildForm(): void {
         this.addProductForm = this.formBuilder.group({

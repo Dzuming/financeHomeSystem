@@ -1,10 +1,10 @@
-<form class="add-product-form" [formGroup]="addProductForm" (ngSubmit)="addIncomeStatement(addProductMethod)" novalidate>
+<form class="add-product-form" [formGroup]="addProductForm" (ngSubmit)="submit()" novalidate>
     <table class="table">
         <tbody>
             <tr>
                 <td style="width:40%">
                     <div class="form-group">
-                        <input class="form-control" type="text" formControlName="Description" placeholder="Description" required>
+                        <input class="form-control" type="text" formControlName="Description" placeholder="Description">
                         <div *ngIf="formFields.Description" class="alert alert-danger">
                             {{ formFields.Description }}
                         </div>
