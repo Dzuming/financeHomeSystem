@@ -18,8 +18,8 @@ export class ChartComponent implements OnChanges {
     private chartService: ChartService,
     private calculateService: CalculateService) { }
   ngOnChanges(changes: any): void {
-    if (changes.products.currentValue && changes.products.currentValue.length !== 0) {
-    this.chartService.createChart(changes.products);
-    }
+    // if (changes.products.currentValue && changes.products.currentValue.length !== 0) {
+    // this.chartService.createChart(changes.products);
+    // }
   }
 }
