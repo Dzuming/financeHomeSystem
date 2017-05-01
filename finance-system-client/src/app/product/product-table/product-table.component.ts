@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { ChartService } from '../../shared/services/chart.service';
@@ -6,6 +6,7 @@ import { Product } from '../../shared/models/product.model';
 
 @Component({
   selector: 'app-product-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss']
 })
@@ -21,9 +22,6 @@ export class ProductTableComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.restService.ProductBehavior.subscribe((data: Product[]): Product[] => this.products = data);
-    
-
   }
   
 }

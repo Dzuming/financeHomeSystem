@@ -28,11 +28,9 @@ export class ProductComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // this.restService.ProductBehavior.subscribe(
-        //     (data: Product[]): Product[] => this.products = data,
-        //     error => this.errorMessage = <any>error);
         this.setActiveUrl();
         this.getCategory();
+        this.getIncomeStatementOnChange();
     }
     private setActiveUrl() {
         this.getUrlPath = this.router.events.subscribe(() => {
@@ -43,10 +41,19 @@ export class ProductComponent implements OnInit {
             })
         });
     }
+    getIncomeStatementOnChange() {
+        this.restService.ProductBehavior.subscribe(
+            (products:Product[]) =>{
+                this.products = products;
+                this.sumIncomeStatement = this.calculateService.calculateIncomeStatement(products, this.type);
+            } 
+        )
+    }
     private getIncomeStatement(method: any): void {
         method
             .subscribe(
             (products: Product[]): void => {
+                this.products = products
                 this.sumIncomeStatement = this.calculateService.calculateIncomeStatement(products, this.type);
                 this.restService.setProduct(products);
                 this.getBudget();
