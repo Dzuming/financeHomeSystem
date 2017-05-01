@@ -6,7 +6,7 @@
         </app-product-form>
     </section>
     <aside class="col col-sm-4  flex-items-xs-top">
-        <app-chart></app-chart>
+        <app-chart [products]="products"></app-chart>
         <app-calculation [sumIncomeStatement]="sumIncomeStatement" [currentBudget]="currentBudget" [type]="type">
         </app-calculation>
     </aside>
