@@ -11,7 +11,6 @@ import { User } from '../models/user.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class RestService {
-    product: Product[];
     ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
     private errorMessage: string;
     private user: User = JSON.parse(localStorage.getItem('User'));

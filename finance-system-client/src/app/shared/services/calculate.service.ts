@@ -17,13 +17,10 @@ export class CalculateService {
         private http: Http,
         private restService: RestService) { }
 
-    calculateValues(incomeStatement: Product[], budget?: number): string {
+    calculateIncomeStatement(incomeStatement: Product[], type: string): string {
         let sumofAllCosts = 0;
-        if (!budget) {
-            budget = 0;
-        }
-        incomeStatement.map(value => sumofAllCosts += value.Spending);
-        return (budget + sumofAllCosts).toFixed(2);
+        incomeStatement.map(value => sumofAllCosts += value[type]);
+        return  sumofAllCosts.toFixed(2);
     }
     getMonthOrYear(method: number): number {
         const today = new Date();
@@ -35,12 +32,6 @@ export class CalculateService {
             mm = '0' + mm;
         }
         return yyyy + '-' + mm;
-    }
-    calculateProfitAndSpending(data: Product[]): string {
-        return this.calculateValues(data);
-    }
-    calculateBudget(products: Product[], budget: number): string {
-        return this.calculateValues(products, budget);
     }
     setData(data: string): void {
         this.selectedData.next(data);

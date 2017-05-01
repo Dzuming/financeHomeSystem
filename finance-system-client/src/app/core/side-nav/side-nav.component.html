@@ -11,4 +11,4 @@
         <li [routerLink]="'/login'" (click)="authenticationService.logout();" class="p-2 col-sm-12"><i class="fa fa-sign-out" aria-hidden="true "></i>Logout</li>
     </ul>
 </aside>
-<app-side-nav-date-modal #childModal></app-side-nav-date-modal>
+<app-side-nav-date-modal #childModal (onClick)="getProducts($event)"></app-side-nav-date-modal>

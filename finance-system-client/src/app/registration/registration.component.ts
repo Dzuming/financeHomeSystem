@@ -10,7 +10,7 @@ import { RestService } from '../shared/services/rest.service'
 export class RegistrationComponent implements OnInit {
     registration: Registration;
     registrationForm: FormGroup;
-    image:string;
+    image: string;
     private errorMessage: string;
     private formErrors = {
         'Name': {
@@ -53,13 +53,13 @@ export class RegistrationComponent implements OnInit {
 
     }
     fileChange(event) {
-    let fileList: FileList = event.srcElement.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        let reader  = new FileReader()
+    const fileList: FileList = event.srcElement.files;
+    if (fileList.length > 0) {
+        const file: File = fileList[0];
+        const reader  = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function() {
-            let splitImg = reader.result.split(',');
+            const splitImg = reader.result.split(',');
             this.registrationForm.value.Image = new Buffer(splitImg[1], 'base64');
             this.registrationForm.value.Type = splitImg[0].split(/:|;/)[1];
     }.bind(this)
