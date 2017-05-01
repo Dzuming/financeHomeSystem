@@ -17,7 +17,7 @@ export class CalculateService {
         private http: Http,
         private restService: RestService) { }
 
-    calculateIncomeStatement(incomeStatement: Product[], type:string): string {
+    calculateIncomeStatement(incomeStatement: Product[], type: string): string {
         let sumofAllCosts = 0;
         incomeStatement.map(value => sumofAllCosts += value[type]);
         return  sumofAllCosts.toFixed(2);

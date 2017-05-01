@@ -30,12 +30,12 @@ describe('RestService', () => {
         inject([RestService, MockBackend], (restService, mockBackend) => {
 
             const mockDataPost = [{
-                "Name": {
-                    "First": "Dawid",
-                    "Last": "Poliszak"
+                'Name': {
+                    'First': 'Dawid',
+                    'Last': 'Poliszak'
                 },
-                "Email": "wawa@com",
-                "Password": "password"
+                'Email': 'wawa@com',
+                'Password': 'password'
             }]
 
             restService.addUser(mockDataPost).subscribe((data) => {

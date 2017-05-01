@@ -4,8 +4,8 @@ import { RestService } from '../shared/services/rest.service';
 import { ChartService } from '../shared/services/chart.service';
 import { Product } from '../shared/models/product.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Budget } from "app/shared/models/budget.model";
-import { Category } from "app/shared/models/category.model";
+import { Budget } from 'app/shared/models/budget.model';
+import { Category } from 'app/shared/models/category.model';
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
@@ -43,10 +43,10 @@ export class ProductComponent implements OnInit {
     }
     getIncomeStatementOnChange() {
         this.restService.ProductBehavior.subscribe(
-            (products:Product[]) =>{
+            (products: Product[]) => {
                 this.products = products;
                 this.sumIncomeStatement = this.calculateService.calculateIncomeStatement(products, this.type);
-            } 
+            }
         )
     }
     private getIncomeStatement(method: any): void {

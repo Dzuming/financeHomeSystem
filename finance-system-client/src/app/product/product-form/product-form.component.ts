@@ -4,7 +4,7 @@ import { RestService } from '../../shared/services/rest.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from '../../shared/models/category.model';
-import { Product } from "app/shared/models/product.model";
+import { Product } from 'app/shared/models/product.model';
 @Component({
     selector: 'app-product-form',
     changeDetection: ChangeDetectionStrategy.OnPush,

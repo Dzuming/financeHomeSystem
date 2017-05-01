@@ -4,7 +4,7 @@ import { User } from '../../shared/models/user.model';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { RestService } from '../../shared/services/rest.service';
-import { Product } from "app/shared/models/product.model";
+import { Product } from 'app/shared/models/product.model';
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -36,7 +36,7 @@ export class SideNavComponent implements OnInit {
       },
       (error: string) => this.errorMessage = <any>error,
       () => {
-        
+
         // this.chartService.updateChart(this.products);
       });
   }

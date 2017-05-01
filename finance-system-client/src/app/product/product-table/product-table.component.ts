@@ -16,12 +16,12 @@ export class ProductTableComponent implements OnInit {
   private errorMessage: string;
   constructor(
     private restService: RestService,
-    
+
     private calculateService: CalculateService,
     private chartService: ChartService,
     ) { }
 
   ngOnInit() {
   }
-  
+
 }

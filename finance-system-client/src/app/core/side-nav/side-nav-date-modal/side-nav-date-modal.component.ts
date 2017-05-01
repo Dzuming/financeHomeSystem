@@ -23,7 +23,7 @@ export class SideNavDateModalComponent implements OnInit {
   ngOnInit() {
     this.calculateService.selectedData.subscribe((data: any): void => this.setDateFromPeriod(data));
   }
-  
+
 
   setDateFromPeriod(event: Event): void {
     const target = event.target || event.srcElement || event.currentTarget;
