@@ -2,7 +2,7 @@ FROM node:6.9.5
 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
-RUN npm install @angular/cli -g
+RUN npm install @angular/cli@1.0.0 -g
 
 COPY package.json ./package.json
 RUN npm install
