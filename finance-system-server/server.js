@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
-const config = require('./config/config')
+const config = require('./config/config').get(process.env.NODE_ENV);
 const models = join(__dirname, 'app/models');
 const port = 8081;
 
