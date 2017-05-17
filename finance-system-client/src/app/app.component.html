@@ -1,8 +1,8 @@
 <div class="row">
-    <div [hidden]="urlPath === '/login' || urlPath === '/registration'" class="col col-sm-2">
+    <div [hidden]="urlPath === '/login' || urlPath === '/registration'" class="col-sm-2">
         <app-side-nav></app-side-nav>
     </div>
-    <div class="col col-sm-10">
+    <div [ngClass]="urlPath === '/login' || urlPath === '/registration'  ? 'col-sm-12' : 'col-sm-10'">
         <router-outlet></router-outlet>
     </div>
 </div>

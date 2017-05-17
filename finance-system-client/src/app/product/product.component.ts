@@ -37,6 +37,7 @@ export class ProductComponent implements OnInit {
             this.activatedRoute.params.subscribe(param => {
                 this.getUrlPath.unsubscribe();
                 this.type = param['param'];
+                this.restService.setType(this.type);
                 this.getIncomeStatement(this.restService.getIncomeStatement(this.calculateService.filterDate, this.type));
             })
         });

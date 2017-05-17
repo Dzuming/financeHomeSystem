@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "SET NODE_ENV=development&&nodemon server.js",
-        "prod": "SET NODE_ENV=production&&nodemon server.js",
-        "debug": "nodemon --debug server.js"
+        "start": "SET  NODE_ENV=development&&nodemon server.js",
+        "prod": " export NODE_ENV=production&&nodemon server.js",
+        "debug": "SET NODE_ENV=production&&nodemon --debug server.js"
     },
     "author": "",
     "license": "ISC",

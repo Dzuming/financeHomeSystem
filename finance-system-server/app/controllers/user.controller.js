@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const config = require('../../config/config');
+const config = require('../../config/config').get(process.env.NODE_ENV);
 const fs = require('fs');
 exports.index = function(req, res) {
     User.find({}, (err, User) => {
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
     newUser.save((error => {
         if (error) res.status(500).send(error);
         res.status(201).json({
-            message: 'Question created successfully'
+            message: 'User created successfully'
         });
     }))
 }

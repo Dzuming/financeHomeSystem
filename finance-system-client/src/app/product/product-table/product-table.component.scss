@@ -1,7 +1,11 @@
 @import "./src/content/_variables.scss";
+@import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
 .table {
     border: 1px solid $border-grey-color;
     margin-bottom: 0 !important;
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+    }
     thead {
         height: $form-header-height;
         display: block;

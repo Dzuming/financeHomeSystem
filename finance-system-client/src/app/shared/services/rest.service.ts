@@ -12,6 +12,7 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class RestService {
     ProductBehavior: Subject<Product[]> = new Subject<Product[]>();
+    TypeBehavior: Subject<string> = new Subject<string>();
     private errorMessage: string;
     private user: User = JSON.parse(localStorage.getItem('User'));
     constructor(
@@ -71,5 +72,8 @@ export class RestService {
     }
     setProduct(product: Product[]): void {
         this.ProductBehavior.next(product);
+    }
+    setType(type: string): void {
+        this.TypeBehavior.next(type);
     }
 }

@@ -1,9 +1,9 @@
 @import "./src/content/_variables.scss";
 aside {
     img {
-        margin-top: 50px;
-        width: 200px;
-        height: 200px;
+        margin-top: 3.125rem;
+        width: 12.5rem;
+        height: 12.5rem;
     }
     background-color: $modal-background-color !important;
     background: $label-grey-color;
@@ -16,8 +16,6 @@ aside {
         i {
             margin-right: 1.3rem;
         }
-        text-align: right;
-        margin-right: 1rem;
         margin-bottom: 1rem;
     }
     h1 {

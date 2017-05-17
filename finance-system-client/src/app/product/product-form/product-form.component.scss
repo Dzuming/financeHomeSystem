@@ -1,5 +1,10 @@
  @import "./src/content/_variables.scss";
+ @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
  form {
+     @include media-breakpoint-down(sm) {
+         padding: 0;
+         margin: 0 !important;
+     }
      tr {
          border: 1px solid $border-grey-color;
          background-color: $modal-background-subcolor;

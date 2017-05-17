@@ -14,7 +14,7 @@ export class ChartService {
   private readonly height = 300;
   constructor() { }
 
-  createChart(data) {
+  createChart(data, type) {
     if (data.length === 0) {
       return;
     }
@@ -25,7 +25,7 @@ export class ChartService {
       .attr('height', this.height)
       .append('g')
       .attr('transform', 'translate(' + (this.width / 2) + ',' + (this.height / 2) + ')');
-    this.pieValue(data);
+    this.pieValue(data,type);
     this.g = this.svg.selectAll('arc')
       .data(this.pie)
       .enter()
@@ -40,28 +40,28 @@ export class ChartService {
 
     this.addText();
     this.addLegend();
-    this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
+    this.addtooltip(this.SumofAllCategories(this.rawDataChart(data, type), type));
   }
-  rawDataChart(setData) {
-    return setData.filter((data) => data.Spending < 0)
-      .map((dataset) => { return { 'Spending': - dataset.Spending, 'Category': dataset.Category.name }; });
+  rawDataChart(setData, type) {
+    return setData.filter((data) => data[type] > 0)
+      .map((dataset) => { return { [type]: dataset[type], 'Category': dataset.Category.name }; });
   }
 
-  SumofSingleCategories(dataChart): any {
+  SumofSingleCategories(dataChart, type): any {
     return d3.nest().key((d: any) => d.Category)
-      .rollup((value): any => d3.sum(value, (d: any) => d.Spending))
+      .rollup((value): any => d3.sum(value, (d: any) => d[type]))
       .entries(dataChart);
   }
-  SumofAllCategories(dataChart): any {
+  SumofAllCategories(dataChart, type): any {
     return d3.nest()
-      .rollup((value): any => d3.sum(value, (d: any) => d.Spending))
+      .rollup((value): any => d3.sum(value, (d: any) => d[type]))
       .object(dataChart);
   }
-  pieValue(data) {
+  pieValue(data,type) {
     this.pie = d3.pie()
       .sort(null)
       .value((d: any) => d.value)
-      (this.SumofSingleCategories(this.rawDataChart(data)));
+      (this.SumofSingleCategories(this.rawDataChart(data,type), type));
   }
   calculateArc(width, height) {
     const radius = Math.min(width, height) / 2;
@@ -120,20 +120,20 @@ export class ChartService {
       .attr('y', legendRectSize - legendSpacing)
       .text((d) => d);
   }
-  updateChart(data) {
+  updateChart(data, type) {
     if (!this.svg && data.length !== 0 || document.getElementsByTagName('svg').length === 0 && data.length !== 0) {
-      this.createChart(data);
+      this.createChart(data, type);
     } else if (data.length === 0) {
       d3.select('svg').remove();
       return;
     }
-    this.pieValue(data);
+    this.pieValue(data, type);
     this.g.selectAll('text').remove();
     this.path = this.path.data(this.pie);
     this.path.transition().duration(750).attrTween('d', this.arcTween.bind(null, this.arc, this.initAngle));
     this.addText();
     this.addLegend();
-    this.addtooltip(this.SumofAllCategories(this.rawDataChart(data)));
+    this.addtooltip(this.SumofAllCategories(this.rawDataChart(data, type), type));
   };
   arcTween(arc, initAngle, a) {
     const tempArc = arc;

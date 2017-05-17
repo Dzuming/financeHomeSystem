@@ -53,9 +53,12 @@ exports.period = function(req, res) {
     spending.find({})
         .select('DateCreated')
         .exec((err, spending) => {
-            res.status(200).json({
-                'startDate': spending[0].DateCreated.toISOString().split('T')[0],
-                'endDate': spending[spending.length - 1].DateCreated.toISOString().split('T')[0]
-            })
+            if (spending[0]) {
+                res.status(200).json({
+                    'startDate': spending[0].DateCreated.toISOString().split('T')[0],
+                    'endDate': spending[spending.length - 1].DateCreated.toISOString().split('T')[0]
+                })
+            }
+
         })
 }

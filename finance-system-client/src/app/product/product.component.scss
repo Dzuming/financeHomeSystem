@@ -1,15 +1,27 @@
     @import "./src/content/_variables.scss";
+    @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
     aside {
+        @include media-breakpoint-down(sm) {
+            padding: 0;
+            margin: 0;
+        }
         height: $max-app-height;
     }
     
     .row {
         padding-right: 0 !important;
+        @include media-breakpoint-down(sm) {
+            padding: 0;
+            margin: 0;
+        }
         app-side-nav {
             padding-left: 30px;
         }
         section {
             height: $max-app-height;
+            @include media-breakpoint-down(sm) {
+                padding: 0;
+            }
             button {
                 width: 3.125rem;
             }

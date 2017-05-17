@@ -1,33 +1,48 @@
-      .container {
-            width: 50rem;
-            margin-top: 12.5rem;
-            color: #782F18;
-            #form-container {
-                background-color: #8D887F;
-                border: 2px solid #625E55;
-                margin: 0 15rem;
-                .fa {
-                    margin-top: 2.635rem;
-                    position: absolute;
-                    left: 16.500rem;
-                }
-                label {
-                    float: left;
-                }
-                input {
-                    border: 1px solid black !important;
-                    padding-left: 2.2rem
-                }
-                .btn-primary {
-                    background-color: #782F18;
-                    border: 1px solid #2E0B00;
-                }
-            }
-            h2 {
-                padding-bottom: 2rem;
-            }
-        }
-        button {
-            width: 5rem;
-        }
-    
+  @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+  @import "./src/content/_variables.scss";
+  .container {
+      color: #782F18;
+      padding-right: 0;
+      #form-container {
+          padding: 0;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          resize: both;
+          overflow: auto;
+          height: 100vh;
+          form {
+              background-color: #8D887F;
+              border: 2px solid #625E55;
+              resize: both;
+              overflow: auto;
+              @include media-breakpoint-down(sm) {
+                  width: 100vw;
+              }
+              .fa {
+                  position: absolute;
+                  top: 1vh;
+                  left: 0.3vw;
+                  z-index: 1000;
+              }
+              label {
+                  float: left;
+              }
+              input {
+                  border: 1px solid black !important;
+                  padding-left: 2.2rem
+              }
+              .btn-primary {
+                  background-color: #782F18;
+                  border: 1px solid #2E0B00;
+              }
+              h2 {
+                  padding-bottom: 2rem;
+              }
+          }
+          button {
+              width: 100%;
+          }
+      }
+  }
