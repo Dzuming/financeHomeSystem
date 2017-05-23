@@ -12,7 +12,10 @@ import { NoDataDirective } from '../shared/directives/no-data.directive';
 import { ProductTableComponent } from './product-table/product-table.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { TableSortDirective } from './shared/table-sort.directive';
-import {ProductPipe} from './shared/product.pipe';
+import { ProductPipe } from './shared/product.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +23,9 @@ import {ProductPipe} from './shared/product.pipe';
     HttpModule,
     ReactiveFormsModule,
     SharedModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    BrowserAnimationsModule,
+    NgxChartsModule
   ],
   declarations: [
     ProductComponent,

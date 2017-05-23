@@ -1,6 +1,7 @@
     @import "./src/content/_variables.scss";
     @import "./node_modules/bootstrap/scss/mixins/_breakpoints.scss";
     aside {
+        padding-right: 0;
         @include media-breakpoint-down(sm) {
             padding: 0;
             margin: 0;

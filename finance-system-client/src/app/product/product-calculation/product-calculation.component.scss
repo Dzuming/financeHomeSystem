@@ -5,9 +5,11 @@
     bottom: 0;
     margin-right: 15px !important;
     margin-left: 0 !important;
+    padding-left: 0 !important;
     @include media-breakpoint-down(sm) {
         padding: 0;
         margin: 0;
+        position: relative;
     }
     .col-sm-12 {
         background-color: $border-grey-color;

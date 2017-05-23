@@ -25,7 +25,7 @@ export class ChartService {
       .attr('height', this.height)
       .append('g')
       .attr('transform', 'translate(' + (this.width / 2) + ',' + (this.height / 2) + ')');
-    this.pieValue(data,type);
+    this.pieValue(data, type);
     this.g = this.svg.selectAll('arc')
       .data(this.pie)
       .enter()
@@ -57,11 +57,11 @@ export class ChartService {
       .rollup((value): any => d3.sum(value, (d: any) => d[type]))
       .object(dataChart);
   }
-  pieValue(data,type) {
+  pieValue(data, type) {
     this.pie = d3.pie()
       .sort(null)
       .value((d: any) => d.value)
-      (this.SumofSingleCategories(this.rawDataChart(data,type), type));
+      (this.SumofSingleCategories(this.rawDataChart(data, type), type));
   }
   calculateArc(width, height) {
     const radius = Math.min(width, height) / 2;
@@ -135,6 +135,51 @@ export class ChartService {
     this.addLegend();
     this.addtooltip(this.SumofAllCategories(this.rawDataChart(data, type), type));
   };
+   findNeighborArc(i, data0, data1, key) {
+    var d;
+    if (d = this.findPreceding(i, data0, data1, key)) {
+
+      var obj = this.cloneObj(d)
+      obj['startAngle'] = d.endAngle;
+      return obj;
+
+    } else if (d = this.findFollowing(i, data0, data1, key)) {
+
+      var obj = this.cloneObj(d)
+      obj['endAngle'] = d.startAngle;
+      return obj;
+
+    }
+
+    return null
+
+
+  }
+   findFollowing(i, data0, data1, key) {
+  var n = data1.length, m = data0.length;
+  while (++i < n) {
+    var k = key(data1[i]);
+    for (var j = 0; j < m; ++j) {
+      if (key(data0[j]) === k) return data0[j];
+    }
+  }
+}
+  findPreceding(i, data0, data1, key) {
+  var m = data0.length;
+  while (--i >= 0) {
+    var k = key(data1[i]);
+    for (var j = 0; j < m; ++j) {
+      if (key(data0[j]) === k) return data0[j];
+    }
+  }
+}
+ cloneObj(obj) {
+  var o = {};
+  for(var i in obj) {
+    o[i] = obj[i];
+  }
+  return o;
+}
   arcTween(arc, initAngle, a) {
     const tempArc = arc;
     const i = d3.interpolate(initAngle, a);
