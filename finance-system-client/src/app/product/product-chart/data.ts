@@ -1,3 +1,3 @@
-export var single = [
- 
+export let single = [
+
 ];

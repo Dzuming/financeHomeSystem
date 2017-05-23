@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RestService } from '../../shared/services/rest.service';
-import { ChartService } from '../../shared/services/chart.service';
 import { CalculateService } from '../../shared/services/calculate.service';
 import { Product } from '../../shared/models/product.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -18,12 +17,11 @@ export class ChartComponent implements OnInit, OnChanges {
   private errorMessage: Array<any>;
   private type: string;
   colorScheme = {
-    domain: ['#4e31a5', '#9c25a7', '#3065ab', '#57468b', '#904497', '#46648b', 
+    domain: ['#4e31a5', '#9c25a7', '#3065ab', '#57468b', '#904497', '#46648b',
       '#32118d', '#a00fb3', '#1052a2', '#6e51bd', '#b63cc3', '#6c97cb', '#8671c1', '#b455be', '#7496c3']
   };
   constructor(
     private restService: RestService,
-    private chartService: ChartService,
     private calculateService: CalculateService) {
       Object.assign(this, { single })
   }

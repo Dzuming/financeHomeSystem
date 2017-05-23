@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { CalculateService } from '../shared/services/calculate.service';
-import { ChartService } from '../shared/services/chart.service';
 import { RestService } from '../shared/services/rest.service';
 import { RouterModule } from '@angular/router';
 
@@ -13,8 +12,7 @@ import { RouterModule } from '@angular/router';
     ],
     providers: [
         CalculateService,
-        RestService,
-        ChartService
+        RestService
     ],
 })
 export class CoreModule { }

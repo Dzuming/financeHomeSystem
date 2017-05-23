@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CalculateService } from '../shared/services/calculate.service';
 import { RestService } from '../shared/services/rest.service';
-import { ChartService } from '../shared/services/chart.service';
 import { Product } from '../shared/models/product.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Budget } from 'app/shared/models/budget.model';
@@ -23,8 +22,7 @@ export class ProductComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private calculateService: CalculateService,
-        private restService: RestService,
-        private chartService: ChartService,
+        private restService: RestService
     ) { }
 
     ngOnInit() {

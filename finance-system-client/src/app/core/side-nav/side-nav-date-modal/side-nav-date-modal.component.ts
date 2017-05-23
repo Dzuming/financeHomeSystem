@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CalculateService } from '../../../shared/services/calculate.service';
-import { ChartService } from '../../../shared/services/chart.service';
 
 import { Product } from '../../../shared/models/product.model';
 import { ModalDirective } from 'ng2-bootstrap/modal';
@@ -16,8 +15,7 @@ export class SideNavDateModalComponent implements OnInit {
   products: Product[];
   private errorMessage: string;
   constructor(
-    private calculateService: CalculateService,
-    private chartService: ChartService
+    private calculateService: CalculateService
     ) { }
 
   ngOnInit() {
