@@ -1,13 +1,13 @@
-<div class="row col col-sm-12">
-    <section class="col col-sm-8  flex-items-xs-top">
+<div class="row col-sm-12">
+    <section class="col-sm-8  flex-items-xs-top">
         <app-product-table [products]="products" [type]="type" appTableSort>
         </app-product-table>
         <app-product-form [categories]="categories" [type]="type" (onAdd)="addIncomeStatement($event)">
         </app-product-form>
     </section>
-    <aside class="col col-sm-4  flex-items-xs-top">
-        <app-chart [products]="products"></app-chart>
-        <app-calculation [sumIncomeStatement]="sumIncomeStatement" [currentBudget]="currentBudget" [type]="type">
+    <aside class=c ol-sm-4 flex-items-xs-top ">
+        <app-chart [products]="products "></app-chart>
+        <app-calculation [sumIncomeStatement]="sumIncomeStatement " [currentBudget]="currentBudget " [type]="type ">
         </app-calculation>
     </aside>
 </div>
