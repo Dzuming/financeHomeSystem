@@ -32,9 +32,27 @@ export class ChartComponent implements OnInit, OnChanges {
     return setData.filter((data) => data[type] > 0)
       .map((dataset) => { return  { 'name': dataset.Category.name, value: dataset[type] }; });
   }
+  SumofSingleCategories(dataChart): any {
+   let sumAllCategories = Object.create(null);
+let tempAllValues: any[] = [];
+ dataChart.forEach(function (a) {
+        return sumAllCategories[a.name] = (sumAllCategories[a.name] || 0) + a.value;
+   
+})
+
+for (let prop in sumAllCategories) {
+
+ tempAllValues.push({
+  'name': prop,
+  'value': sumAllCategories[prop]
+}) 
+}
+return tempAllValues
+  }
   ngOnChanges(changes: any): void {
     if (changes.products.currentValue && changes.products.currentValue.length !== 0) {
-      this.single = this.rawDataChart(this.products, this.type)
+      console.log( this.SumofSingleCategories(this.rawDataChart(this.products, this.type)))
+      this.single = this.SumofSingleCategories(this.rawDataChart(this.products, this.type))
     }
   }
   getType() {
