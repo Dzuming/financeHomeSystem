@@ -5,9 +5,9 @@
         <app-product-form [categories]="categories" [type]="type" (onAdd)="addIncomeStatement($event)">
         </app-product-form>
     </section>
-    <aside class="col-sm-4 flex-items-xs-top ">
-        <app-chart [products]="products "></app-chart>
-        <app-calculation [sumIncomeStatement]="sumIncomeStatement " [currentBudget]="currentBudget " [type]="type ">
+    <aside class="col-sm-4 flex-items-xs-top">
+        <app-chart [products]="products" [type]="type"></app-chart>
+        <app-calculation [sumIncomeStatement]="sumIncomeStatement" [currentBudget]="currentBudget" [type]="type">
         </app-calculation>
     </aside>
 </div>

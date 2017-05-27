@@ -14,8 +14,9 @@ import { single } from './data';
 export class ChartComponent implements OnInit, OnChanges {
   single: any;
   @Input() products: Product[];
+  @Input() type: string;
   private errorMessage: Array<any>;
-  private type: string;
+
   colorScheme = {
     domain: ['#4e31a5', '#9c25a7', '#3065ab', '#57468b', '#904497', '#46648b',
       '#32118d', '#a00fb3', '#1052a2', '#6e51bd', '#b63cc3', '#6c97cb', '#8671c1', '#b455be', '#7496c3']
@@ -23,42 +24,34 @@ export class ChartComponent implements OnInit, OnChanges {
   constructor(
     private restService: RestService,
     private calculateService: CalculateService) {
-      Object.assign(this, { single })
+    Object.assign(this, { single })
   }
   ngOnInit() {
-    this.getType()
   }
-   rawDataChart(setData, type) {
+  rawDataChart(setData, type) {
     return setData.filter((data) => data[type] > 0)
-      .map((dataset) => { return  { 'name': dataset.Category.name, value: dataset[type] }; });
+      .map((dataset) => { return { 'name': dataset.Category.name, value: dataset[type] }; });
   }
   SumofSingleCategories(dataChart): any {
-   let sumAllCategories = Object.create(null);
-let tempAllValues: any[] = [];
- dataChart.forEach(function (a) {
-        return sumAllCategories[a.name] = (sumAllCategories[a.name] || 0) + a.value;
-   
-})
+    let sumAllCategories = Object.create(null);
+    let tempAllValues: any[] = [];
+    dataChart.forEach(function (a) {
+      return sumAllCategories[a.name] = (sumAllCategories[a.name] || 0) + a.value;
 
-for (let prop in sumAllCategories) {
+    })
 
- tempAllValues.push({
-  'name': prop,
-  'value': sumAllCategories[prop]
-}) 
-}
-return tempAllValues
+    for (let prop in sumAllCategories) {
+
+      tempAllValues.push({
+        'name': prop,
+        'value': sumAllCategories[prop]
+      })
+    }
+    return tempAllValues
   }
   ngOnChanges(changes: any): void {
-    if (changes.products.currentValue && changes.products.currentValue.length !== 0) {
-      console.log( this.SumofSingleCategories(this.rawDataChart(this.products, this.type)))
+    if (changes.products && changes.products.currentValue) {
       this.single = this.SumofSingleCategories(this.rawDataChart(this.products, this.type))
     }
-  }
-  getType() {
-    this.restService.TypeBehavior.subscribe(
-      (type: string) => {
-        this.type = type;
-      })
   }
 }

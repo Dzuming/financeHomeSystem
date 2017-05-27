@@ -21,6 +21,7 @@
         section {
             height: $max-app-height;
             @include media-breakpoint-down(sm) {
+                height: initial;
                 padding: 0;
             }
             button {

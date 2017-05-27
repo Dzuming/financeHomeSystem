@@ -7,11 +7,11 @@
         padding: 0;
     }
     thead {
-        height: $form-header-height;
         display: block;
         tr {
             outline: 1px solid $border-grey-color;
             th {
+                border-bottom: none;
                 background-color: $modal-background-subcolor !important;
                 color: $modal-text-color !important;
                 &:last-child {

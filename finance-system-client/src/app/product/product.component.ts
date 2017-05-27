@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CalculateService } from '../shared/services/calculate.service';
 import { RestService } from '../shared/services/rest.service';
+import { BehaviorService } from "app/shared/services/behavior.service";
 import { Product } from '../shared/models/product.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Budget } from 'app/shared/models/budget.model';
@@ -22,6 +23,7 @@ export class ProductComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private calculateService: CalculateService,
+         private behaviorService: BehaviorService,
         private restService: RestService
     ) { }
 
@@ -35,13 +37,13 @@ export class ProductComponent implements OnInit {
             this.activatedRoute.params.subscribe(param => {
                 this.getUrlPath.unsubscribe();
                 this.type = param['param'];
-                this.restService.setType(this.type);
+                this.behaviorService.setType(this.type);
                 this.getIncomeStatement(this.restService.getIncomeStatement(this.calculateService.filterDate, this.type));
             })
         });
     }
     getIncomeStatementOnChange() {
-        this.restService.ProductBehavior.subscribe(
+        this.behaviorService.productBehavior.subscribe(
             (products: Product[]) => {
                 this.products = products;
                 this.sumIncomeStatement = this.calculateService.calculateIncomeStatement(products, this.type);
@@ -54,14 +56,10 @@ export class ProductComponent implements OnInit {
             (products: Product[]): void => {
                 this.products = products
                 this.sumIncomeStatement = this.calculateService.calculateIncomeStatement(products, this.type);
-                this.restService.setProduct(products);
+                this.behaviorService.setProduct(products);
                 this.getBudget();
             },
-            error => this.errorMessage = <any>error,
-            () => {
-                // this.chartService.updateChart(this.products);
-
-            });
+            error => this.errorMessage = <any>error);
     }
     private getBudget(): void {
         this.restService.getBudget()
