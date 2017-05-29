@@ -12,8 +12,8 @@
         height: $form-header-height;
         tr {
             outline: 1px solid $border-grey-color;
+            height: $form-header-height;
             th {
-                height: $form-header-height;
                 border-bottom: none;
                 background-color: $modal-background-subcolor !important;
                 color: $modal-text-color !important;
