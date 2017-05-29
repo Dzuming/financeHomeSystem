@@ -15,7 +15,7 @@ export class ProductComponent implements OnInit {
     products: Product[];
     type: string;
     sumIncomeStatement: string;
-    currentBudget: number;
+    currentBudget: string;
     categories: Category[];
     private errorMessage: string;
     private getUrlPath: any;
@@ -64,7 +64,7 @@ export class ProductComponent implements OnInit {
     private getBudget(): void {
         this.restService.getBudget()
             .subscribe(
-            (data: Budget) => this.currentBudget = data.Overall,
+            (data: Budget) => this.currentBudget = data.Overall.toFixed(2),
             error => this.errorMessage = <any>error);
     }
     private getCategory(): void {
