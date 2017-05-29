@@ -3,14 +3,17 @@
 .table {
     border: 1px solid $border-grey-color;
     margin-bottom: 0 !important;
+    height: $max-app-height;
     @include media-breakpoint-down(sm) {
         padding: 0;
     }
     thead {
         display: block;
+        height: $form-header-height;
         tr {
             outline: 1px solid $border-grey-color;
             th {
+                height: $form-header-height;
                 border-bottom: none;
                 background-color: $modal-background-subcolor !important;
                 color: $modal-text-color !important;
