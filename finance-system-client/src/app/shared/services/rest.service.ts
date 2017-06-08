@@ -12,10 +12,10 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 @Injectable()
 export class RestService {
     private errorMessage: string;
-    private user: User = JSON.parse(localStorage.getItem('User'));
     constructor(
-        private http: Http) { }
-
+        private http: Http) {
+            
+         }
     getIncomeStatement(filter: String, type): Observable<any[]> {
         const spendingUrl = environment.URL + type + '/' + this.user.Email + '/' + filter;
         return this.http.get(spendingUrl)
@@ -32,7 +32,6 @@ export class RestService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
     getPeriod(): Observable<Period> {
         return this.http.get(environment.URL + 'Period')
             .map(this.extractData)
@@ -57,6 +56,9 @@ export class RestService {
         return this.http.post(environment.URL + 'user', body, options)
             .map(this.extractData)
             .catch(this.handleError);
+    }
+    private get user() {
+        return JSON.parse(localStorage.getItem('User'));
     }
     private extractData(res: Response): void {
         const body = res.json();

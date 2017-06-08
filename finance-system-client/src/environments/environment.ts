@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-   URL: 'http://localhost/'
+   URL: 'https://127.0.0.1/'
 };

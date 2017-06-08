@@ -37,7 +37,7 @@ export class SideNavComponent implements OnInit {
   }
   getUserAfterLogin() {
     this.behaviorService.userBehavior.subscribe(
-      login => this.getCurrenctUser()
+      () => this.getCurrenctUser()
     )
   }
   getCurrenctUser() {
