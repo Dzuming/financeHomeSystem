@@ -6,9 +6,31 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const config = require('./config/config').get(process.env.NODE_ENV);
 const models = join(__dirname, 'app/models');
-const port = 8081;
+const port = 80;
+const http = require('http');
+const https = require('https');
+const redirectHttps = require('redirect-https');
+const PROD = true;
+const lex = require('greenlock-express').create({
+    server: PROD ? 'https://acme-v01.api.letsencrypt.org/directory' : 'staging',
+
+    approveDomains: (opts, certs, cb) => {
+        if (certs) {
+            // change domain list here
+            opts.domains = ['https://127.0.0.1', 'https://finance-system.eu/']
+            opts.domains = certs.altnames;
+        } else {
+            // change default email to accept agreement
+            opts.email = 'dawidpoliszak@op.pl';
+            opts.agreeTos = true;
+        }
+        cb(null, { options: opts, certs: certs });
+    }
+});
+const middlewareWrapper = lex.middleware;
 
 module.exports = app;
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json())
 app.use(function(req, res, next) {
 
@@ -39,7 +61,7 @@ connect()
     .once('open', listen);
 
 function listen() {
-    app.listen(port)
+    http.createServer(lex.middleware(redirectHttps())).listen(port);
     console.log('Express app started on port ' + port);
 }
 
@@ -48,3 +70,7 @@ function connect() {
     var options = { server: { socketOptions: { keepAlive: 1 } } };
     return mongoose.connect(config.database).connection;
 }
+https.createServer(
+    lex.httpsOptions,
+    middlewareWrapper(app)
+).listen(443);

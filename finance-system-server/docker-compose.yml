@@ -4,7 +4,8 @@ services:
    container_name: server-side
    build: .
    ports:
-   - "8081:8081"
+   - "80:80"
+   - "443:443"
    links:
     - mongo
   mongo:
