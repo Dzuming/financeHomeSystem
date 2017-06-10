@@ -20,11 +20,18 @@
               @include media-breakpoint-down(sm) {
                   width: 100vw;
               }
-              .fa {
-                  position: absolute;
-                  top: 1vh;
-                  left: 0.3vw;
-                  z-index: 1000;
+              .input-group {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  .fa {
+                      position: absolute;
+                      left: 0.4vw;
+                      z-index: 1000;
+                      @include media-breakpoint-down(sm) {
+                          left: 1vw;
+                      }
+                  }
               }
               label {
                   float: left;
