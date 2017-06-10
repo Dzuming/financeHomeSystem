@@ -10,6 +10,9 @@
     thead {
         display: block;
         height: $form-header-height;
+        @include media-breakpoint-down(sm) {
+            height: inherit;
+        }
         tr {
             outline: 1px solid $border-grey-color;
             height: $form-header-height;
@@ -27,6 +30,9 @@
         max-height: ( $max-app-height - $add-product-form-tbody - $form-header-height);
         display: block;
         overflow-y: auto;
+        @include media-breakpoint-down(sm) {
+            max-height: inherit;
+        }
         tr {
             color: $label-grey-color;
             background-color: $modal-background-color;

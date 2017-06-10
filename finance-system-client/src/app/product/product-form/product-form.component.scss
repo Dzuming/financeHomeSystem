@@ -31,5 +31,8 @@
      table {
          margin-bottom: 0;
          height: $add-product-form-tbody;
+         @include media-breakpoint-down(sm) {
+             height: inherit;
+         }
      }
  }
