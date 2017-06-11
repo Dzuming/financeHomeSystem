@@ -1,7 +1,6 @@
 <div class="col-sm-12">
     <div class="container">
         <div id="form-container" class="text-center">
-
             <form [formGroup]="loginForm" (ngSubmit)=" login()" novalidate>
                 <h2>Login</h2>
                 <div class="form-group">
@@ -9,17 +8,26 @@
                     <div class="input-group">
                         <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
                         <input type="text" formControlName="Email" class="form-control" placeholder="Email" />
+
                     </div>
+                    <div *ngIf="formFields.Email" class="alert alert-danger">
+                        {{ formFields.Email }}
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="Password">Password</label>
                     <div class="input-group">
                         <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
                         <input type="Password" formControlName="Password" class="form-control" placeholder="Password" />
+
+                    </div>
+                    <div *ngIf="formFields.Password" class="alert alert-danger">
+                        {{ formFields.Password }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary">Login</button>
+                    <button class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
                 </div>
             </form>
         </div>
