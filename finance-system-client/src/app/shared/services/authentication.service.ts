@@ -54,10 +54,16 @@ export class AuthenticationService {
         localStorage.removeItem('User');
         this.router.navigateByUrl('/login');
     }
-    private handleError(error: any): ErrorObservable {
-        const errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg);
+    private handleError(error: Response | any): ErrorObservable {
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            errMsg = body.message || JSON.stringify(body);
+            // errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
         return Observable.throw(errMsg);
+
     }
 }

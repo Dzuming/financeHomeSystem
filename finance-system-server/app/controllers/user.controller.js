@@ -41,12 +41,12 @@ exports.authenticate = function(req, res) {
     }, function(err, user) {
         if (err) throw err;
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.status(500).json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
             let hashedPassword = User.method.encryptPassword(req.body.Password, user.Salt).passwordHash
                 // check if password matches
             if (user.Password != hashedPassword) {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+                res.status(500).json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
 
                 // if user is found and password is right

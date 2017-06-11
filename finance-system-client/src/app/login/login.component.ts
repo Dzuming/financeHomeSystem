@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
     styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    private errorMessage: string;
+     errorMessage: string;
     constructor(
         private behaviorService: BehaviorService,
         private authenticationService: AuthenticationService,
