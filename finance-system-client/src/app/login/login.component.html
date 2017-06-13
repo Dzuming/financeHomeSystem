@@ -1,4 +1,1 @@
-<div *ngIf="errorMessage" class="alert">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> {{errorMessage}}
-</div>
-<app-login-form (onLogin)="authenticateUser($event)"></app-login-form>
+<app-login-form appMessageAlert [errorMessage]="errorMessage" (onLogin)="authenticateUser($event)"></app-login-form>
