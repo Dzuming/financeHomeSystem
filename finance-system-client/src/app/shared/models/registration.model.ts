@@ -1,5 +1,9 @@
-import {User} from './user.model'
-
-export class Registration extends User {
-     Password: string;
+export class Registration {
+    Name: {
+        First: string,
+        Last: string
+    }
+    Email: string;
+    Password: string;
+    Image: string;
 }
